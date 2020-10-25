@@ -1,1 +1,1 @@
-Aqui estaŕa meu codigo em sql.
+Aqui estará meu codigo em sql.
