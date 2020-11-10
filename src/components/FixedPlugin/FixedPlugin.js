@@ -24,13 +24,13 @@ class FixedPlugin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      classes: "dropdown show",
+      classes: "dropdown",
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
     if (this.state.classes === "dropdown") {
-      this.setState({ classes: "dropdown show" });
+      this.setState({ classes: "dropdown" });
     } else {
       this.setState({ classes: "dropdown" });
     }
@@ -39,10 +39,7 @@ class FixedPlugin extends Component {
     return (
       <div className="fixed-plugin">
         <div className={this.state.classes}>
-          <div onClick={this.handleClick}>
-            <i className="fa fa-cog fa-2x" />
-          </div>
-          <ul className="dropdown-menu show">
+          <ul className="dropdown-menu">
             <li className="header-title">SIDEBAR BACKGROUND</li>
             <li className="adjustments-line">
               <div className="badge-colors text-center">
