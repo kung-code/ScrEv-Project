@@ -16,7 +16,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-const dashboard24HoursPerformanceChart = {
+const dashboardNASDAQChart = {
   data: (canvas) => {
     return {
       labels: [
@@ -166,7 +166,7 @@ const dashboardEmailStatisticsChart = {
   },
 };
 
-const dashboardNASDAQChart = {
+const dashboard24HoursPerformanceChart = {
   data: {
     labels: [
       "Jan",
@@ -179,29 +179,18 @@ const dashboardNASDAQChart = {
       "Aug",
       "Sep",
       "Oct",
-      "Nov",
-      "Dec",
     ],
     datasets: [
       {
-        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+        data: [5, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
         fill: false,
         borderColor: "#fbc658",
         backgroundColor: "transparent",
+        pointBackgroundColor: "#fbc658",
         pointBorderColor: "#fbc658",
         pointRadius: 4,
         pointHoverRadius: 4,
-        pointBorderWidth: 8,
-      },
-      {
-        data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-        fill: false,
-        borderColor: "#51CACF",
-        backgroundColor: "transparent",
-        pointBorderColor: "#51CACF",
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8,
+        pointBorderWidth: 4,
       },
     ],
   },
@@ -209,6 +198,35 @@ const dashboardNASDAQChart = {
     legend: {
       display: false,
       position: "top",
+    },
+    scales:{
+      yAxes: [
+        {
+          ticks: {
+            fontColor: "#9f9f9f",
+            beginAtZero: false,
+            maxTicksLimit: 5,
+            padding: 20,
+          },
+          gridLines: {
+            drawBorder: false,
+            zeroLineColor: "#ccc",
+            borderDash: [5,5],
+          },
+        },
+      ],
+      
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9f9f9f",
+          },
+        },
+      ],
     },
   },
 };

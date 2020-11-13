@@ -66,10 +66,10 @@ class Sidebar extends React.Component {
             </div>
           </a>
           <a
-            href="https://www.creative-tim.com"
+            href="#"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            $project_name
           </a>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar}>
