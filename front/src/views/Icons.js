@@ -19,8 +19,60 @@
 import React from "react";
 
 // reactstrap components
-import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Table,
+  Row,
+  Col,
+} from "reactstrap";
 
+class Icons extends React.Component {
+  render() {
+    return (
+      <>
+        <div className="content">
+          <Row>
+            <Col md="12">
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h4">Spring Ativa</CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>Tarefa</th>
+                        <th>Data de entrega</th>
+                        <th>Desenvolvedor</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th className="text-right"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>$Tarefa</td>
+                        <td>$dt_entrega</td>
+                        <td>$dev_name</td>
+                        <td>$status_sprint</td>
+                        <td><a className="nc-icon nc-box-2" ></a></td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      </>
+    );
+  }
+}
+/*
 class Icons extends React.Component {
   render() {
     return (
@@ -552,5 +604,5 @@ class Icons extends React.Component {
     );
   }
 }
-
+*/
 export default Icons;
