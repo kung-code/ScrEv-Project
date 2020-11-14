@@ -210,10 +210,13 @@ class Map extends React.Component {
                         <td>$dt_entrega</td>
                         <td>$dt_criacao</td>
                         <td>$dev_name</td>
-                        <td><button href="#" id="sprint" name=""className="card-category">Adicionar a sprint</button></td>
-                        <td><a className="nc-icon nc-ruler-pencil card-category"></a></td>
-                        <td><a className="nc-icon nc-box-2" ></a></td>
-
+                        <td>
+                          
+                        <a href="#" className="simple-text logo-normal simple-text"> Adicionar a Sprint </a>
+                          
+                          </td>
+                        <td><a href="#" className="nc-icon nc-ruler-pencil card-category simple-text"></a></td>
+                        <td><a href="#" className="nc-icon nc-box-2 simple-text"></a></td>
                       </tr>
                     </tbody>
                   </Table>
