@@ -25,7 +25,16 @@ import {
   Marker,
 } from "react-google-maps";
 // reactstrap components
-import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Table,
+  Row,
+  Col,
+} from "reactstrap";
 
 const MapWrapper = withScriptjs(
   withGoogleMap((props) => (
@@ -180,20 +189,34 @@ class Map extends React.Component {
           <Row>
             <Col md="12">
               <Card>
-                <CardHeader>Google Maps</CardHeader>
+                <CardHeader>
+                  <CardTitle tag="h4">Backlog</CardTitle>
+                </CardHeader>
                 <CardBody>
-                  <div
-                    id="map"
-                    className="map"
-                    style={{ position: "relative", overflow: "hidden" }}
-                  >
-                    <MapWrapper
-                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"
-                      loadingElement={<div style={{ height: `100%` }} />}
-                      containerElement={<div style={{ height: `100%` }} />}
-                      mapElement={<div style={{ height: `100%` }} />}
-                    />
-                  </div>
+                  <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>Tarefa</th>
+                        <th>Data de entrega</th>
+                        <th>Data de criação</th>
+                        <th>Desenvolvedor</th>
+                        <th></th>
+                        <th className="text-right"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>$Tarefa</td>
+                        <td>$dt_entrega</td>
+                        <td>$dt_criacao</td>
+                        <td>$dev_name</td>
+                        <td><button href="#" id="sprint" name=""className="card-category">Adicionar a sprint</button></td>
+                        <td><a className="nc-icon nc-ruler-pencil card-category"></a></td>
+                        <td><a className="nc-icon nc-box-2" ></a></td>
+
+                      </tr>
+                    </tbody>
+                  </Table>
                 </CardBody>
               </Card>
             </Col>
