@@ -11,7 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       sprints.hasMany(models.funcionalidades, {
-        foreignKey: 'funcionalidade_id'
+        foreignKey: 'sprint_id'
+      }),
+      sprints.hasMany(models.planning, {
+        foreignKey: 'sprint_id'
       }),
       sprints.belongsTo(models.projetos, {
         foreignKey: 'projeto_id'
