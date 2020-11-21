@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -30,7 +12,8 @@ import {
   Col,
 } from "reactstrap";
 
-class Icons extends React.Component {
+import ListSprint from "components/APICall/sprint/ListSprint";
+class Sprint extends React.Component {
   render() {
     return (
       <>
@@ -53,15 +36,7 @@ class Icons extends React.Component {
                         <th className="text-right"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>$Tarefa</td>
-                        <td>$dt_entrega</td>
-                        <td>$dev_name</td>
-                        <td>$status_sprint</td>
-                        <td><a className="nc-icon nc-box-2" ></a></td>
-                      </tr>
-                    </tbody>
+                    <ListSprint />
                   </Table>
                 </CardBody>
               </Card>
@@ -605,4 +580,4 @@ class Icons extends React.Component {
   }
 }
 */
-export default Icons;
+export default Sprint;

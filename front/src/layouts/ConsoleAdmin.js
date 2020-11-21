@@ -8,11 +8,11 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
-import routes from "routes.js";
+import routes from "routesConsole.js";
 
 var ps;
 
-class Dashboard extends React.Component {
+class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -80,4 +80,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default Dash;
