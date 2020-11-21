@@ -5,7 +5,7 @@ module.exports = {
     "username": process.env.USER,
     "password": process.env.PASSWORD,
     "database": "screv",
-    "host": "windows",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
