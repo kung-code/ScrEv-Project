@@ -6,7 +6,7 @@ class FuncionalidadeController {
     static async criaFuncionalidade(req,res) {
         const novaFuncionalidade = req.body
         try {
-            const funcionalidadCriada = await database.Funcionalidades.create(novaFuncionalidade)
+            const funcionalidadCriada = await database.funcionalidades.create(novaFuncionalidade)
             return res.status(200).json(funcionalidadCriada)
         } catch (error) {
             res.status(500).json(error.message)
@@ -16,7 +16,7 @@ class FuncionalidadeController {
 //READ
     static async listaFuncionalidades(req,res) {
         try {
-            const funcionalidades = await database.Funcionalidades.findAll()
+            const funcionalidades = await database.funcionalidades.findAll()
             return res.status(200).json(funcionalidades)
         } catch {
 
@@ -27,7 +27,7 @@ class FuncionalidadeController {
     static async pegaUmaFuncionalidade(req,res) {
         const { id } = req.params
         try {
-            const funcionalidade = await database.Funcionalidades.findOne( {
+            const funcionalidade = await database.funcionalidades.findOne( {
                 where: {
                     id: Number(id)
                 }
@@ -43,12 +43,12 @@ class FuncionalidadeController {
         const { id } = req.params
         const novasInfos = req.body
         try {
-             await database.Funcionalidades.update( novasInfos, {
+             await database.funcionalidades.update( novasInfos, {
                 where: {
                     id: Number(id)
                 }
             })
-            const funcionalidadeAtualizada = await database.Funcionalidades.findOne({
+            const funcionalidadeAtualizada = await database.funcionalidades.findOne({
                 where: {
                     id: Number(id)
                 }
@@ -63,7 +63,7 @@ class FuncionalidadeController {
     static async deletaUmaFuncionalidade(req,res) {
         const { id } = req.params
         try {
-            const funcionalidade = await database.Funcionalidades.destroy( {
+            const funcionalidade = await database.funcionalidades.destroy( {
                 where: {
                     id: Number(id)
                 }

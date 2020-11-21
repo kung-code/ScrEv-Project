@@ -11,7 +11,7 @@ import {
   Col,
 } from "reactstrap";
 
-class Console extends React.Component {
+class Users extends React.Component {
   render() {
     
     return (
@@ -22,4 +22,4 @@ class Console extends React.Component {
   }
 }
 
-export default Console;
+export default Users;

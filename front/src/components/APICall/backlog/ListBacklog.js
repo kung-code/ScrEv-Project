@@ -13,25 +13,26 @@ const editStyle = {
 
 class ListBacklog extends React.Component {
     state = {
-        filmes: [],
+        usuarios: [],
     }
 
     componentDidMount() {
-        axios.get(`http://api.tvmaze.com/search/shows?q=star%20wars`).then(res => {
-            this.setState({ filmes: res.data });
+        axios.get(`http://localhost:3333/usuarios`).then(res => {
+            console.log(res.data);
+            this.setState({ usuarios: res.data });
         });
     };
 
     render(){
-        const {filmes} = this.state;
+        const {usuarios} = this.state;
         return (
             <tbody>
-                {filmes.map(filme => (
-                    <tr key={filme.show.id}>
-                        <td>{filme.show.name}</td>
-                        <td>{filme.show.url}</td>
-                        <td>{filme.show.type}</td>
-                        <td>{filme.show.language}</td>
+                {usuarios.map(usuario => (
+                    <tr key={usuario.id}>
+                        <td>{usuario.nome}</td>
+                        <td>{usuario.login}</td>
+                        <td>{usuario.senha}</td>
+                        <td>{usuario.tipo}</td>
                         <td>
                             <a href="#" className="Button logo-normal simple-text" style={editStyle}> Adicionar a Sprint </a>
                         </td>

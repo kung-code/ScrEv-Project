@@ -15,6 +15,4 @@ app.get('/', (req,res) => {
     res.send('foi')
 })
 
-app.use(cors())
-
 module.exports = app

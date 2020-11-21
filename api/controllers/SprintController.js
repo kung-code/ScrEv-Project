@@ -6,7 +6,7 @@ class SprintController {
     static async criaSprint(req,res) {
         const novaSprint = req.body
         try {
-            const sprintCriada = await database.Sprints.create(novaSprint)
+            const sprintCriada = await database.sprints.create(novaSprint)
             return res.status(200).json(sprintCriada)
         } catch (error) {
             res.status(500).json(error.message)
@@ -16,7 +16,7 @@ class SprintController {
 //READ
     static async listaSprints(req,res) {
         try {
-            const sprints = await database.Sprints.findAll()
+            const sprints = await database.sprints.findAll()
             return res.status(200).json(sprints)
         } catch {
 
@@ -27,7 +27,7 @@ class SprintController {
     static async pegaUmaSprint(req,res) {
         const { id } = req.params
         try {
-            const sprint = await database.Sprints.findOne( {
+            const sprint = await database.sprints.findOne( {
                 where: {
                     id: Number(id)
                 }
@@ -43,12 +43,12 @@ class SprintController {
         const { id } = req.params
         const novasInfos = req.body
         try {
-             await database.Sprints.update( novasInfos, {
+             await database.sprints.update( novasInfos, {
                 where: {
                     id: Number(id)
                 }
             })
-            const sprintAtualizada = await database.Sprints.findOne({
+            const sprintAtualizada = await database.sprints.findOne({
                 where: {
                     id: Number(id)
                 }
@@ -63,7 +63,7 @@ class SprintController {
     static async deletaUmaSprint(req,res) {
         const { id } = req.params
         try {
-            const sprint = await database.Sprints.destroy( {
+            const sprint = await database.sprints.destroy( {
                 where: {
                     id: Number(id)
                 }

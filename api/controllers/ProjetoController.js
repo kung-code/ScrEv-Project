@@ -6,7 +6,7 @@ class ProjetoController {
     static async criaProjeto(req,res) {
         const novoProjeto = req.body
         try {
-            const projetoCriado = await database.Projetos.create(novoProjeto)
+            const projetoCriado = await database.projetos.create(novoProjeto)
             return res.status(200).json(projetoCriado)
         } catch (error) {
             res.status(500).json(error.message)
@@ -16,8 +16,8 @@ class ProjetoController {
 //READ
     static async listaProjetos(req,res) {
         try {
-            const projetos = await database.Projetos.findAll()
-            return res.status(200).json(Projetos)
+            const projetos = await database.projetos.findAll()
+            return res.status(200).json(projetos)
         } catch {
 
         }
@@ -27,7 +27,7 @@ class ProjetoController {
     static async pegaUmProjeto(req,res) {
         const { id } = req.params
         try {
-            const sprint = await database.Projetos.findOne( {
+            const projeto = await database.projetos.findOne( {
                 where: {
                     id: Number(id)
                 }
@@ -43,12 +43,12 @@ class ProjetoController {
         const { id } = req.params
         const novasInfos = req.body
         try {
-             await database.Projetos.update( novasInfos, {
+             await database.projetos.update( novasInfos, {
                 where: {
                     id: Number(id)
                 }
             })
-            const projetoAtualizado = await database.Projetos.findOne({
+            const projetoAtualizado = await database.projetos.findOne({
                 where: {
                     id: Number(id)
                 }
@@ -63,7 +63,7 @@ class ProjetoController {
     static async deletaUmProjeto(req,res) {
         const { id } = req.params
         try {
-            const projeto = await database.Projetos.destroy( {
+            const projeto = await database.projetos.destroy( {
                 where: {
                     id: Number(id)
                 }
