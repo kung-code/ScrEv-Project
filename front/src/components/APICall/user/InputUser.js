@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import EnumUser from "./EnumUser";
 
 class InputUser extends React.Component {
 
@@ -40,9 +41,9 @@ class InputUser extends React.Component {
                onChange={this.onChange}
                />
             <input 
-               type="text" 
+               type="email" 
                name="login" 
-               placeholder="Login"
+               placeholder="E-mail"
                onChange={this.onChange}
                />
            <input 
@@ -55,10 +56,11 @@ class InputUser extends React.Component {
 
             <label for="tipo">Tipo de usuário:</label>
 	            <select name="tipo" onChange={this.onChange}>
-		        <option value="0">Product Ower</option>
-		        <option value="1">Developer</option>
-		        <option value="2">Scrum Master</option>
-		        <option value="3">QA</option>
+                {
+                  EnumUser.map(res =>(
+                    <option value={res.id}>{res.tipo}</option>
+                  ))
+                }
 	            </select>
                <button type="submit" >Adicionar</button> 
           </form>  

@@ -38,6 +38,8 @@ import {
   dashboardNASDAQChart,
 } from "variables/charts.js";
 
+import ListUsers from "../components/APICall/user/ListUsers";
+
 class Dashboard extends React.Component {
   render() {
     return (
@@ -211,14 +213,7 @@ class Dashboard extends React.Component {
                         <th className="text-right"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>$dev_name</td>
-                        <td>$dev_email</td>
-                        <td>$function</td>
-                        <td className="text-right">icons</td>
-                      </tr>
-                    </tbody>
+                    <ListUsers />
                   </Table>
                 </CardBody>
               </Card>
