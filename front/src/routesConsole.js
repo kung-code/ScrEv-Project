@@ -1,13 +1,13 @@
-import Console from "views/admin/Console.js";
+import Projects from "views/admin/Projects.js";
 import Users from "views/admin/Users.js";
 
 
 var routesConsole = [
   {
-    path: "/dash",
-    name: "Criar Projeto",
+    path: "/project",
+    name: "Projetos",
     icon: "nc-icon nc-chart-pie-36",
-    component: Console,
+    component: Projects,
     layout: "/console",
   },
   {

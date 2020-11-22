@@ -13,9 +13,9 @@ const delStyle = {
 } ;
 
 function FindTipo(idTipo){
-    if(idTipo != undefined){
+    if(idTipo !== undefined){
         for(let i = 0;i <EnumUser.length;i++){
-            if(idTipo == EnumUser[i].id){
+            if(idTipo === EnumUser[i].id){
                 return EnumUser[i].tipo;
             }
         }         

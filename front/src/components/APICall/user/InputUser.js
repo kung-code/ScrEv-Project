@@ -58,7 +58,7 @@ class InputUser extends React.Component {
 	            <select name="tipo" onChange={this.onChange}>
                 {
                   EnumUser.map(res =>(
-                    <option value={res.id}>{res.tipo}</option>
+                    <option key={res.id} value={res.id}>{res.tipo}</option>
                   ))
                 }
 	            </select>

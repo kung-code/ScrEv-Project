@@ -25,15 +25,27 @@ class UsuarioController {
     }
 
 //READ ONE
-    static async pegaUmUsuario(req,res) {
-        const { id } = req.params
-        try{
-            const usuario = await database.usuarios.findOne({ where: { id: Number(id)}})
-            return res.status(200).json(usuario)
-        } catch (error) {
-            return res.status(500).json(error.message)
-        }
+static async pegaUmUsuario(req,res) {
+    const { id } = req.params
+    try{
+        const usuario = await database.usuarios.findOne({ where: { id: Number(id)}})
+        return res.status(200).json(usuario)
+    } catch (error) {
+        return res.status(500).json(error.message)
     }
+}
+
+//READ BY TYPE
+static async pegaUmTipoUsuario(req,res) {
+    const { tipo } = req.params
+    try{
+        const usuario = await database.usuarios
+        .findAll({ where: { tipo: Number(tipo)}})
+        return res.status(200).json(usuario)
+    } catch (error) {
+        return res.status(500).json(error.message)
+    }
+}
 
 //UPDATE
 static async atualizaUsuario(req,res) {
