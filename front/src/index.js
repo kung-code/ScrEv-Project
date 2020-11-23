@@ -10,12 +10,14 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 import AdminLayout from "layouts/Admin.js";
 import ConsoleLayout from "layouts/ConsoleAdmin.js";
+import ProjetoLayout from "layouts/SelecionarProjeto.js";
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
+    <Route path="/projeto" render={(props) => <ProjetoLayout {...props} />} />  
     <Route path="/console" render={(props) => <ConsoleLayout {...props} />} />
     <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
     <Redirect to="/admin/dashboard" />

@@ -1,4 +1,5 @@
 
+import InputBacklog from "components/APICall/backlog/InputBacklog";
 import React from "react";
 import {
   Card,
@@ -20,7 +21,7 @@ class Backlog extends React.Component {
       <>
         <div className="content">
         <Row>
-            <Col lg="3" md="6" sm="6">
+            <Col md="12">
               <Card className="card-stats">
                 <CardBody>
                   <Row>
@@ -39,6 +40,7 @@ class Backlog extends React.Component {
                       </div>
                     </Col>
                   </Row>
+                  <InputBacklog/>
                 </CardBody>
               </Card>
             </Col>
