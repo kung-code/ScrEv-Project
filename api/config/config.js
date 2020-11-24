@@ -6,7 +6,7 @@ module.exports = {
     "password": process.env.PASSWORD,
     "database": "screv",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
   },
   "test": {
     "username": "root",

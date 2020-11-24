@@ -2,8 +2,8 @@ const database = require('../models')
 
 class SprintController {
 
-// CREATE
-    static async criaSprint(req,res) {
+    // CREATE
+    static async criaSprint(req, res) {
         const novaSprint = req.body
         try {
             const sprintCriada = await database.sprints.create(novaSprint)
@@ -13,21 +13,32 @@ class SprintController {
         }
     }
 
-//READ
-    static async listaSprints(req,res) {
+    //READ
+
+    static async listaSprints(req, res) {
         try {
-            const sprints = await database.sprints.findAll()
+            const sprints = await database.sprints.findAll({
+                attributes:{
+                    /*include:[],*/
+                    exclude:['sprint_id', 'projeto_id']
+                }
+            })
             return res.status(200).json(sprints)
         } catch (error) {
             return res.status(500).json(error.message)
         }
+
     }
 
-//READ ONE
-    static async pegaUmaSprint(req,res) {
+    //READ ONE
+    static async pegaUmaSprint(req, res) {
         const { id } = req.params
         try {
-            const sprint = await database.sprints.findOne( {
+            const sprint = await database.sprints.findOne({
+                attributes:{
+                    /*include:[],*/
+                    exclude:['sprint_id', 'projeto_id']
+                },
                 where: {
                     id: Number(id)
                 }
@@ -38,12 +49,12 @@ class SprintController {
         }
     }
 
-//UPDATE
-    static async atualizaSprint(req,res) {
+    //UPDATE
+    static async atualizaSprint(req, res) {
         const { id } = req.params
         const novasInfos = req.body
         try {
-             await database.sprints.update( novasInfos, {
+            await database.sprints.update(novasInfos, {
                 where: {
                     id: Number(id)
                 }
@@ -59,11 +70,11 @@ class SprintController {
         }
     }
 
-//DELETE
-    static async deletaUmaSprint(req,res) {
+    //DELETE
+    static async deletaUmaSprint(req, res) {
         const { id } = req.params
         try {
-            const sprint = await database.sprints.destroy( {
+            const sprint = await database.sprints.destroy({
                 where: {
                     id: Number(id)
                 }
