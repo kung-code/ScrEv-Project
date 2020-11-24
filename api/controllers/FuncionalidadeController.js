@@ -1,5 +1,7 @@
 const database = require('../models')
-
+const usuarios = database.usuarios;
+const sprints = database.sprints;
+const projetos = database.projetos;
 class FuncionalidadeController {
 
 // CREATE
@@ -16,7 +18,16 @@ class FuncionalidadeController {
 //READ
     static async listaFuncionalidades(req,res) {
         try {
-            const funcionalidades = await database.funcionalidades.findAll()
+            const funcionalidades = await database.funcionalidades.findAll({
+                include:[
+                    {
+                        model: projetos
+                    },
+                    {
+                        model: usuarios
+                    }
+                ]
+            })
             return res.status(200).json(funcionalidades)
         } catch {
 
@@ -30,7 +41,12 @@ class FuncionalidadeController {
             const funcionalidade = await database.funcionalidades.findOne( {
                 where: {
                     id: Number(id)
-                }
+                },
+                include:[
+                    {
+                        model: {usuarios,projetos, sprints }
+                    }
+                ]
             })
             return res.status(200).json(funcionalidade)
         } catch (error) {

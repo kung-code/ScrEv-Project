@@ -12,6 +12,7 @@ class InputBacklog extends React.Component {
           responsavel_id: 0,
           sprint_id: 1,
           data_entrega:'',
+          data_criacao: '',
           status:false,
           usuarios:[],
           projetos:[]
@@ -41,15 +42,19 @@ class InputBacklog extends React.Component {
             responsavel_id,
             sprint_id,
             data_entrega,
+            data_criacao,
          } = this.state;
 
         if(nome === '' || responsavel_id === 0){
             return window.alert("Dados Imcompletos")
         }else{
-            axios.post(`http://localhost:3333/funcionalidades`,{nome, descricao,
+            axios.post(`http://localhost:3333/funcionalidades`,{
+            nome, 
+            descricao,
             projeto_id,
             responsavel_id,
             sprint_id,
+            data_criacao,
             data_entrega,
              })
         .then(res =>{
@@ -64,26 +69,40 @@ class InputBacklog extends React.Component {
         const {usuarios, projetos}= this.state;
         return (
           <form onSubmit={this.handleSubmit} >
+              <hr/>
+              <label>Nome</label><br/>
            <input 
                type="text" 
                name="nome" 
                placeholder="nome da Funcionalidade"
                onChange={this.onChange}
                />
+               <hr/>
+               <label>Descricao</label><br/>
             <input 
                type="text" 
                name="descricao" 
                placeholder="descrição da Funcionalidade"
                onChange={this.onChange}
                />
+               <hr/>
+               <label>Data de criação</label><br/>
+            <input 
+               type="date" 
+               name="data_criacao" 
+               placeholder="Data de criação"
+               onChange={this.onChange}
+               />
+               <hr/>
+               <label>Data de entrega</label><br/>
             <input 
                type="date" 
                name="data_entrega" 
                placeholder="Data de Entrega"
                onChange={this.onChange}
                />
-
-            <label for="tipo">Responsável</label>
+            <hr/>
+            <label for="tipo">Responsável</label><br/>
 	            <select name="responsavel_id" onChange={this.onChange}>
                 <option value= ''>-</option>
                     {
@@ -92,8 +111,8 @@ class InputBacklog extends React.Component {
                     ))
                     }
 	            </select>
-
-                <label for="tipo">Projeto</label>
+                <hr/>
+                <label for="tipo">Projeto</label><br/>
 	            <select name="projeto_id" onChange={this.onChange}>
                 <option value= ''>-</option>
                     {
@@ -102,6 +121,7 @@ class InputBacklog extends React.Component {
                     ))
                     }
 	            </select>
+                <hr/>
                <button type="submit" >Criar</button> 
           </form>  
         );

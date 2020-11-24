@@ -18,8 +18,8 @@ class SprintController {
         try {
             const sprints = await database.sprints.findAll()
             return res.status(200).json(sprints)
-        } catch {
-
+        } catch (error) {
+            return res.status(500).json(error.message)
         }
     }
 
