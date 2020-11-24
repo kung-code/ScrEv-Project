@@ -23,6 +23,7 @@ const editStyle = {
 class ListSprint extends React.Component {
     state = {
         sprints: [],
+        sprint_ativa: '',
         sprint_id: '',
         funcionalidades: []
     }
@@ -31,34 +32,44 @@ class ListSprint extends React.Component {
     }
 
     componentDidMount() {
+        const hoje = new Date();
         axios.get(`http://localhost:3333/sprints`).then(res => {
             this.setState({ sprints: res.data });
-        });
-        axios.get(`http://localhost:3333/funcionalidades/sprints/${this.sprint_id}`).then(res => {
-            this.setState({ funcionalidades: res.data });
+            
+            for(let j = 0; j < res.data.length; j++){
+                let i = new Date(res.data[j].data_fim)
+                if(i > hoje ){
+                    console.log(i);
+                    this.setState({ sprint_ativa: res.data[j].id });
+
+                    axios.get(`http://localhost:3333/funcionalidades/sprint/${this.state.sprint_ativa}`).then(res => {
+                    this.setState({ funcionalidades: res.data });
+                    console.log(res.data);
+                    });
+                    
+                    break;
+                }
+            }
         });
     };
 
-    SprintAtiva(){
-        const {sprints} = this.state;
-        for(let i=0;i<sprints.length;i++){
-            var hoje = new Date();
-            var sprintAtiva = hoje - sprints[i].data_entrega;
-            if(sprintAtiva > 0){
-                this.setState({ sprint_id: sprints[i].id });
-                return sprints[i].id;
-            }
-        }
+    handleChange= event=>{
+        console.log(event)
+        axios.get(`http://localhost:3333/funcionalidades/sprint/${event.target.value}`).then(res => {
+            this.setState({ funcionalidades: res.data });
+            console.log(res.data);
+        });
     }
 
     render() {
-        const { sprints, funcionalidades } = this.state;
+        const { sprints, funcionalidades, sprint_ativa } = this.state;
+
         return (
             <Row>
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Sprint Ativa: {this.SprintAtiva()}</CardTitle>
+        <CardTitle tag="h4">Sprint Ativa:{sprint_ativa}</CardTitle>
                 </CardHeader>
                 <CardBody>
                 <Table responsive>
@@ -77,7 +88,7 @@ class ListSprint extends React.Component {
                         <tr key={funcionalidade.id}>
                             <td>{funcionalidade.descricao}</td>
                             <td>{funcionalidade.data_entrega}</td>
-                            <td>{/*funcionalidade.usuario.nome*/}</td>
+                            <td>{funcionalidade.usuario.nome}</td>
 
                             <td><a href="#" class="material-icons" style={editStyle}>edit</a></td>
                             <td><a href="#" class="material-icons" style={delStyle}>delete</a></td>
@@ -87,7 +98,7 @@ class ListSprint extends React.Component {
             </Table>
             <hr />
                 <label>Selecionar outra Sprint</label><br />
-                <select name="sprint_id" onChange={this.onChange}>
+                <select name="sprint_id" onChange={this.handleChange}>
                     <option value=''>-</option>
                     {
                         sprints.map(res => (

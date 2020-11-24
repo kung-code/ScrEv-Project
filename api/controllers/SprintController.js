@@ -1,4 +1,5 @@
 const database = require('../models')
+const funcionalidades = database.funcionalidades;
 
 class SprintController {
 
@@ -21,7 +22,15 @@ class SprintController {
                 attributes:{
                     /*include:[],*/
                     exclude:['sprint_id', 'projeto_id']
-                }
+                },
+                order:[
+                    ['data_fim','ASC']
+                ],
+                include:[
+                    {
+                        model: funcionalidades
+                    }
+                ]
             })
             return res.status(200).json(sprints)
         } catch (error) {

@@ -27,8 +27,8 @@ class InputSprint extends React.Component {
         event.preventDefault();
         const { data_fim, data_inicio } = this.state;
 
-        if(data_inicio === '' || data_fim === 0){
-            return window.alert("Dados Imcompletos")
+        if(data_inicio === '' || data_fim === 0  || data_fim <= data_inicio){
+            return window.alert("Dados Inválidos")
         }else{
             axios.post(`http://localhost:3333/sprints`,{  data_inicio, data_fim })
         .then(res =>{
