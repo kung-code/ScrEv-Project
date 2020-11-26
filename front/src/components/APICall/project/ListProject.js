@@ -57,14 +57,15 @@ class ListProjects extends React.Component {
             <tbody>
                 {projetos.map(projeto => (
                     <tr key={projeto.id}>
-                        <td>{projeto.descricao}</td>
                         <td>
-                            <a 
+                        <a 
                                 href="/admin/dashboard"
                                 style={linkStyle}
                                 onClick={() => this.setData(projeto)}
-                                >{projeto.usuario.nome}</a>
+                                >{projeto.descricao}</a>
+                        
                         </td>
+                        <td>{projeto.usuario.nome}</td>
                         <td>
                             <a
                                 href="#"
