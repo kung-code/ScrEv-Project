@@ -1,4 +1,21 @@
+/*!
 
+=========================================================
+* Paper Dashboard React - v1.2.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
@@ -10,8 +27,7 @@ import logo from "logo.svg";
 var ps;
 
 class Sidebar extends React.Component {
-
-   constructor(props) {
+  constructor(props) {
     super(props);
     this.activeRoute.bind(this);
     this.sidebar = React.createRef();
@@ -33,7 +49,6 @@ class Sidebar extends React.Component {
       ps.destroy();
     }
   }
-
   render() {
     return (
       <div
@@ -51,10 +66,10 @@ class Sidebar extends React.Component {
             </div>
           </a>
           <a
-            href="#"
+            href="/"
             className="simple-text logo-normal"
           >
-            {this.props.projeto_nome}
+            $project_name
           </a>
         </div>
         <div className="sidebar-wrapper" ref={this.sidebar}>
@@ -69,7 +84,7 @@ class Sidebar extends React.Component {
                   key={key}
                 >
                   <NavLink
-                    to={prop.layout + prop.path + "/"+ this.props.projeto_id}
+                    to={prop.layout + prop.path}
                     className="nav-link"
                     activeClassName="active"
                   >

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       funcionalidades.belongsTo(models.usuarios, {
         foreignKey: 'responsavel_id'
       }),
-      funcionalidades.hasMany(models.sprints, {
+      funcionalidades.belongsTo(models.sprints, {
         foreignKey: 'sprint_id'
       });
     }

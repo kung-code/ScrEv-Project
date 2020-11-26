@@ -5,78 +5,39 @@ import axios from "axios";
 const delStyle = {
     textDecoration: 'none',
     color: '#ff4757',
-};
+} ;
 
 const editStyle = {
-    textDecoration: 'none'
-};
+    textDecoration: 'none' 
+} ;
 
 class ListBacklog extends React.Component {
     state = {
-        funcionalidades: [],
+        usuarios: [],
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3333/funcionalidades`).then(res => {
+        axios.get(`http://localhost:3333/usuarios`).then(res => {
             console.log(res.data);
-            this.setState({ funcionalidades: res.data });
+            this.setState({ usuarios: res.data });
         });
     };
 
-    // Funcao para deletar funcionalidade
-    handleDelete = event => {
-
-        if (window.confirm(`Deseja realmente excluir: ${event.nome}`)) {
-            axios.delete(`http://localhost:3333/funcionalidades/${event.id}`)
-                .then(res => {
-                    console.log(res.data);
-                    window.confirm(event.nome +" Deletado");
-                    window.location.reload();
-                })
-        }
-    }
-
-    ConverteData = event => {
-        var data = new Date(event);
-        var dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`
-        return dataFormatada;
-    }
-
-    DefineSprint= event =>{
-        if(event.sprint_id === 1){
-            return <a href="#"
-                    className="Button logo-normal simple-text" 
-                    style={editStyle}> Adicionar a Sprint 
-                    </a>
-        }else{
-            return event.sprint_id
-        }
-    }
-
-    render() {
-        const { funcionalidades } = this.state;
+    render(){
+        const {usuarios} = this.state;
         return (
             <tbody>
-                {funcionalidades.map(funcionalidade => (
-                    <tr key={funcionalidade.id}>
-                        <td>{funcionalidade.nome}</td>
-                        <td>{this.ConverteData(funcionalidade.data_criacao)}</td>
-                        <td>{this.ConverteData(funcionalidade.data_entrega)}</td>
-                        <td>{funcionalidade.usuario.nome}</td>
+                {usuarios.map(usuario => (
+                    <tr key={usuario.id}>
+                        <td>{usuario.nome}</td>
+                        <td>{usuario.login}</td>
+                        <td>{usuario.senha}</td>
+                        <td>{usuario.tipo}</td>
                         <td>
-                            {this.DefineSprint(funcionalidade)}
+                            <a href="#" className="Button logo-normal simple-text" style={editStyle}> Adicionar a Sprint </a>
                         </td>
-                        <td><a href="#"
-                         class="material-icons"
-                          style={editStyle}
-                          >
-                              edit</a></td>
-                        <td><a href="#"
-                         class="material-icons"
-                          style={delStyle}
-                          onClick={()=> this.handleDelete(funcionalidade)} 
-                          >
-                              delete</a></td>
+                        <td><a href="#" class="material-icons" style={editStyle}>edit</a></td>
+                        <td><a href="#" class="material-icons" style={delStyle}>delete</a></td>
                     </tr>
                 ))}
             </tbody>

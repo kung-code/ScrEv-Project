@@ -37,17 +37,18 @@ class ListUsers extends React.Component {
     };
 
 // Funcao para deletar usuário
-handleDelete = event =>{
+    handleDelete = event =>{
          
-    if(window.confirm(`Deseja realmente excluir: ${event.nome}`)){
-        axios.delete(`http://localhost:3333/Usuarios/${event.id}`)
-    .then(res =>{
-        console.log(res.data);
-        window.confirm(event.nome+ " Deletado");
-        window.location.reload();
-    })
-    }   
-}
+        if(window.confirm(`Deseja realmente excluir: ${event.nome}`)){
+            axios.delete(`http://localhost:3333/Usuarios/${event.id}`)
+        .then(res =>{
+            console.log(res.data);
+            window.location.reload();
+        })
+        }
+        
+        
+    }
 
     render(){
         const {usuarios} = this.state;

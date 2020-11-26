@@ -9,37 +9,23 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
-import axios from "axios";
+
 var ps;
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projeto_id: '',
-      projeto_nome:'',
       backgroundColor: "white",
       activeColor: "info",
     };
     this.mainPanel = React.createRef();
   }
-
   componentDidMount() {
-    const {match: {params}} = this.props;
-    this.setState({projeto_id:params.IdProjeto});
-
-
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.mainPanel.current);
       document.body.classList.toggle("perfect-scrollbar-on");
     }
-
-    axios.get(`http://localhost:3333/projetos/${params.IdProjeto}`).then(res => {
-      console.log(res.data);
-      this.setState({ projeto_nome: res.data.descricao });
-  })
-
-      
   }
   componentWillUnmount() {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -62,13 +48,11 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <Sidebar 
+        <Sidebar
           {...this.props}
           routes={routes}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
-          projeto_nome={this.state.projeto_nome}
-          projeto_id={this.state.projeto_id}
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
@@ -76,7 +60,7 @@ class Dashboard extends React.Component {
             {routes.map((prop, key) => {
               return (
                 <Route
-                  path={prop.layout + prop.path+"/:IdProjeto"}
+                  path={prop.layout + prop.path}
                   component={prop.component}
                   key={key}
                 />

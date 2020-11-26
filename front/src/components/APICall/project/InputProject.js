@@ -43,30 +43,23 @@ class InputProject extends React.Component {
         const {usuarios}= this.state;
         return (
           <form onSubmit={this.handleSubmit} >
-            <div class="form-group">
-                <label for="descricao">Nome do projeto</label>
-                <input 
-                class="form-group form-control"
-                type="text" 
-                name="descricao" 
-                placeholder="descricao"
-                onChange={this.onChange}
-                />
-            </div>
-            <div class="form-group">
-                <label for="tipo">Responsável</label>
-                <select class="form-control" name="product_owner_id" onChange={this.onChange}>
+           <input 
+               type="text" 
+               name="descricao" 
+               placeholder="descricao"
+               onChange={this.onChange}
+               />
+
+            <label for="tipo">Responsável</label>
+	            <select name="product_owner_id" onChange={this.onChange}>
                 <option value= ''>-</option>
                     {
-                        usuarios.map( usuario =>(
-                        <option value={usuario.id}>{usuario.nome}</option>
-                        ))
+                    usuarios.map( usuario =>(
+                    <option value={usuario.id}>{usuario.nome}</option>
+                    ))
                     }
-                </select>
-            </div>
-            <div class="update ml-auto mr-auto">
-                <button type="submit" class="btn-round btn btn-primary">Criar</button> 
-            </div>
+	            </select>
+               <button type="submit" >Criar</button> 
           </form>  
         );
     };

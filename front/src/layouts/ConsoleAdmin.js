@@ -7,6 +7,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+
 import routes from "routesConsole.js";
 
 var ps;
@@ -15,7 +16,6 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projeto_nome: 'Console',
       backgroundColor: "white",
       activeColor: "info",
     };
@@ -53,7 +53,6 @@ class Dash extends React.Component {
           routes={routes}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
-          projeto_nome={this.state.projeto_nome}
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
