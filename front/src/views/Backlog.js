@@ -1,54 +1,66 @@
 
+import InputBacklog from "components/APICall/backlog/InputBacklog";
 import React from "react";
 import {
   Card,
   CardHeader,
   CardBody,
- // CardFooter,
   CardTitle,
   Table,
   Row,
   Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from "reactstrap";
 
 import ListBacklog from "../components/APICall/backlog/ListBacklog";
 
 class Backlog extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+  
   render() {
+
     
     return (
       <>
         <div className="content">
-        <Row>
-            <Col lg="3" md="6" sm="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-paper text-primary" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                      <p className="card-category">Adicionar</p>
-                      <a href="/"
-                          className="simple-text logo-normal" 
-                          style={{textDecoration: 'none'}}>Tarefa</a>
-                        <p />
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-
           <Row>
             <Col md="12">
               <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Backlog</CardTitle>
+              <CardHeader>
+                  <Row>
+                    <Col lg="auto">
+                      <CardTitle tag="h4">Backlog</CardTitle>
+                    </Col>
+                    <Col lg="auto">
+                      <div class="update ml-auto mr-auto">
+                        <button type="button" onClick={this.toggle} class="btn-round btn btn-primary" >Criar Tarefa</button> 
+                        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                          <ModalHeader toggle={this.toggle}>
+                            Criar Tarefa
+                          </ModalHeader>
+                          <ModalBody>
+                            <InputBacklog/>
+                          </ModalBody>
+                        </Modal>
+                      </div>
+                    </Col>
+                  </Row>
                 </CardHeader>
                 <CardBody>
                   <Table responsive>

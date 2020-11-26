@@ -1,4 +1,5 @@
 const database = require('../models')
+const usuarios = database.usuarios;
 
 class ProjetoController {
 
@@ -16,7 +17,13 @@ class ProjetoController {
 //READ
     static async listaProjetos(req,res) {
         try {
-            const projetos = await database.projetos.findAll()
+            const projetos = await database.projetos.findAll({
+                include: [
+                    {
+                        model: usuarios
+                    }
+                ]
+            })
             return res.status(200).json(projetos)
         } catch {
 
@@ -46,7 +53,12 @@ class ProjetoController {
              await database.projetos.update( novasInfos, {
                 where: {
                     id: Number(id)
-                }
+                },
+                include :[
+                    {
+                        model: usuarios
+                    }
+                ]
             })
             const projetoAtualizado = await database.projetos.findOne({
                 where: {

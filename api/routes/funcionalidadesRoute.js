@@ -4,9 +4,11 @@ const FuncionalidadeController = require('../controllers/FuncionalidadeControlle
 const router = Router()
 
 router.get('/funcionalidades', FuncionalidadeController.listaFuncionalidades)
+router.get('/funcionalidades/sprint/:id', FuncionalidadeController.listaFuncionalidadesPorSprint)
+router.get('/funcionalidades/responsavel/:id', FuncionalidadeController.pegaFuncionalidadePorResponsavel)
 router.get('/funcionalidades/:id', FuncionalidadeController.pegaUmaFuncionalidade)
 router.post('/funcionalidades', FuncionalidadeController.criaFuncionalidade)
-router.put('funcionalidades/:id', FuncionalidadeController.AtualizaFuncionalidade)
-router.delete('funcionalidades/:id', FuncionalidadeController.deletaUmaFuncionalidade)
+router.put('/funcionalidades/:id', FuncionalidadeController.AtualizaFuncionalidade)
+router.delete('/funcionalidades/:id', FuncionalidadeController.deletaUmaFuncionalidade)
 
 module.exports = router
