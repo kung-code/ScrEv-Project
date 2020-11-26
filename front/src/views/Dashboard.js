@@ -1,4 +1,21 @@
+/*!
 
+=========================================================
+* Paper Dashboard React - v1.2.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
 import React from "react";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
@@ -24,19 +41,6 @@ import {
 import ListUsers from "../components/APICall/user/ListUsers";
 
 class Dashboard extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      projeto_id: ''
-    };
-    this.mainPanel = React.createRef();
-  }
-  componentDidMount(){
-    const {match: {params}} = this.props;
-    this.setState({projeto_id:params.IdProjeto})
-  }
-
   render() {
     return (
       <>
@@ -54,7 +58,7 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Tarefas no backlog</p>
-                        <CardTitle className="text-primary" tag="p">${this.state.projeto_id}</CardTitle>
+                        <CardTitle className="text-primary" tag="p">$VAR</CardTitle>
                         <p />
                       </div>
                     </Col>

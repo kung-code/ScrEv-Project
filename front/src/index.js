@@ -17,8 +17,8 @@ ReactDOM.render(
   <Router history={hist}>
     <Switch>
     <Route path="/console" render={(props) => <ConsoleLayout {...props} />} />
-    <Route path="/admin/:IdProjeto" render={(props) => <AdminLayout {...props} />} />
-    <Redirect to="/console/project" />
+    <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+    <Redirect to="/admin/dashboard" />
     </Switch>
   </Router>,
   document.getElementById("root")

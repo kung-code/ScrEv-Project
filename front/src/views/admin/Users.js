@@ -3,7 +3,9 @@ import {
   Card,
   CardHeader,
   CardBody,
+ // CardFooter,
   CardTitle,
+  Table,
   Row,
   Col,
 } from "reactstrap";
@@ -16,14 +18,20 @@ class UserAdmin extends React.Component {
     return (
       <>
         <div className="content">
-        <Row className="justify-content-center">
-            <Col lg="7" md="12" sm="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Criar Usuário</CardTitle>
-                </CardHeader>
+        <Row>
+            <Col lg="6" md="6" sm="6">
+              <Card className="card-stats">
                 <CardBody>
-                  <InputUser />
+                  <Row>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                      <p className="card-category">Criar</p>
+                      <CardTitle className="text-primary" tag="p">Usuário</CardTitle>
+                        <p />
+                        <InputUser />
+                      </div>
+                    </Col>
+                  </Row>
                 </CardBody>
               </Card>
             </Col>
