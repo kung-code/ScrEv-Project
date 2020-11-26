@@ -21,12 +21,17 @@ const editStyle = {
 };
 
 class ListSprint extends React.Component {
-    state = {
-        sprints: [],
-        sprint_ativa: '',
-        sprint_id: '',
-        funcionalidades: []
+
+    constructor(props){
+        super(props);
+        this.state = {
+            sprints: [],
+            sprint_ativa: '',
+            sprint_id: '',
+            funcionalidades: []
+        }
     }
+
     onChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -38,13 +43,14 @@ class ListSprint extends React.Component {
             
             for(let j = 0; j < res.data.length; j++){
                 let i = new Date(res.data[j].data_fim)
+                
                 if(i > hoje ){
-                    console.log(i);
+
                     this.setState({ sprint_ativa: res.data[j].id });
 
                     axios.get(`http://localhost:3333/funcionalidades/sprint/${this.state.sprint_ativa}`).then(res => {
                     this.setState({ funcionalidades: res.data });
-                    console.log(res.data);
+
                     });
                     
                     break;
@@ -59,6 +65,12 @@ class ListSprint extends React.Component {
             this.setState({ funcionalidades: res.data });
             console.log(res.data);
         });
+    }
+
+    ConverteData= event=>{
+        var data = new Date(event);
+        var dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`
+        return dataFormatada;
     }
 
     render() {
@@ -87,7 +99,7 @@ class ListSprint extends React.Component {
                     {funcionalidades.map(funcionalidade => (
                         <tr key={funcionalidade.id}>
                             <td>{funcionalidade.descricao}</td>
-                            <td>{funcionalidade.data_entrega}</td>
+                            <td>{this.ConverteData(funcionalidade.data_entrega)}</td>
                             <td>{funcionalidade.usuario.nome}</td>
 
                             <td><a href="#" class="material-icons" style={editStyle}>edit</a></td>

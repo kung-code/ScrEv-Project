@@ -1,5 +1,5 @@
 import Dashboard from "views/Dashboard.js";
-import Notifications from "views/Notifications.js";
+import PendingTaskUser from "views/PendingTaskUser.js";
 import Sprint from "views/Sprint.js";
 import Backlog from "views/Backlog.js";
 import UpgradeToPro from "views/Upgrade.js";
@@ -27,10 +27,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/notifications",
+    path: "/user",
     name: "Seu trabalho",
     icon: "nc-icon nc-single-02",
-    component: Notifications,
+    component: PendingTaskUser,
     layout: "/admin",
   },
   {

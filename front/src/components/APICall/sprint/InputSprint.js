@@ -3,12 +3,12 @@ import axios from "axios";
 
 class InputSprint extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
           data_inicio: '',
           data_fim: '',
-          projeto_id: 0,
+          projeto_id: this.props.projeto_id,
           projetos: []
         };
       }
@@ -60,16 +60,6 @@ class InputSprint extends React.Component {
                placeholder="Término da Sprint"
                onChange={this.onChange}
                />
-               <hr/>
-                <label for="tipo">Projeto</label><br/>
-	            <select name="projeto_id" onChange={this.onChange}>
-                <option value= ''>-</option>
-                    {
-                    projetos.map( res =>(
-                    <option value={res.id}>{res.descricao}</option>
-                    ))
-                    }
-	            </select>
                <hr/>
                <button type="submit" >Criar Sprint</button> 
           </form>  

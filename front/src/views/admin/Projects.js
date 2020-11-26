@@ -14,6 +14,17 @@ import {
 } from "reactstrap";
 
 class Projects extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {projeto_id: ''
+    }
+  }
+
+  set_projeto_id=(event) =>{
+    this.setState({projeto_id: event})
+    this.props.set_id(event);
+  }
   render() {
     
     return (
@@ -52,7 +63,7 @@ class Projects extends React.Component {
                         <th></th>
                       </tr>
                     </thead> 
-                    <ListProject />
+                    <ListProject set_id={this.set_projeto_id} />
                   </Table>
                 </CardBody>
               </Card>

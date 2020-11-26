@@ -1,5 +1,4 @@
 import React from "react";
-import InputSprint from "components/APICall/sprint/InputSprint.js";
 
 // reactstrap components
 import {
@@ -14,7 +13,26 @@ import {
 } from "reactstrap";
 
 import ListSprint from "components/APICall/sprint/ListSprint";
+import InputSprint from "components/APICall/sprint/InputSprint.js";
 class Sprint extends React.Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      projeto_id: '',
+    };
+    this.mainPanel = React.createRef();
+  }
+
+  componentDidMount() {
+
+    const { match: { params } } = this.props;
+    this.setState({ projeto_id: params.IdProjeto });
+  }
+
+
+
   render() {
     return (
       <>
@@ -31,7 +49,7 @@ class Sprint extends React.Component {
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Adicionar</p>
+                        <p className="card-category">Adicionar:{this.state.projeto_id}</p>
                         <a href="/"
                           className="simple-text logo-normal"
                           style={{ textDecoration: 'none' }}>Sprint</a>
@@ -39,14 +57,14 @@ class Sprint extends React.Component {
                       </div>
                     </Col>
                   </Row>
-                  <InputSprint />
+                  <InputSprint projeto_id={this.state.projeto_id}/>
+                  <div>
+                  </div>
                 </CardBody>
               </Card>
             </Col>
           </Row>
-
-          <ListSprint />
-
+          <ListSprint projeto_id={this.state.projeto_id} />
         </div>
       </>
     );

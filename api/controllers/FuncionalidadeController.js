@@ -53,24 +53,39 @@ static async listaFuncionalidadesPorSprint(req,res) {
 }
 
 //READ ONE
-    static async pegaUmaFuncionalidade(req,res) {
-        const { id } = req.params
-        try {
-            const funcionalidade = await database.funcionalidades.findOne( {
-                where: {
-                    id: Number(id)
-                },
-                include:[
-                    {
-                        model: {usuarios,projetos, sprints }
-                    }
-                ]
-            })
-            return res.status(200).json(funcionalidade)
-        } catch (error) {
-            return res.status(500).json(error.message)
-        }
+static async pegaUmaFuncionalidade(req,res) {
+    const { id } = req.params
+    try {
+        const funcionalidade = await database.funcionalidades.findOne( {
+            where: {
+                id: Number(id)
+            },
+            include:[
+                {
+                    model: usuarios
+                }
+            ]
+        })
+        return res.status(200).json(funcionalidade)
+    } catch (error) {
+        return res.status(500).json(error.message)
     }
+}
+
+//READ BY USERS
+static async pegaFuncionalidadePorResponsavel(req,res) {
+    const { id } = req.params
+    try {
+        const funcionalidade = await database.funcionalidades.findAll( {
+            where: {
+                responsavel_id: Number(id)
+            }
+        })
+        return res.status(200).json(funcionalidade)
+    } catch (error) {
+        return res.status(500).json(error.message)
+    }
+}
 
 //UPDATE
     static async AtualizaFuncionalidade(req,res) {

@@ -26,7 +26,7 @@ class InputUser extends React.Component {
         axios.post(`http://localhost:3333/Usuarios`,{ nome, login, senha, tipo })
         .then(res =>{
             console.log(res);
-            console.log(res.data);
+            window.alert("Usuário cadastrado");
             window.location.reload();
         })
     }
