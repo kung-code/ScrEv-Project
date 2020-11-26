@@ -15,7 +15,7 @@ class Dash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projeto_id: 'Console',
+      projeto_nome: 'Console',
       backgroundColor: "white",
       activeColor: "info",
     };
@@ -53,7 +53,7 @@ class Dash extends React.Component {
           routes={routes}
           bgColor={this.state.backgroundColor}
           activeColor={this.state.activeColor}
-          projeto_id={this.state.projeto_id}
+          projeto_nome={this.state.projeto_nome}
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
