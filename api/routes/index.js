@@ -4,6 +4,7 @@ const funcionalidades = require('./funcionalidadesRoute')
 const projetos = require('./projetosRoute')
 const usuarios = require('./usuariosRoute')
 const sprints = require('./sprintsRoute')
+const planning = require('./planningRoute')
 
 
 module.exports = app => {
@@ -13,4 +14,5 @@ module.exports = app => {
     app.use(projetos)
     app.use(usuarios)
     app.use(sprints)
+    app.use(planning)
 }

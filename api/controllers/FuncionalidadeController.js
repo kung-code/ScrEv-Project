@@ -87,6 +87,26 @@ static async pegaFuncionalidadePorResponsavel(req,res) {
     }
 }
 
+// read by projeto
+static async pegaFuncionalidadePorProjeto(req,res) {
+    const { id } = req.params
+    try {
+        const funcionalidade = await database.funcionalidades.findAll( {
+            where: {
+                projeto_id: Number(id)
+            },
+            include:[
+                {
+                    model: usuarios
+                }
+            ]
+        })
+        return res.status(200).json(funcionalidade)
+    } catch (error) {
+        return res.status(500).json(error.message)
+    }
+}
+
 //UPDATE
     static async AtualizaFuncionalidade(req,res) {
         const { id } = req.params

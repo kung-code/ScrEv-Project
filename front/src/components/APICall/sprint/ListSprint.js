@@ -77,11 +77,11 @@ class ListSprint extends React.Component {
                 <tbody>
                     {funcionalidades.map(funcionalidade => (
                         <tr key={funcionalidade.id}>
-                            <td>{funcionalidade.descricao}</td>
+                            <td>{funcionalidade.nome}</td>
                             <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                             <td>{funcionalidade.usuario.nome}</td>
 
-                            <td><a href="#" class="material-icons" style={editStyle}>edit</a></td>
+                            {/*<td><a href="#" class="material-icons" style={editStyle}>edit</a></td>*/}
                             <td><a href="#" class="material-icons" style={delStyle}>delete</a></td>
                         </tr>
                     ))}

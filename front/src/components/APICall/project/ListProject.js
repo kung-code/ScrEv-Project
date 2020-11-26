@@ -22,6 +22,10 @@ class ListProjects extends React.Component {
             usuarios: []
         }
     }
+
+    setData(event){
+        localStorage.setItem('ID_Projeto',JSON.stringify(event));
+    }
     
 
     componentDidMount() {
@@ -53,11 +57,14 @@ class ListProjects extends React.Component {
             <tbody>
                 {projetos.map(projeto => (
                     <tr key={projeto.id}>
-                        <a href={"/admin/"+projeto.id}
+                        <td>{projeto.descricao}</td>
+                        <td>
+                            <a 
+                                href="/admin/dashboard"
                                 style={linkStyle}
-                                onClick={() => this.props.set_id(projeto.descricao)}
-                                ><td>{projeto.descricao}</td></a>
-                        <td>{projeto.usuario.nome}</td>
+                                onClick={() => this.setData(projeto)}
+                                >{projeto.usuario.nome}</a>
+                        </td>
                         <td>
                             <a
                                 href="#"

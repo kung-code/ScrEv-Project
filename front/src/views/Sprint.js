@@ -16,13 +16,14 @@ import {
 
 import ListSprint from "components/APICall/sprint/ListSprint";
 import InputSprint from "components/APICall/sprint/InputSprint.js";
+import ListSprintKey from "components/APICall/sprint/ListSprintKey";
 class Sprint extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      projeto_id: ''};
-    this.state = {
+      projeto_id: '',
+      sprint_id:'',
       modal: false
     };
 
@@ -30,15 +31,20 @@ class Sprint extends React.Component {
   }
 
   componentDidMount() {
-
-    const { match: { params } } = this.props;
-    this.setState({ projeto_id: params.IdProjeto });
+    let data = localStorage.getItem('ID_Projeto')
+    data = JSON.parse(data);
+    this.setState({projeto_id:data.id})
+    
   }
 
   toggle() {
     this.setState({
       modal: !this.state.modal
     });
+  }
+
+  SetSprint_id(event){
+    this.setState({sprint_id:event})
   }
 
   render() {
@@ -80,9 +86,16 @@ class Sprint extends React.Component {
                         <th className="text-right"></th>
                       </tr>
                     </thead>
-                    <ListSprint projeto_id={this.state.projeto_id} />
+                    {/*<ListSprint 
+                    sprint_id={this.state.sprint_id}
+                    projeto_id={this.state.sprint_id}
+                    />*/}
                   </Table>
+                  {<ListSprint 
+      
+                  />}
                 </CardBody>
+                <label>Selecionar outra Sprint</label>
               </Card>
             </Col>
           </Row>
