@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import moment from "moment";
 
 
 const delStyle = {
@@ -60,8 +61,8 @@ class ListBacklog extends React.Component {
                 {funcionalidades.map(funcionalidade => (
                     <tr key={funcionalidade.id}>
                         <td>{funcionalidade.nome}</td>
-                        <td>{this.ConverteData(funcionalidade.data_criacao)}</td>
-                        <td>{this.ConverteData(funcionalidade.data_entrega)}</td>
+                        <td>{moment(funcionalidade.data_criacao).format('D/M/Y')}</td>
+                        <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                         <td>{funcionalidade.usuario.nome}</td>
                         <td>
                             {this.DefineSprint(funcionalidade)}

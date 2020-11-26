@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import moment from "moment";
 
 const delStyle = {
     textDecoration: 'none',
@@ -77,7 +78,7 @@ class ListSprint extends React.Component {
                     {funcionalidades.map(funcionalidade => (
                         <tr key={funcionalidade.id}>
                             <td>{funcionalidade.descricao}</td>
-                            <td>{this.ConverteData(funcionalidade.data_entrega)}</td>
+                            <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                             <td>{funcionalidade.usuario.nome}</td>
 
                             <td><a href="#" class="material-icons" style={editStyle}>edit</a></td>

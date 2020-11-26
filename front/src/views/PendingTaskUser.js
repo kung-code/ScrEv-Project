@@ -55,7 +55,7 @@ class PendingTaskUser extends React.Component {
                         <th>Última Alteração</th>
                       </tr>
                     </thead>
-                    <TaskUsers usuario_id="2" />
+                    <TaskUsers usuario_id="3" />
                   </Table>
                 </CardBody>
               </Card>
