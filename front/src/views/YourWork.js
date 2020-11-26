@@ -35,7 +35,7 @@ import {
 } from "reactstrap";
 
 
-class Notifications extends React.Component {
+class YourWork extends React.Component {
   render() {
     return (
       <>
@@ -333,4 +333,4 @@ class Notifications extends React.Component {
   }
 }
 */
-export default Notifications;
+export default YourWork;

@@ -11,6 +11,10 @@ const delStyle = {
     color: '#ff4757',
 } ;
 
+const linkStyle = {
+    color: '#000',
+    fontWeight: 'bold',
+}
 
 class ListProjects extends React.Component {
     state = {
@@ -61,7 +65,7 @@ class ListProjects extends React.Component {
                 {projetos.map(projeto => (
                     <tr key={projeto.id}>
                         <td>{projeto.descricao}</td>
-                        <td>{this.TipoToNome(projeto.product_owner_id)}</td>
+                        <td><a href="#" style={linkStyle}>{this.TipoToNome(projeto.product_owner_id)}</a></td>
 
                         <td><a href="" class="material-icons" name="" style={editStyle}>edit</a></td>
                         <td>

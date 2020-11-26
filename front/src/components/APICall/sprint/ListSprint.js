@@ -8,8 +8,13 @@ const delStyle = {
 } ;
 
 const editStyle = {
-    textDecoration: 'none' 
+    textDecoration: 'none',
 } ;
+
+const linkStyle = {
+    color: '#000',
+    fontWeight: 'bold',
+}
 
 class ListSprint extends React.Component {
     state = {
@@ -28,7 +33,7 @@ class ListSprint extends React.Component {
             <tbody>
                 {filmes.map(filme => (
                     <tr key={filme.show.id}>
-                        <td>{filme.show.name}</td>
+                        <td><a href="#" style={linkStyle}>{filme.show.name}</a></td>
                         <td>{filme.show.url}</td>
                         <td>{filme.show.type}</td>
                         <td>{filme.show.language}</td>
