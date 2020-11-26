@@ -45,6 +45,7 @@ class InputBacklog extends React.Component {
         if (nome === '' || responsavel_id === 0) {
             return window.alert("Dados Imcompletos")
         } else {
+            console.log(projeto_id);
             axios.post(`http://localhost:3333/funcionalidades`, {
                 nome,
                 descricao,

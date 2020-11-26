@@ -15,6 +15,18 @@ import {
 import ListBacklog from "../components/APICall/backlog/ListBacklog";
 
 class Backlog extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        projeto_id: '',
+    };
+}
+
+  componentDidMount(){
+    const { match: { params} } = this.props;
+    this.setState({ projeto_id: params.IdProjeto });
+  }
   render() {
     
     return (
@@ -32,7 +44,7 @@ class Backlog extends React.Component {
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                      <p className="card-category">Adicionar</p>
+                      <p className="card-category">Adicionar {this.state.projeto_id}</p>
                       <a href="/"
                           className="simple-text logo-normal" 
                           style={{textDecoration: 'none'}}>Tarefa</a>
@@ -40,7 +52,7 @@ class Backlog extends React.Component {
                       </div>
                     </Col>
                   </Row>
-                  <InputBacklog/>
+                  <InputBacklog projeto_id={this.state.projeto_id}/>
                 </CardBody>
               </Card>
             </Col>
