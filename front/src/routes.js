@@ -27,13 +27,13 @@ var routes = [
     component: Backlog,
     layout: "/admin",
   },
-  {
-    path: "/user",
-    name: "Seu trabalho",
-    icon: "nc-icon nc-single-02",
-    component: PendingTaskUser,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/user",
+  //   name: "Seu trabalho",
+  //   icon: "nc-icon nc-single-02",
+  //   component: PendingTaskUser,
+  //   layout: "/admin",
+  // },
   {
     path: "/task",
     name: "Tarefa",
@@ -41,13 +41,13 @@ var routes = [
     component: Task,
     layout: "/admin",
   },
-  {
-    pro: true,
-    path: "/help",
-    name: "Ajuda",
-    icon: "nc-icon nc-alert-circle-i",
-    component: Help,
-    layout: "/admin",
-  },
+  // {
+  //   pro: true,
+  //   path: "/help",
+  //   name: "Ajuda",
+  //   icon: "nc-icon nc-alert-circle-i",
+  //   component: Help,
+  //   layout: "/admin",
+  // },
 ];
 export default routes;

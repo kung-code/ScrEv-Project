@@ -66,40 +66,41 @@ class InputBacklog extends React.Component {
         const { usuarios, projetos } = this.state;
         return (
             <form onSubmit={this.handleSubmit} >
-                <hr />
-                <label>Nome</label><br />
+                <label for="nome">Nome</label>
                 <input
+                    class="form-group form-control"
                     type="text"
                     name="nome"
-                    placeholder="nome da Funcionalidade"
+                    placeholder="Nome da tarefa"
                     onChange={this.onChange}
                 />
-                <hr />
-                <label>Descricao</label><br />
-                <input
+                <label for="descricao">Descrição</label>
+                <textarea
+                    class="form-group form-control"
                     type="text"
                     name="descricao"
-                    placeholder="descrição da Funcionalidade"
+                    placeholder="Descrição da tarefa"
                     onChange={this.onChange}
                 />
-                <hr />
-                <label>Data de criação</label><br />
+                <label for="data_criacao">Data de criação</label>
                 <input
+                    class="form-group form-control"
                     type="date"
                     name="data_criacao"
                     placeholder="Data de criação"
                     onChange={this.onChange}
                 />
-                <hr />
-                <label>Data de entrega</label><br />
+                <label for="data_entrega">Data de entrega</label>
                 <input
+                    class="form-group form-control"
                     type="date"
                     name="data_entrega"
                     placeholder="Data de Entrega"
                     onChange={this.onChange}
                 />
-                <hr />
-                <button type="submit" >Criar</button>
+                <div class="update ml-auto mr-auto">
+                    <button type="submit" class="btn-round btn btn-primary">Criar tarefa</button>
+                </div>
             </form>
         );
     };

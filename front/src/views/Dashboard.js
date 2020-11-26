@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Tarefas no backlog</p>
-                        <CardTitle className="text-primary" tag="p">${this.state.projeto_id}</CardTitle>
+                        <CardTitle className="text-primary" tag="p">{this.state.projeto_id}</CardTitle>
                         <p />
                       </div>
                     </Col>

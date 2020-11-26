@@ -49,14 +49,14 @@ class InputProject extends React.Component {
                 class="form-group form-control"
                 type="text" 
                 name="descricao" 
-                placeholder="descricao"
+                placeholder="Descrição"
                 onChange={this.onChange}
                 />
             </div>
             <div class="form-group">
-                <label for="tipo">Responsável</label>
+                <label for="product_owner_id">Responsável</label>
                 <select class="form-control" name="product_owner_id" onChange={this.onChange}>
-                <option value= ''>-</option>
+                <option value= ''>Selecione um responsável</option>
                     {
                         usuarios.map( usuario =>(
                         <option value={usuario.id}>{usuario.nome}</option>
@@ -65,7 +65,7 @@ class InputProject extends React.Component {
                 </select>
             </div>
             <div class="update ml-auto mr-auto">
-                <button type="submit" class="btn-round btn btn-primary">Criar</button> 
+                <button type="submit" class="btn-round btn btn-primary">Criar projeto</button> 
             </div>
           </form>  
         );

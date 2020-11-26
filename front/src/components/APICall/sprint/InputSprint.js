@@ -44,25 +44,26 @@ class InputSprint extends React.Component {
         const {projetos}= this.state;
         return (
           <form onSubmit={this.handleSubmit} >
-              <hr/>
-               <label>Ínicio da Sprint</label><br/>
-           <input 
+            <label for="data_inicio">Início da Sprint</label>
+            <input 
+                class="form-group form-control"
                type="date" 
                name="data_inicio" 
                placeholder="Data de criação"
                onChange={this.onChange}
                />
-               <hr/>
-               <label>Término da Sprint</label><br/>
+            <label for="data_fim">Término da Sprint</label>
             <input 
+                class="form-group form-control"
                type="date" 
                name="data_fim" 
                placeholder="Término da Sprint"
                onChange={this.onChange}
                />
-               <hr/>
-               <button type="submit" >Criar Sprint</button> 
-          </form>  
+               <div class="update ml-auto mr-auto">
+                    <button type="submit" class="btn-round btn btn-primary">Criar Sprint</button> 
+               </div>
+            </form>  
         );
     };
 }
