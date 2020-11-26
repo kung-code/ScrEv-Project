@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 
-const editStyle = {
-    textDecoration: 'none'
-};
+const linkStyle = {
+    color: '#000',
+    fontWeight: 'bold',
+}
 
 const delStyle = {
     textDecoration: 'none',
@@ -56,18 +57,15 @@ class ListProjects extends React.Component {
             <tbody>
                 {projetos.map(projeto => (
                     <tr key={projeto.id}>
-                        <td>{projeto.descricao}</td>
-                        <td>{projeto.usuario.nome}</td>
-
                         <td>
-                                <a href="/admin/dashboard"
-                                class="material-icons" 
-                                style={editStyle}
+                        <a 
+                                href="/admin/dashboard"
+                                style={linkStyle}
                                 onClick={() => this.setData(projeto)}
-                                >
-                                edit
-                                </a>
+                                >{projeto.descricao}</a>
+                        
                         </td>
+                        <td>{projeto.usuario.nome}</td>
                         <td>
                             <a
                                 href="#"
