@@ -74,28 +74,7 @@ class Sprint extends React.Component {
                     </Col>
                   </Row>
                 </CardHeader>
-                <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Tarefa</th>
-                        <th>Data de entrega</th>
-                        <th>Desenvolvedor</th>
-                        <th>Status</th>
-                        <th></th>
-                        <th className="text-right"></th>
-                      </tr>
-                    </thead>
-                    {/*<ListSprint 
-                    sprint_id={this.state.sprint_id}
-                    projeto_id={this.state.sprint_id}
-                    />*/}
-                  </Table>
-                  {<ListSprint 
-      
-                  />}
-                </CardBody>
-                <label>Selecionar outra Sprint</label>
+                <ListSprint />
               </Card>
             </Col>
           </Row>

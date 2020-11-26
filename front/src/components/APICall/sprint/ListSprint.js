@@ -2,6 +2,19 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    Table,
+    Row,
+    Col,
+    Modal,
+    ModalHeader,
+    ModalBody,
+  } from "reactstrap";
+
 const delStyle = {
     textDecoration: 'none',
     color: '#ff4757',
@@ -74,7 +87,22 @@ class ListSprint extends React.Component {
 
         return (
             <div>
-                <tbody>
+
+<CardBody>
+                  <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>Tarefa</th>
+                        <th>Data de entrega</th>
+                        <th>Desenvolvedor</th>
+                        <th className="text-right"></th>
+                      </tr>
+                    </thead>
+                    {/*<ListSprint 
+                    sprint_id={this.state.sprint_id}
+                    projeto_id={this.state.sprint_id}
+                    />*/}
+                  <tbody>
                     {funcionalidades.map(funcionalidade => (
                         <tr key={funcionalidade.id}>
                             <td>{funcionalidade.nome}</td>
@@ -95,6 +123,9 @@ class ListSprint extends React.Component {
                         ))
                     }
                 </select>
+                </Table>
+                </CardBody>
+                
             </div>
         )
     };
