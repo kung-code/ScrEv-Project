@@ -21,6 +21,10 @@ class ListProjects extends React.Component {
             usuarios: []
         }
     }
+
+    setData(event){
+        localStorage.setItem('ID_Projeto',JSON.stringify(event));
+    }
     
 
     componentDidMount() {
@@ -56,10 +60,10 @@ class ListProjects extends React.Component {
                         <td>{projeto.usuario.nome}</td>
 
                         <td>
-                                <a href={"/admin/"+projeto.id}
+                                <a href="/admin/dashboard"
                                 class="material-icons" 
                                 style={editStyle}
-                                onClick={() => this.props.set_id(projeto.descricao)}
+                                onClick={() => this.setData(projeto)}
                                 >
                                 edit
                                 </a>

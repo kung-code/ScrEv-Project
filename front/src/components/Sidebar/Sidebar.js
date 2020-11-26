@@ -43,7 +43,7 @@ class Sidebar extends React.Component {
       >
         <div className="logo">
           <a
-            href="https://www.creative-tim.com"
+            href="/console/project"
             className="simple-text logo-mini"
           >
             <div className="logo-img">
@@ -51,7 +51,7 @@ class Sidebar extends React.Component {
             </div>
           </a>
           <a
-            href="#"
+            href="/console/project"
             className="simple-text logo-normal"
           >
             {this.props.projeto_nome}
@@ -69,7 +69,7 @@ class Sidebar extends React.Component {
                   key={key}
                 >
                   <NavLink
-                    to={prop.layout + prop.path + "/"+ this.props.projeto_id}
+                    to={prop.layout + prop.path}
                     className="nav-link"
                     activeClassName="active"
                   >

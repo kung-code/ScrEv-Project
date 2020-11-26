@@ -1,7 +1,13 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
+import InputPlanning from "components/APICall/planning/InputPlanning.js";
 
+import {
+    Modal,
+    ModalHeader,
+    ModalBody,
+  } from "reactstrap";
 
 const delStyle = {
     textDecoration: 'none',
@@ -13,16 +19,32 @@ const editStyle = {
 };
 
 class ListBacklog extends React.Component {
-    state = {
-        funcionalidades: [],
+    constructor(props){
+        super(props);
+        this.state = {
+            funcionalidades: [],
+            funcionalidadePlanning:[],
+            projeto_id: '',
+            modal: false
+        }
+        
+    this.toggle = this.toggle.bind(this);
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3333/funcionalidades`).then(res => {
+        const{projeto_id} = this.state;
+        axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}`).then(res => {
             console.log(res.data);
             this.setState({ funcionalidades: res.data });
         });
-    };
+
+    }
+
+    componentWillMount(){
+        let data = localStorage.getItem('ID_Projeto')
+        data = JSON.parse(data);
+        this.setState({projeto_id:data.id})
+    }
 
     // Funcao para deletar funcionalidade
     handleDelete = event => {
@@ -44,15 +66,30 @@ class ListBacklog extends React.Component {
     }
 
     DefineSprint= event =>{
-        if(event.sprint_id === 1){
-            return <a href="#"
-                    className="Button logo-normal simple-text" 
-                    style={editStyle}> Adicionar a Sprint 
-                    </a>
-        }else{
-            return event.sprint_id
-        }
+         if(event.usuario.nome === "Backlog") {
+             return <div>
+             <button type="button" onClick={this.toggle} class="btn-round btn btn-primary" >Adicionar a Sprint</button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>
+            Adicionar a Sprint
+          </ModalHeader>
+          <ModalBody>
+            <InputPlanning
+            funcionalidadePlanning={event}/>
+          </ModalBody>
+        </Modal>
+            </div>
+         }else{
+             return event.id
+         }
     }
+
+    toggle() {
+        this.setState({
+          modal: !this.state.modal
+        });
+      }
+
 
     render() {
         const { funcionalidades } = this.state;
@@ -67,11 +104,7 @@ class ListBacklog extends React.Component {
                         <td>
                             {this.DefineSprint(funcionalidade)}
                         </td>
-                        <td><a href="#"
-                         class="material-icons"
-                          style={editStyle}
-                          >
-                              edit</a></td>
+
                         <td><a href="#"
                          class="material-icons"
                           style={delStyle}

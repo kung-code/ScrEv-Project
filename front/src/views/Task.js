@@ -1,6 +1,5 @@
 
-import InputProject from "components/APICall/project/InputProject";
-import ListProject from "components/APICall/project/ListProject";
+import GeneralDescriptionTask from "components/APICall/backlog/GeneralDescriptionTask.js";
 import React from "react";
 import {
   Card,
@@ -21,6 +20,7 @@ class Task extends React.Component {
             <Col md="7">
               <Card>
                 <CardBody>
+                  <GeneralDescriptionTask />
                 </CardBody>
               </Card>
             </Col>

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { getAllJSDocTags } from "typescript";
 
 class InputBacklog extends React.Component {
 
@@ -8,9 +9,9 @@ class InputBacklog extends React.Component {
         this.state = {
             nome: '',
             descricao: '',
-            projeto_id: this.props.projeto_id,
+            projeto_id: '',
             responsavel_id: 99,
-            sprint_id: 1,
+            sprint_id: '1',
             data_entrega: '',
             data_criacao: '',
             status: false,
@@ -27,6 +28,10 @@ class InputBacklog extends React.Component {
         axios.get(`http://localhost:3333/projetos`).then(res => {
             this.setState({ projetos: res.data });
         });
+
+        let data = localStorage.getItem('ID_Projeto')
+        data = JSON.parse(data);
+        this.setState({projeto_id:data.id})
 
     };
 
@@ -56,7 +61,7 @@ class InputBacklog extends React.Component {
             })
                 .then(res => {
                     console.log(res.data);
-                    window.alert("FOi" + res)
+                    window.alert("Tarefa adicionada ao backlog")
                 })
                 .catch(err => { window.alert("NAO FOI " + err) })
         }
