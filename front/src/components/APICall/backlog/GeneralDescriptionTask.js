@@ -48,7 +48,7 @@ class GeneralDescriptionTask extends React.Component {
         return (
 
             <div>
-                
+                <label>Selecione uma Tarefa:</label><br></br>
                 <select name="funcionalidade" onChange={this.handleChange}>
                     <option value=''>-</option>
                     {

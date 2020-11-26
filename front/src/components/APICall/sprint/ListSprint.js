@@ -114,7 +114,7 @@ class ListSprint extends React.Component {
                                 </tr>
                             ))}
                         </tbody>
-                        <label>Selecionar outra Sprint</label>
+                        <label>Selecionar outra Sprint:</label><br></br>
                         <select name="sprint_id" onChange={this.handleChange}>
                             <option value=''>-</option>
                             {
