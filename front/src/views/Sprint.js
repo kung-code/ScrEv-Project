@@ -5,24 +5,28 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   CardTitle,
   Table,
   Row,
   Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
 } from "reactstrap";
 
 import ListSprint from "components/APICall/sprint/ListSprint";
 import InputSprint from "components/APICall/sprint/InputSprint.js";
 class Sprint extends React.Component {
 
-
   constructor(props) {
     super(props);
     this.state = {
-      projeto_id: '',
+      projeto_id: ''};
+    this.state = {
+      modal: false
     };
-    this.mainPanel = React.createRef();
+
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +35,11 @@ class Sprint extends React.Component {
     this.setState({ projeto_id: params.IdProjeto });
   }
 
-
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
   render() {
     return (
@@ -39,35 +47,49 @@ class Sprint extends React.Component {
         <div className="content">
           <Row>
             <Col md="12">
-              <Card className="card-stats">
-                <CardBody>
+              <Card>
+                <CardHeader>
                   <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-paper text-primary" />
-                      </div>
+                    <Col lg="auto">
+                      <CardTitle tag="h4">Sprint Ativa</CardTitle>
                     </Col>
-                    <Col md="8" xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Adicionar:{this.state.projeto_id}</p>
-                        <a href="/"
-                          className="simple-text logo-normal"
-                          style={{ textDecoration: 'none' }}>Sprint</a>
-                        <p />
+                    <Col lg="auto">
+                      <div class="update ml-auto mr-auto">
+                        <button type="button" onClick={this.toggle} class="btn-round btn btn-primary" >Criar Sprint</button> 
+                        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                          <ModalHeader toggle={this.toggle}>
+                            Criar nova sprint
+                          </ModalHeader>
+                          <ModalBody>
+                            <InputSprint projeto_id={this.state.projeto_id}/>
+                          </ModalBody>
+                        </Modal>
                       </div>
                     </Col>
                   </Row>
-                  <InputSprint projeto_id={this.state.projeto_id}/>
-                  <div>
-                  </div>
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                    <thead className="text-primary">
+                      <tr>
+                        <th>Tarefa</th>
+                        <th>Data de entrega</th>
+                        <th>Desenvolvedor</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th className="text-right"></th>
+                      </tr>
+                    </thead>
+                    <ListSprint projeto_id={this.state.projeto_id} />
+                  </Table>
                 </CardBody>
               </Card>
             </Col>
           </Row>
-          <ListSprint projeto_id={this.state.projeto_id} />
         </div>
       </>
     );
   }
 }
+
 export default Sprint;

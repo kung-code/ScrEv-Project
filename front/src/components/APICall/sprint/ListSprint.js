@@ -1,15 +1,5 @@
 import React from "react";
 import axios from "axios";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    CardTitle,
-    Table,
-    Row,
-    Col,
-  } from "reactstrap";
 
 const delStyle = {
     textDecoration: 'none',
@@ -17,8 +7,13 @@ const delStyle = {
 };
 
 const editStyle = {
-    textDecoration: 'none'
-};
+    textDecoration: 'none',
+} ;
+
+const linkStyle = {
+    color: '#000',
+    fontWeight: 'bold',
+}
 
 class ListSprint extends React.Component {
 
@@ -77,24 +72,7 @@ class ListSprint extends React.Component {
         const { sprints, funcionalidades, sprint_ativa } = this.state;
 
         return (
-            <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-        <CardTitle tag="h4">Sprint Ativa:{sprint_ativa}</CardTitle>
-                </CardHeader>
-                <CardBody>
-                <Table responsive>
-                <thead className="text-primary">
-                    <tr>
-                        <th>Tarefa</th>
-                        <th>Data de entrega</th>
-                        <th>Desenvolvedor</th>
-                        <th>Status</th>
-                        <th></th>
-                        <th className="text-right"></th>
-                    </tr>
-                </thead>
+            <div>
                 <tbody>
                     {funcionalidades.map(funcionalidade => (
                         <tr key={funcionalidade.id}>
@@ -107,9 +85,7 @@ class ListSprint extends React.Component {
                         </tr>
                     ))}
                 </tbody>
-            </Table>
-            <hr />
-                <label>Selecionar outra Sprint</label><br />
+                <label>Selecionar outra Sprint</label>
                 <select name="sprint_id" onChange={this.handleChange}>
                     <option value=''>-</option>
                     {
@@ -118,11 +94,7 @@ class ListSprint extends React.Component {
                         ))
                     }
                 </select>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-            
+            </div>
         )
     };
 }

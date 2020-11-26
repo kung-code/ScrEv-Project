@@ -35,7 +35,7 @@ import {
   Col,
 } from "reactstrap";
 
-class Upgrade extends React.Component {
+class Help extends React.Component {
   render() {
     return (
       <>
@@ -773,4 +773,4 @@ class Upgrade extends React.Component {
   }
 }
 
-export default Upgrade;
+export default Help;

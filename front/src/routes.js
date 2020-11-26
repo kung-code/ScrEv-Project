@@ -2,7 +2,8 @@ import Dashboard from "views/Dashboard.js";
 import PendingTaskUser from "views/PendingTaskUser.js";
 import Sprint from "views/Sprint.js";
 import Backlog from "views/Backlog.js";
-import UpgradeToPro from "views/Upgrade.js";
+import Help from "views/Help.js";
+import Task from "views/Task";
 
 var routes = [
   {
@@ -34,11 +35,18 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/task",
+    name: "Tarefa",
+    icon: "nc-icon nc-single-02",
+    component: Task,
+    layout: "/admin",
+  },
+  {
     pro: true,
-    path: "/upgrade",
+    path: "/help",
     name: "Ajuda",
     icon: "nc-icon nc-alert-circle-i",
-    component: UpgradeToPro,
+    component: Help,
     layout: "/admin",
   },
 ];
