@@ -114,7 +114,7 @@ class ListSprint extends React.Component {
                     <option value=''>-</option>
                     {
                         sprints.map(res => (
-                            <option value={res.id}>{res.id}</option>
+                            <option value={res.id}>Sprint {res.id}</option>
                         ))
                     }
                 </select>

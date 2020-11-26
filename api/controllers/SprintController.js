@@ -38,6 +38,33 @@ class SprintController {
         }
 
     }
+    //read sprint by project
+    static async listaSprintsPorProjeto(req, res) {
+        const { id } = req.params
+        try {
+            const sprints = await database.sprints.findAll({
+                attributes:{
+                    /*include:[],*/
+                    exclude:['sprint_id', 'projeto_id']
+                },
+                include:[
+                    {
+                        model: funcionalidades,
+                        where: {
+                            id: Number(id)
+                        }
+                    }
+                ],
+                order:[
+                    ['data_fim','ASC']
+                ]
+            })
+            return res.status(200).json(sprints)
+        } catch (error) {
+            return res.status(500).json(error.message)
+        }
+
+    }
 
     //READ ONE
     static async pegaUmaSprint(req, res) {
