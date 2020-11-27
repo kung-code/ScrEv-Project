@@ -23,11 +23,32 @@ class InputSprint extends React.Component {
         });
     };
 
+    
+    verificaData(event){
+        let data = new Date(event);
+        let hoje = new Date();
+        if(hoje - data < 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
+
+    comparaData(event, event2){
+        let ini = new Date(event);
+        let end = new Date(event2);
+        if(end - ini > 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
+
     handleSubmit = event =>{
         event.preventDefault();
         const { data_fim, data_inicio } = this.state;
 
-        if(data_inicio === '' || data_fim === 0  || data_fim <= data_inicio){
+        if (this.verificaData(data_inicio) || this.verificaData(data_fim) || this.comparaData(data_inicio, data_fim)   ) {
             return window.alert("Dados Inválidos")
         }else{
             axios.post(`http://localhost:3333/sprints`,{  data_inicio, data_fim })
