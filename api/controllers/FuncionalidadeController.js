@@ -91,7 +91,7 @@ static async pegaFuncionalidadePorResponsavel(req,res) {
 static async pegaFuncionalidadePorProjeto(req,res) {
     const { id } = req.params
     try {
-        const funcionalidade = await database.funcionalidades.findAll( {
+        const funcionalidade = await database.funcionalidades.findAndCountAll( {
             where: {
                 projeto_id: Number(id)
             },
@@ -100,6 +100,22 @@ static async pegaFuncionalidadePorProjeto(req,res) {
                     model: usuarios
                 }
             ]
+        })
+        return res.status(200).json(funcionalidade)
+    } catch (error) {
+        return res.status(500).json(error.message)
+    }
+}
+// Ler tarefas por Desenvolvedor
+static async pegaFuncionalidadePorDev(req,res) {
+    const { id } = req.params
+    const { responsavel_id } = req.params
+    try {
+        const funcionalidade = await database.funcionalidades.findAndCountAll( {
+            where: {
+                projeto_id: Number(id),
+                responsavel_id: Number(responsavel_id)
+            }
         })
         return res.status(200).json(funcionalidade)
     } catch (error) {

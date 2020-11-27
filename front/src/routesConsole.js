@@ -12,7 +12,7 @@ var routesConsole = [
   },
   {
     path: "/users",
-    name: "Criar Usuário",
+    name: "Usuários",
     icon: "nc-icon nc-chart-pie-36",
     component: Users,
     layout: "/console",

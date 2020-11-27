@@ -1,32 +1,54 @@
 import React from "react";
 import axios from "axios";
 import EnumUser from "./EnumUser";
+import EditUser from "./EditUser";
 
+import {
+    Modal,
+    ModalHeader,
+    ModalBody,
+} from "reactstrap";
 
 const editStyle = {
-    textDecoration: 'none' 
-} ;
+    textDecoration: 'none'
+};
 
 const delStyle = {
     textDecoration: 'none',
     color: '#ff4757',
-} ;
+};
 
-function FindTipo(idTipo){
-    if(idTipo !== undefined){
-        for(let i = 0;i <EnumUser.length;i++){
-            if(idTipo === EnumUser[i].id){
+function FindTipo(idTipo) {
+    if (idTipo !== undefined) {
+        for (let i = 0; i < EnumUser.length; i++) {
+            if (idTipo === EnumUser[i].id) {
                 return EnumUser[i].tipo;
             }
-        }         
-    }else{
+        }
+    } else {
         return '';
     }
 }
 
 class ListUsers extends React.Component {
-    state = {
-        usuarios: [],
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            usuario_id: '',
+            usuarios: [],
+            modal: false
+        }
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+
+
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     componentDidMount() {
@@ -36,21 +58,21 @@ class ListUsers extends React.Component {
         });
     };
 
-// Funcao para deletar usuário
-handleDelete = event =>{
-         
-    if(window.confirm(`Deseja realmente excluir: ${event.nome}`)){
-        axios.delete(`http://localhost:3333/Usuarios/${event.id}`)
-    .then(res =>{
-        console.log(res.data);
-        window.confirm(event.nome+ " Deletado");
-        window.location.reload();
-    })
-    }   
-}
+    // Funcao para deletar usuário
+    handleDelete = event => {
 
-    render(){
-        const {usuarios} = this.state;
+        if (window.confirm(`Deseja realmente excluir: ${event.nome}`)) {
+            axios.delete(`http://localhost:3333/Usuarios/${event.id}`)
+                .then(res => {
+                    console.log(res.data);
+                    window.confirm(event.nome + " Deletado");
+                    window.location.reload();
+                })
+        }
+    }
+
+    render() {
+        const { usuarios } = this.state;
 
         return (
             <tbody>
@@ -59,15 +81,24 @@ handleDelete = event =>{
                         <td>{usuario.nome}</td>
                         <td>{usuario.login}</td>
                         <td>{FindTipo(usuario.tipo)}</td>
-                        
-                        <td><a href="" class="material-icons" name={usuario.id} style={editStyle}>edit</a></td>
-                        
+
                         <td>
-                        <a 
-                            href="#" 
-                            class="material-icons"
-                            style={delStyle}
-                            onClick={()=> this.handleDelete(usuario)} 
+                            <a type="button" onClick={this.toggle} class=" material-icons" >edit</a>
+                            <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                                <ModalHeader toggle={this.toggle}>
+                                    Editar Usuário
+                            </ModalHeader>
+                                <ModalBody>
+                                </ModalBody>
+                            </Modal>
+                        </td>
+
+                        <td>
+                            <a
+                                href="#"
+                                class="material-icons"
+                                style={delStyle}
+                                onClick={() => this.handleDelete(usuario)}
                             >delete</a>
                         </td>
 
@@ -75,8 +106,10 @@ handleDelete = event =>{
                 ))}
             </tbody>
         )
-    };
-}
+    }
+};
+
 
 
 export default ListUsers;
+

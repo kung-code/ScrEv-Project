@@ -10,6 +10,7 @@ class InputUser extends React.Component {
           nome: '',
           login: '',
           senha: '',
+          confirmacaoSenha:'',
           tipo: 0
         };
       }
@@ -20,15 +21,22 @@ class InputUser extends React.Component {
 
     handleSubmit = event =>{
         event.preventDefault();
+        const { nome, login, senha, tipo , confirmacaoSenha} = this.state;
 
-        const { nome, login, senha, tipo } = this.state;
+          if(nome === '' || senha === '' || senha != confirmacaoSenha){
 
-        axios.post(`http://localhost:3333/Usuarios`,{ nome, login, senha, tipo })
+            return window.alert("Dados Inválidos")
+
+          }else{
+
+            axios.post(`http://localhost:3333/Usuarios`,{ nome, login, senha, tipo })
         .then(res =>{
             console.log(res);
             window.alert("Usuário cadastrado");
             window.location.reload();
         })
+
+          }
     }
 
     render(){
@@ -56,6 +64,14 @@ class InputUser extends React.Component {
                type="password" 
                name="senha" 
                placeholder="Senha"
+               onChange={this.onChange}
+               />
+            <label for="confirmacaoSenha">Confirmar Senha</label>   
+            <input 
+               class="form-group form-control"
+               type="password" 
+               name="confirmacaoSenha" 
+               placeholder="Confirmar Senha"
                onChange={this.onChange}
                />
 

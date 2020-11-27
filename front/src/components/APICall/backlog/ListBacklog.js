@@ -35,7 +35,7 @@ class ListBacklog extends React.Component {
         const{projeto_id} = this.state;
         axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}`).then(res => {
             console.log(res.data);
-            this.setState({ funcionalidades: res.data });
+            this.setState({ funcionalidades: res.data.rows });
         });
 
     }
@@ -71,7 +71,7 @@ class ListBacklog extends React.Component {
              <button type="button" onClick={this.toggle} class="btn-round btn btn-primary" >Adicionar a Sprint</button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader toggle={this.toggle}>
-            Adicionar a Sprint
+            {event.nome}
           </ModalHeader>
           <ModalBody>
             <InputPlanning

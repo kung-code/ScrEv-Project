@@ -21,14 +21,14 @@ import {
   dashboardNASDAQChart,
 } from "variables/charts.js";
 
-import ListUsers from "../components/APICall/user/ListUsers";
+import ListUsersProjeto from "../components/APICall/dashBoard/ListUserProjeto";
+import DadosBacklog from "../components/APICall/dashBoard/DadosBacklog";
 
 class Dashboard extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      projeto_id: ''
     };
     this.mainPanel = React.createRef();
   }
@@ -54,7 +54,11 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Tarefas no backlog</p>
-                        <CardTitle className="text-primary" tag="p">{this.state.projeto_id}</CardTitle>
+                        <CardTitle className="text-primary" tag="p">
+                          <DadosBacklog
+                          tipo="TarefaBacklog"
+                          />
+                          </CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -73,8 +77,12 @@ class Dashboard extends React.Component {
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
-                        <p className="card-category">Tarefas em andamento</p>
-                        <CardTitle className="text-primary" tag="p">$VAR</CardTitle>
+                        <p className="card-category">Em andamento</p>
+                        <CardTitle className="text-primary" tag="p">
+                          <DadosBacklog 
+                          tipo="emAndamento"
+                          />
+                        </CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -94,7 +102,11 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Tarefas atrasadas</p>
-                        <CardTitle className="text-primary" tag="p">$VAR</CardTitle>
+                        <CardTitle className="text-primary" tag="p">
+                          <DadosBacklog
+                          tipo="atrasada"
+                          />
+                        </CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -114,7 +126,10 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Tarefas concluídas</p>
-                        <CardTitle className="text-primary" tag="p">$VAR</CardTitle>
+                        <CardTitle className="text-primary" tag="p">
+                        <DadosBacklog
+                        tipo="concluida" />
+                        </CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -209,7 +224,7 @@ class Dashboard extends React.Component {
                         <th className="text-right"></th>
                       </tr>
                     </thead>
-                    <ListUsers />
+                    <ListUsersProjeto />
                   </Table>
                 </CardBody>
               </Card>

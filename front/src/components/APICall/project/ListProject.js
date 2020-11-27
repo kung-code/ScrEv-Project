@@ -38,7 +38,7 @@ class ListProjects extends React.Component {
     //deletar projeto
     handleDelete = event => {
 
-        if (window.confirm(`Deseja realmente excluir: ${event.id}`)) {
+        if (window.confirm(`Deseja realmente excluir: ${event.descricao}`)) {
             axios.delete(`http://localhost:3333/projetos/${event.id}`)
                 .then(res => { window.alert("FOI" + res) })
                 .catch(err => window.alert("NAO FOI" + err))

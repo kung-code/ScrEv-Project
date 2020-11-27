@@ -1,4 +1,5 @@
 const database = require('../models')
+const usuarios = database.usuarios;
 
 class PlanningController {
 
@@ -26,11 +27,17 @@ static async listaPlanning(req,res) {
 
 //READ
 static async listaPlanningProjeto(req,res) {
+    const { id } = req.params
     try {
         const planning = await database.planning.findAll({
             where: {
                 projeto_id: Number(id)
-            } 
+            },
+            include:[
+                {
+                    model:usuarios
+                }
+            ]
         })
         return res.status(200).json(planning)
     } catch {
