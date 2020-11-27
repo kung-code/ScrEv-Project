@@ -14,14 +14,29 @@ class PlanningController {
     }
 
 //READ
-    static async listaPlanning(req,res) {
-        try {
-            const planning = await database.planning.findAll()
-            return res.status(200).json(planning)
-        } catch {
+static async listaPlanning(req,res) {
+    try {
+        const planning = await database.planning.findAll()
+        return res.status(200).json(planning)
+    } catch {
 
-        }
     }
+}
+
+
+//READ
+static async listaPlanningProjeto(req,res) {
+    try {
+        const planning = await database.planning.findAll({
+            where: {
+                projeto_id: Number(id)
+            } 
+        })
+        return res.status(200).json(planning)
+    } catch {
+
+    }
+}
 
 //READ ONE
     static async pegaUmaPlanning(req,res) {

@@ -80,7 +80,7 @@ class ListBacklog extends React.Component {
         </Modal>
             </div>
          }else{
-             return event.id
+             return event.sprint_id
          }
     }
 

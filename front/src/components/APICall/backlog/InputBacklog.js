@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { getAllJSDocTags } from "typescript";
 
 class InputBacklog extends React.Component {
 
@@ -35,6 +34,27 @@ class InputBacklog extends React.Component {
 
     };
 
+
+    verificaData(event){
+        let data = new Date(event);
+        let hoje = new Date();
+        if(hoje - data < 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
+
+    comparaData(event, event2){
+        let ini = new Date(event);
+        let end = new Date(event2);
+        if(end - ini > 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
+
     handleSubmit = event => {
         event.preventDefault();
         const {
@@ -47,8 +67,8 @@ class InputBacklog extends React.Component {
             data_criacao,
         } = this.state;
 
-        if (nome === '' || responsavel_id === 0) {
-            return window.alert("Dados Imcompletos")
+        if (nome === '' || responsavel_id === 0 || this.verificaData(data_criacao) || this.verificaData(data_entrega) || this.comparaData(data_criacao, data_entrega)   ) {
+            return window.alert("Erro! Verificar dados")
         } else {
             axios.post(`http://localhost:3333/funcionalidades`, {
                 nome,
