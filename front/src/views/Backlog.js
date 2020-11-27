@@ -67,10 +67,10 @@ class Backlog extends React.Component {
                     <thead className="text-primary">
                       <tr>
                         <th>Tarefa</th>
-                        <th>Data de entrega</th>
                         <th>Data de criação</th>
+                        <th>Data de entrega</th>
                         <th>Desenvolvedor</th>
-                        <th></th>
+                        <th>Sprint</th>
                         <th className="text-right"></th>
                       </tr>
                     </thead> 

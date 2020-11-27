@@ -128,7 +128,7 @@ class Dashboard extends React.Component {
               <Card>
                 <CardHeader>
                   <CardTitle tag="h5">Performance do projeto</CardTitle>
-                  <p className="card-category">Performance semanal</p>
+                  <p className="card-category">Performance anual</p>
                 </CardHeader>
                 <CardBody>
                   <Line

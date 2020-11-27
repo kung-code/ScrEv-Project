@@ -48,7 +48,7 @@ class GeneralDescriptionTask extends React.Component {
         return (
 
             <div>
-                
+                <label>Selecione uma Tarefa:</label><br></br>
                 <select name="funcionalidade" onChange={this.handleChange}>
                     <option value=''>-</option>
                     {
@@ -79,6 +79,9 @@ class GeneralDescriptionTask extends React.Component {
 
                 <label for="dtCriacao">Criao em :</label>
                 <p name="dtCriacao">{moment(funcionalidade.data_entrega).format('D/M/Y')}</p>
+
+                <label for="sprint">Branch:</label>
+                <p name="sprint">https://github.com/{projeto_nome}/Branch-{funcionalidade.sprint_id}</p>
 
             </div>
         )
