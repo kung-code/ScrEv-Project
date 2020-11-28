@@ -8,6 +8,7 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routesConsole.js";
+import EditUserView from "views/admin/user/EditUserView";
 
 var ps;
 
@@ -67,6 +68,7 @@ class Dash extends React.Component {
                 />
               );
             })}
+            <Route path="/console/edit/user" component={EditUserView}/>
           </Switch>
           <Footer fluid />
         </div>

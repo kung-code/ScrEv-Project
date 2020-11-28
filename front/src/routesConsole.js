@@ -1,5 +1,6 @@
 import Projects from "views/admin/Projects.js";
-import Users from "views/admin/Users.js";
+import Users from "views/admin/user/Users";
+import EditUserView from "views/admin/user/EditUserView";
 
 
 var routesConsole = [

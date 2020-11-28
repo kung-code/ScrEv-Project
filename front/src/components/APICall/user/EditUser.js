@@ -1,6 +1,16 @@
 import axios from "axios";
 import React from "react";
-import EnumUser from "./EnumUser";
+import { Link } from 'react-router-dom';
+
+const editStyle = {
+    textDecoration: 'none',
+    color: 'white'
+};
+
+const returnStyle = {
+    textDecoration: 'none'
+};
+
 
 class EditUser extends React.Component {
 
@@ -11,33 +21,27 @@ class EditUser extends React.Component {
             nome: '',
             login: '',
             senha: '',
-            confirmacaoSenha: '',
-            modal: false
+            confirmacaoSenha: ''
         }
-
-        this.toggle = this.toggle.bind(this);
-    }
-
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        });
     }
 
 
     componentWillMount() {
-        console.log(this.props.user_id )
-        this.setState({ user_id: this.props.user_id.id });
+        let data = localStorage.getItem('ID_Usuario')
+        this.setState({ user_id: data })
+        localStorage.removeItem('ID_Usuario')
     }
 
     componentDidMount() {
         axios.get(`http://localhost:3333/Usuarios/${this.state.user_id}`).then(res => {
             console.log(res.data);
-            this.setState({nome:res.data.nome})
-            this.setState({login:res.data.login})
-            this.setState({senha:res.data.senha})
-            this.setState({confirmacaoSenha:res.data.senha})
+            this.setState({ nome: res.data.nome })
+            this.setState({ login: res.data.login })
+            this.setState({ senha: res.data.senha })
+            this.setState({ confirmacaoSenha: res.data.senha })
         })
+
+
     }
 
     onChange = (event) => {
@@ -55,12 +59,11 @@ class EditUser extends React.Component {
             return window.alert("Dados Inválidos")
 
         } else {
-            console.log( nome, login, senha, confirmacaoSenha, user_id )
+            console.log(nome, login, senha, confirmacaoSenha, user_id)
             axios.put(`http://localhost:3333/Usuarios/${user_id}`, { nome, login, senha })
                 .then(res => {
                     console.log(res);
                     window.alert("Dados Atualizados");
-                    window.location.reload();
                 })
 
         }
@@ -69,13 +72,13 @@ class EditUser extends React.Component {
     render() {
         const { nome, login } = this.state;
         return (
-            <form onSubmit={this.handleSubmit} >
+            <form onSubmit={this.handleSubmit} href="/console/users">
                 <label for="nome">Nome</label>
                 <input
                     class="form-group form-control"
                     type="text"
                     name="nome"
-                    placeholder={nome}
+                    value={nome}
                     onChange={this.onChange}
                 />
                 <label for="login">E-mail</label>
@@ -83,7 +86,7 @@ class EditUser extends React.Component {
                     class="form-group form-control"
                     type="email"
                     name="login"
-                    placeholder={login}
+                    value={login}
                     onChange={this.onChange}
                 />
                 <label for="senha">Senha</label>
@@ -103,8 +106,15 @@ class EditUser extends React.Component {
                     onChange={this.onChange}
                 />
                 <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn-round btn btn-primary" >Alterar Dados</button>
+                    <button type="submit" class="btn-round btn btn-primary" >
+                        Alterar Dados
+                        </button>
                 </div>
+                <div class="text-right">
+                    <Link to="/console/users" style={returnStyle}><i title="Retornar ao menu anterior" class="material-icons">keyboard_return</i>
+                    </Link>
+                </div>
+                
             </form>
         );
     };

@@ -77,6 +77,7 @@ class Sidebar extends React.Component {
                     <p>{prop.name}</p>
                   </NavLink>
                 </li>
+
               );
             })}
           </Nav>

@@ -51,6 +51,10 @@ class ListUsers extends React.Component {
         });
     }
 
+    setData(event){
+        localStorage.setItem('ID_Usuario',JSON.stringify(event));
+    }
+
     componentDidMount() {
         axios.get(`http://localhost:3333/usuarios`).then(res => {
             console.log(res.data);
@@ -83,14 +87,11 @@ class ListUsers extends React.Component {
                         <td>{FindTipo(usuario.tipo)}</td>
 
                         <td>
-                            <a type="button" onClick={this.toggle} class=" material-icons" >edit</a>
-                            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                                <ModalHeader toggle={this.toggle}>
-                                    Editar Usuário
-                            </ModalHeader>
-                                <ModalBody>
-                                </ModalBody>
-                            </Modal>
+                            <a href="/console/edit/user"
+                             class=" material-icons"
+                            style={editStyle}
+                            onClick={() => this.setData(usuario.id)}
+                            >edit</a>
                         </td>
 
                         <td>
