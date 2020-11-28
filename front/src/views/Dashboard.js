@@ -165,20 +165,8 @@ class Dashboard extends React.Component {
                   <CardTitle tag="h4">Tarefas do backlog</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Tarefa</th>
-                        <th>Data de criação</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>$task_name</td>
-                        <td>$task_created_at</td>
-                      </tr>
-                    </tbody>
-                  </Table>
+                    <DadosBacklog
+                    tipo="ListarBacklog"/>
                 </CardBody>
               </Card>
             </Col>

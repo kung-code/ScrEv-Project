@@ -12,7 +12,7 @@ class InputBacklog extends React.Component {
             responsavel_id: 99,
             sprint_id: '1',
             data_entrega: '',
-            data_criacao: '',
+            data_criacao: new Date(),
             status: false,
             usuarios: [],
             projetos: []
@@ -45,16 +45,6 @@ class InputBacklog extends React.Component {
         }
     }
 
-    comparaData(event, event2){
-        let ini = new Date(event);
-        let end = new Date(event2);
-        if(end - ini > 0 ){
-            return false
-        }else{
-            return true
-        }
-    }
-
     handleSubmit = event => {
         event.preventDefault();
         const {
@@ -67,7 +57,7 @@ class InputBacklog extends React.Component {
             data_criacao,
         } = this.state;
 
-        if (nome === '' || responsavel_id === 0 || this.verificaData(data_criacao) || this.verificaData(data_entrega) || this.comparaData(data_criacao, data_entrega)   ) {
+        if (nome === '' || responsavel_id === 0 || this.verificaData(data_entrega) ) {
             return window.alert("Erro! Verificar dados")
         } else {
             axios.post(`http://localhost:3333/funcionalidades`, {
@@ -107,14 +97,7 @@ class InputBacklog extends React.Component {
                     placeholder="Descrição da tarefa"
                     onChange={this.onChange}
                 />
-                <label for="data_criacao">Data de criação</label>
-                <input
-                    class="form-group form-control"
-                    type="date"
-                    name="data_criacao"
-                    placeholder="Data de criação"
-                    onChange={this.onChange}
-                />
+                
                 <label for="data_entrega">Data de entrega</label>
                 <input
                     class="form-group form-control"

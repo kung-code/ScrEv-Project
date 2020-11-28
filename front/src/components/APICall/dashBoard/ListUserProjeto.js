@@ -40,7 +40,7 @@ class ListUserProjeto extends React.Component {
 
     render() {
         const { plannings } = this.state;
-
+        
         return (
             <tbody>
                 {plannings.map(planning => (

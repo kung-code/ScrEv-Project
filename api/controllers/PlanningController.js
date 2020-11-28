@@ -33,6 +33,9 @@ static async listaPlanningProjeto(req,res) {
             where: {
                 projeto_id: Number(id)
             },
+            order:[
+                ['membro_id','ASC']
+            ],
             include:[
                 {
                     model:usuarios

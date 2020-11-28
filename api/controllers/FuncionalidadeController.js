@@ -115,7 +115,10 @@ static async pegaFuncionalidadePorDev(req,res) {
             where: {
                 projeto_id: Number(id),
                 responsavel_id: Number(responsavel_id)
-            }
+            },
+            order:[
+                ['data_criacao','ASC']
+            ]
         })
         return res.status(200).json(funcionalidade)
     } catch (error) {
