@@ -24,7 +24,7 @@ class GeneralDescriptionTask extends React.Component {
         const { projeto_id } = this.state;
         axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}`).then(res => {
             console.log(res.data);
-            this.setState({ funcionalidades: res.data });
+            this.setState({ funcionalidades: res.data.rows });
         });
     }
 
@@ -38,7 +38,7 @@ class GeneralDescriptionTask extends React.Component {
     handleChange = (event) => {
         console.log(event)
         axios.get(`http://localhost:3333/funcionalidades/${event.target.value}`).then(res => {
-            this.setState({ funcionalidade: res.data });
+            this.setState({ funcionalidade: res.data});
             console.log(res.data);
         });
     }
