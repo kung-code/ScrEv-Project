@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 class InputPlanning extends React.Component {
 
@@ -9,14 +10,29 @@ class InputPlanning extends React.Component {
             projeto_id: '',
             membro_id: 0,
             sprint_id: 0,
-            a: this.props.funcionalidadePlanning.id,
+            a: '',//aqui está o ID da funcionalidade, tendo em vista que não há entrada no banco para esse item
+            funcionalidade:[],
             usuarios: [],
             sprints: []
         };
     }
 
+
+
     onChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
+    }
+
+    componentWillMount() {
+        let data = localStorage.getItem('ID_Projeto')
+        data = JSON.parse(data);
+        this.setState({ projeto_id: data.id })
+
+        data = localStorage.getItem('ID_Funcionalidade')
+        data = JSON.parse(data);
+        this.setState({ a: data.id })
+        this.setState({ funcionalidade: data })
+        localStorage.removeItem('ID_Funcionalidade')
     }
 
     componentDidMount() {
@@ -30,11 +46,6 @@ class InputPlanning extends React.Component {
 
     };
 
-    componentWillMount() {
-        let data = localStorage.getItem('ID_Projeto')
-        data = JSON.parse(data);
-        this.setState({ projeto_id: data.id })
-    }
 
     handleSubmit = event => {
         event.preventDefault();
@@ -72,14 +83,15 @@ class InputPlanning extends React.Component {
             })
             .catch(err => { window.alert("NAO FOI " + err) })
             };
-            window.location.reload();
 
         
     }
     render() {
-        const { usuarios, sprints } = this.state;
+        const {funcionalidade, usuarios, sprints } = this.state;
         return (
             <form onSubmit={this.handleSubmit} >
+                <label for="funcionalidade">Tarefa</label>
+                <p name="funcionalidade">{funcionalidade.nome}</p>
 
                 <label for="sprint_id">Selecionar Sprint</label><br/>
 
@@ -104,6 +116,10 @@ class InputPlanning extends React.Component {
 
                 <div class="update ml-auto mr-auto">
                     <button type="submit" class="btn-round btn btn-primary">Criar tarefa</button>
+                </div>
+                <div class="text-right">
+                    <Link to="/admin/backlog" ><i title="Retornar ao menu anterior" class="material-icons">keyboard_return</i>
+                    </Link>
                 </div>
             </form>
         );

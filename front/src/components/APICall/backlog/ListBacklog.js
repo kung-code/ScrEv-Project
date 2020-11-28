@@ -1,13 +1,7 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
-import InputPlanning from "components/APICall/planning/InputPlanning.js";
-
-import {
-    Modal,
-    ModalHeader,
-    ModalBody,
-  } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const delStyle = {
     textDecoration: 'none',
@@ -19,20 +13,23 @@ const editStyle = {
 };
 
 class ListBacklog extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             funcionalidades: [],
-            funcionalidadePlanning:[],
+            funcionalidadePlanning: [],
             projeto_id: '',
-            modal: false
         }
-        
-    this.toggle = this.toggle.bind(this);
+
     }
 
+    handleButton(event) {
+        localStorage.setItem('ID_Funcionalidade', JSON.stringify(event));
+    }
+
+
     componentDidMount() {
-        const{projeto_id} = this.state;
+        const { projeto_id } = this.state;
         axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}`).then(res => {
             console.log(res.data);
             this.setState({ funcionalidades: res.data.rows });
@@ -40,10 +37,10 @@ class ListBacklog extends React.Component {
 
     }
 
-    componentWillMount(){
+    componentWillMount() {
         let data = localStorage.getItem('ID_Projeto')
         data = JSON.parse(data);
-        this.setState({projeto_id:data.id})
+        this.setState({ projeto_id: data.id })
     }
 
     // Funcao para deletar funcionalidade
@@ -53,7 +50,7 @@ class ListBacklog extends React.Component {
             axios.delete(`http://localhost:3333/funcionalidades/${event.id}`)
                 .then(res => {
                     console.log(res.data);
-                    window.confirm(event.nome +" Deletado");
+                    window.confirm(event.nome + " Deletado");
                     window.location.reload();
                 })
         }
@@ -65,30 +62,18 @@ class ListBacklog extends React.Component {
         return dataFormatada;
     }
 
-    DefineSprint= event =>{
-         if(event.usuario.nome === "Backlog") {
-             return <div>
-             <button type="button" onClick={this.toggle} class="btn-round btn btn-primary" >Adicionar a Sprint</button>
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                <ModalHeader toggle={this.toggle}>
-            {event.nome}
-          </ModalHeader>
-          <ModalBody>
-            <InputPlanning
-            funcionalidadePlanning={event}/>
-          </ModalBody>
-        </Modal>
+    DefineSprint = event => {
+        if (event.usuario.nome === "Backlog") {
+            return <div>
+                <Link to="/admin/planning">
+                    <button type="button" class="btn-round btn btn-primary" onClick={() => this.handleButton(event)}>Adicionar a Sprint</button>
+                </Link>
             </div>
-         }else{
-             return "Sprint # "+event.sprint_id
-         }
-    }
 
-    toggle() {
-        this.setState({
-          modal: !this.state.modal
-        });
-      }
+        } else {
+            return "Sprint # " + event.sprint_id
+        }
+    }
 
 
     render() {
@@ -106,11 +91,11 @@ class ListBacklog extends React.Component {
                         </td>
 
                         <td><a href="#"
-                         class="material-icons"
-                          style={delStyle}
-                          onClick={()=> this.handleDelete(funcionalidade)} 
-                          >
-                              delete</a></td>
+                            class="material-icons"
+                            style={delStyle}
+                            onClick={() => this.handleDelete(funcionalidade)}
+                        >
+                            delete</a></td>
                     </tr>
                 ))}
             </tbody>

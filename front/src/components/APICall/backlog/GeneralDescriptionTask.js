@@ -62,7 +62,9 @@ class GeneralDescriptionTask extends React.Component {
                 <label for="projeto">Projeto</label>
                 <p name="projeto">{projeto_nome}</p>
 
-                <p>{funcionalidade.nome}</p><hr />
+                <label for="projeto">Tarefa</label>
+                <p name="projeto">{funcionalidade.nome}</p><hr />
+
                 <label for="descricao">Descricao</label><br />
                 <div name="descricao">{funcionalidade.descricao}</div><br />
 

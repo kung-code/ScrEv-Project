@@ -9,7 +9,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
-import axios from "axios";
+import Planning from "../views/admin/planning/Planning";
 var ps;
 
 class Dashboard extends React.Component {
@@ -76,6 +76,7 @@ class Dashboard extends React.Component {
                 />
               );
             })}
+            <Route path="/admin/planning" component={Planning}/>
           </Switch>
           <Footer fluid />
         </div>
