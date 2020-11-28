@@ -7,7 +7,8 @@ class DadosBacklog extends React.Component {
         this.state = {
             projeto_id: '',
             funcionalidades: [],
-            qtdeTarefasBackLog:[],
+            tarefaEmBacklog:[],
+            qtdeTarefasBackLog:0,
             totalTarefas:0
         }
     }
@@ -29,7 +30,8 @@ class DadosBacklog extends React.Component {
 
         axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}/user/${99}`).then(res =>{
             console.log(res.data.count)
-            this.setState({qtdeTarefasBackLog:res.data})
+            this.setState({qtdeTarefasBackLog:res.data.count})
+            this.setState({tarefaEmBacklog:res.data.rows})
         })
     }
 
@@ -72,9 +74,9 @@ class DadosBacklog extends React.Component {
         }else if(evento == "concluida"){
             resposta = this.ContaTarefasConcluida() 
         }else if(evento == "TarefaBacklog"){
-            resposta = qtdeTarefasBackLog.count
+            resposta = qtdeTarefasBackLog
         }else if(evento == "emAndamento"){
-            resposta = totalTarefas - qtdeTarefasBackLog.count
+            resposta = totalTarefas - qtdeTarefasBackLog
         }else resposta = "Solicitacao invalida"
 
         return(
