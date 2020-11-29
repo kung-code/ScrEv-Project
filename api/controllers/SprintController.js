@@ -18,47 +18,7 @@ class SprintController {
 
     static async listaSprints(req, res) {
         try {
-            const sprints = await database.sprints.findAll({
-                attributes:{
-                    /*include:[],*/
-                    exclude:['sprint_id', 'projeto_id']
-                },
-                order:[
-                    ['data_fim','ASC']
-                ],
-                include:[
-                    {
-                        model: funcionalidades
-                    }
-                ]
-            })
-            return res.status(200).json(sprints)
-        } catch (error) {
-            return res.status(500).json(error.message)
-        }
-
-    }
-    //read sprint by project
-    static async listaSprintsPorProjeto(req, res) {
-        const { id } = req.params
-        try {
-            const sprints = await database.sprints.findAll({
-                attributes:{
-                    /*include:[],*/
-                    exclude:['sprint_id', 'projeto_id']
-                },
-                include:[
-                    {
-                        model: funcionalidades,
-                        where: {
-                            id: Number(id)
-                        }
-                    }
-                ],
-                order:[
-                    ['data_fim','ASC']
-                ]
-            })
+            const sprints = await database.sprints.findAll()
             return res.status(200).json(sprints)
         } catch (error) {
             return res.status(500).json(error.message)

@@ -85,9 +85,9 @@ class ListBacklog extends React.Component {
                         <td>{funcionalidade.nome}</td>
                         <td>{moment(funcionalidade.data_criacao).format('D/M/Y')}</td>
                         <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
-                        <td>{funcionalidade.usuario.nome}</td>
+                        <td>{funcionalidade.horas}  h</td>
                         <td>
-                            {this.DefineSprint(funcionalidade)}
+                            {/*this.DefineSprint(funcionalidade)*/}
                         </td>
 
                         <td><a href="#"

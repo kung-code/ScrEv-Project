@@ -78,22 +78,6 @@ static async atualizaUsuario(req,res) {
             return res.status(500).json(error.message)
         }
     }
-
-// MÉTODOS DE ALOCAÇÕES
-
-    static async alocaUsuarioAProjeto(req,res) {
-        const { id } = req.params
-        const novaAlocacao = req.body
-        try {
-            const alocacao = await database.alocacoes.create(novaAlocacao, {
-                where: {id: Number(id) } 
-            })
-            return res.status(200).json(novaAlocacao)
-        } catch (error){
-            return res.status(500).json(error.message)
-        }
-
-    }
 }
 
 module.exports = UsuarioController

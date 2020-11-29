@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       funcionalidades.belongsTo(models.projetos, {
         foreignKey: 'projeto_id'
       }),
-      funcionalidades.belongsTo(models.usuarios, {
-        foreignKey: 'responsavel_id'
+      funcionalidades.hasMany(models.planning, {
+        foreignKey: 'funcionalidade_id'
       }),
       funcionalidades.hasMany(models.sprints, {
-        foreignKey: 'sprint_id'
+        foreignKey: 'funcionalidade_id'
       });
     }
   };
@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     descricao: DataTypes.TEXT,
     data_criacao: DataTypes.DATE,
     data_entrega: DataTypes.DATE,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.INTEGER,
+    horas:DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'funcionalidades',

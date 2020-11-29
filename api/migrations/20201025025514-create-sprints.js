@@ -1,31 +1,43 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('alocacoes', {
+    await queryInterface.createTable('sprints', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      data_inicio: {
+        type: Sequelize.DATE
+      },
+      data_fim: {
+        type: Sequelize.DATE
+      },
+      descricao: {
+        type: Sequelize.TEXT
+      },
       projeto_id: {
-        allowNull: false,
-        defaultValue: 0,
         type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
         references: {
           model: 'projetos',
           key: 'id'
         }
       },
-
-      membro_id: {
-        allowNull: false,
-        defaultValue: 0,
+      funcionalidade_id: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
         references: {
-          model: 'usuarios',
+          model: 'funcionalidades',
           key: 'id'
         }
+      },
+      horas: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -37,7 +49,8 @@ module.exports = {
       }
     });
   },
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('alocacoes');
+    await queryInterface.dropTable('sprints');
   }
 };

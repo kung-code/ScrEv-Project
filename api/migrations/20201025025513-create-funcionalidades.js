@@ -14,30 +14,12 @@ module.exports = {
       descricao: {
         type: Sequelize.TEXT
       },
-           projeto_id: {
+      projeto_id: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: false,
         references: {
           model: 'projetos',
-          key: 'id'
-        }
-      },
-      responsavel_id: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-        references: {
-          model: 'usuarios',
-          key: 'id'
-        }
-      },
-      sprint_id: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-        references: {
-          model: 'sprints',
           key: 'id'
         }
       },
@@ -48,7 +30,10 @@ module.exports = {
         type: Sequelize.DATE
       },
       status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.INTEGER
+      },
+      horas: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

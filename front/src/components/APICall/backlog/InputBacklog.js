@@ -1,21 +1,19 @@
 import React from "react";
 import axios from "axios";
+import moment from "moment";
 
 class InputBacklog extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            horas: 0,
             nome: '',
             descricao: '',
             projeto_id: '',
-            responsavel_id: 99,
-            sprint_id: '1',
             data_entrega: '',
-            data_criacao: new Date(),
-            status: false,
-            usuarios: [],
-            projetos: []
+            data_criacao: '',
+            status: 0
         };
     }
 
@@ -30,19 +28,53 @@ class InputBacklog extends React.Component {
 
         let data = localStorage.getItem('ID_Projeto')
         data = JSON.parse(data);
-        this.setState({projeto_id:data.id})
+        this.setState({ projeto_id: data.id })
 
     };
 
+      processar =(event)=>{
+            this.onChange(event)
+            this.converteDataEmHora()
+    }
 
-    verificaData(event){
+
+    verificaData(event) {
         let data = new Date(event);
-        let hoje = new Date();
-        if(hoje - data < 0 ){
+        let inicio = new Date();
+        if (inicio - data < 0) {
             return false
-        }else{
+        } else {
             return true
         }
+    }
+
+    converteDataEmHora = () => {
+        const {data_criacao, data_entrega} = this.state
+        console.log(data_criacao)
+        console.log(data_entrega)
+        let inicio = new Date(data_criacao)
+        let entrega = new Date(data_entrega)
+        let dias = (entrega - inicio) / (1000 * 60 * 60 * 24)
+        dias = dias.toFixed();
+        let diasUteis = this.verificaDiasUteis(dias,inicio.getDay());
+        let horasUteis = diasUteis * 8;
+        this.setState({ horas: horasUteis })
+    }
+
+    verificaDiasUteis( dias, diaSemana) {
+        let contaUteis = 0;
+        let index = diaSemana 
+        for (let i = 0; i < dias; i++) {
+            if (index == 0){
+                index++
+            }else if(index == 6){
+                index = 0
+            }else{
+                contaUteis ++
+                index ++
+            }
+        }
+        return contaUteis;
     }
 
     handleSubmit = event => {
@@ -51,23 +83,22 @@ class InputBacklog extends React.Component {
             nome,
             descricao,
             projeto_id,
-            responsavel_id,
-            sprint_id,
             data_entrega,
             data_criacao,
+            horas,
         } = this.state;
 
-        if (nome === '' || responsavel_id === 0 || this.verificaData(data_entrega) ) {
+        if (nome === ''  || this.verificaData(data_criacao) || horas === 0) {
+            console.log(data_entrega)
             return window.alert("Erro! Verificar dados")
         } else {
             axios.post(`http://localhost:3333/funcionalidades`, {
                 nome,
                 descricao,
                 projeto_id,
-                responsavel_id,
-                sprint_id,
                 data_criacao,
                 data_entrega,
+                horas
             })
                 .then(res => {
                     console.log(res.data);
@@ -77,10 +108,11 @@ class InputBacklog extends React.Component {
         }
         window.location.reload();
     }
+
     render() {
-        const { usuarios, projetos } = this.state;
+        const { horas } = this.state;
         return (
-            <form onSubmit={this.handleSubmit} >
+            <form >
                 <label for="nome">Nome</label>
                 <input
                     class="form-group form-control"
@@ -97,17 +129,36 @@ class InputBacklog extends React.Component {
                     placeholder="Descrição da tarefa"
                     onChange={this.onChange}
                 />
-                
-                <label for="data_entrega">Data de entrega</label>
+                <label for="data_criacao">Data de inicio</label>
                 <input
+                    class="form-group form-control"
+                    type="date"
+                    name="data_criacao"
+                    placeholder="Data de início"
+                    onChange={this.onChange}
+                />
+
+<label for="data_entrega">Data de entrega</label>
+                <input
+                    id="click"
                     class="form-group form-control"
                     type="date"
                     name="data_entrega"
                     placeholder="Data de Entrega"
-                    onChange={this.onChange}
+                    onChange={this.processar}
                 />
+        
+                <label for="horas">Horas designadas</label><a href="#" className="material-icons" onClick={this.converteDataEmHora}>sync</a>
+                <input
+                    type="text"
+                    name="horas"
+                    value={horas}
+                    class="form-group form-control"
+                    disabled
+                />
+
                 <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn-round btn btn-primary">Criar tarefa</button>
+                    <button class="btn-round btn btn-primary" onClick={this.handleSubmit}>Criar tarefa</button>
                 </div>
             </form>
         );

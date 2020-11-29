@@ -8,8 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      a: {
-        type: Sequelize.STRING
+      funcionalidade_id: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+        references:{
+          model: 'funcionalidades',
+          key:'id'
+        }
       },
       projeto_id: {
         type: Sequelize.INTEGER,
