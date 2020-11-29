@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import EnumBacklog from "components/APICall/backlog/EnumBacklog";
 
 const delStyle = {
     textDecoration: 'none',
@@ -63,16 +64,20 @@ class ListBacklog extends React.Component {
     }
 
     DefineSprint = event => {
-        if (event.usuario.nome === "Backlog") {
+        if (event.status == 0 || event.status == undefined || event.status == null) {
             return <div>
                 <Link to="/admin/planning">
                     <button type="button" class="btn-round btn btn-primary" onClick={() => this.handleButton(event)}>Adicionar a Sprint</button>
                 </Link>
             </div>
 
-        } else {
-            return "Sprint # " + event.sprint_id
-        }
+        } else if(event.status == 1 ){
+            return "Sprint # " + event.planning.sprint_id
+        }else if(event.status == 2){
+            return "Artefato Entregue"
+        }else if(event.status == 3){
+            return "Artefato Validado"
+        }else return 0;
     }
 
 
@@ -87,7 +92,7 @@ class ListBacklog extends React.Component {
                         <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                         <td>{funcionalidade.horas}  h</td>
                         <td>
-                            {/*this.DefineSprint(funcionalidade)*/}
+                            {this.DefineSprint(funcionalidade)}
                         </td>
 
                         <td><a href="#"

@@ -10,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       }),
       sprints.belongsTo(models.projetos, {
         foreignKey: 'projeto_id'
-      }),
-      sprints.belongsTo(models.funcionalidades, {
-        foreignKey: 'funcionalidade_id'
       })
   }
   };

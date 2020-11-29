@@ -32,9 +32,9 @@ class InputBacklog extends React.Component {
 
     };
 
-      processar =(event)=>{
-            this.onChange(event)
-            this.converteDataEmHora()
+    processar = (event) => {
+        this.onChange(event)
+        this.converteDataEmHora()
     }
 
 
@@ -49,29 +49,29 @@ class InputBacklog extends React.Component {
     }
 
     converteDataEmHora = () => {
-        const {data_criacao, data_entrega} = this.state
+        const { data_criacao, data_entrega } = this.state
         console.log(data_criacao)
         console.log(data_entrega)
         let inicio = new Date(data_criacao)
         let entrega = new Date(data_entrega)
         let dias = (entrega - inicio) / (1000 * 60 * 60 * 24)
         dias = dias.toFixed();
-        let diasUteis = this.verificaDiasUteis(dias,inicio.getDay());
+        let diasUteis = this.verificaDiasUteis(dias, inicio.getDay());
         let horasUteis = diasUteis * 8;
         this.setState({ horas: horasUteis })
     }
 
-    verificaDiasUteis( dias, diaSemana) {
+    verificaDiasUteis(dias, diaSemana) {
         let contaUteis = 0;
-        let index = diaSemana 
+        let index = diaSemana
         for (let i = 0; i < dias; i++) {
-            if (index == 0){
+            if (index == 0) {
                 index++
-            }else if(index == 6){
+            } else if (index == 6) {
                 index = 0
-            }else{
-                contaUteis ++
-                index ++
+            } else {
+                contaUteis++
+                index++
             }
         }
         return contaUteis;
@@ -86,9 +86,10 @@ class InputBacklog extends React.Component {
             data_entrega,
             data_criacao,
             horas,
+            status
         } = this.state;
 
-        if (nome === ''  || this.verificaData(data_criacao) || horas === 0) {
+        if (nome === '' || this.verificaData(data_criacao) || horas === 0) {
             console.log(data_entrega)
             return window.alert("Erro! Verificar dados")
         } else {
@@ -98,7 +99,8 @@ class InputBacklog extends React.Component {
                 projeto_id,
                 data_criacao,
                 data_entrega,
-                horas
+                horas,
+                status
             })
                 .then(res => {
                     console.log(res.data);
@@ -138,7 +140,7 @@ class InputBacklog extends React.Component {
                     onChange={this.onChange}
                 />
 
-<label for="data_entrega">Data de entrega</label>
+                <label for="data_entrega">Data de entrega</label>
                 <input
                     id="click"
                     class="form-group form-control"
@@ -147,8 +149,14 @@ class InputBacklog extends React.Component {
                     placeholder="Data de Entrega"
                     onChange={this.processar}
                 />
-        
-                <label for="horas">Horas designadas</label><a href="#" className="material-icons" onClick={this.converteDataEmHora}>sync</a>
+
+                <label for="horas">Horas designadas</label>
+                <a
+                    href="#"
+                    className="material-icons"
+                    onClick={this.converteDataEmHora}>
+                    sync
+            </a>
                 <input
                     type="text"
                     name="horas"
@@ -158,7 +166,11 @@ class InputBacklog extends React.Component {
                 />
 
                 <div class="update ml-auto mr-auto">
-                    <button class="btn-round btn btn-primary" onClick={this.handleSubmit}>Criar tarefa</button>
+                    <button
+                        class="btn-round btn btn-primary"
+                        onClick={this.handleSubmit}>
+                        Criar tarefa
+                        </button>
                 </div>
             </form>
         );

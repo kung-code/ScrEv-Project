@@ -27,15 +27,6 @@ module.exports = {
           key: 'id'
         }
       },
-      funcionalidade_id: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-        references: {
-          model: 'funcionalidades',
-          key: 'id'
-        }
-      },
       horas: {
         type: Sequelize.INTEGER
       },

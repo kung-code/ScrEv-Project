@@ -2,6 +2,7 @@ const database = require('../models')
 const usuarios = database.usuarios;
 const sprints = database.sprints;
 const projetos = database.projetos;
+const planning = database.planning;
 class FuncionalidadeController {
 
 // CREATE
@@ -22,7 +23,12 @@ static async listaFuncionalidades(req,res) {
         const funcionalidades = await database.funcionalidades.findAndCountAll({
             where:{
                 projeto_id: Number(id)
-            }
+            },
+            include:[
+                {
+                    model: planning
+                }
+            ]
         })
         return res.status(200).json(funcionalidades)
     } catch (error) {

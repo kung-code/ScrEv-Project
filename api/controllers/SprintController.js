@@ -17,8 +17,13 @@ class SprintController {
     //READ
 
     static async listaSprints(req, res) {
+        const {id} = req.params
         try {
-            const sprints = await database.sprints.findAll()
+            const sprints = await database.sprints.findAll({
+                where: {
+                    projeto_id: Number(id)
+                }
+            })
             return res.status(200).json(sprints)
         } catch (error) {
             return res.status(500).json(error.message)
@@ -31,10 +36,6 @@ class SprintController {
         const { id } = req.params
         try {
             const sprint = await database.sprints.findOne({
-                attributes:{
-                    /*include:[],*/
-                    exclude:['sprint_id', 'projeto_id']
-                },
                 where: {
                     id: Number(id)
                 }

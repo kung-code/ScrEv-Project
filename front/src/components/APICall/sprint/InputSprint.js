@@ -6,85 +6,158 @@ class InputSprint extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          data_inicio: '',
-          data_fim: '',
-          projeto_id: this.props.projeto_id,
-          projetos: []
+            data_inicio: '',
+            data_fim: '',
+            descricao: '',
+            horas: 0,
+            projeto_id: this.props.projeto_id
         };
-      }
-    
+    }
+
     onChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
-    }
-
-    componentDidMount() {
-        axios.get(`http://localhost:3333/projetos`).then(res => {
-            this.setState({ projetos: res.data });
-        });
     };
 
-    
-    verificaData(event){
+    processar = (event) => {
+        this.onChange(event)
+        this.converteDataEmHora()
+    }
+
+    converteDataEmHora = () => {
+        const { data_inicio, data_fim } = this.state
+        console.log(data_inicio)
+        console.log(data_fim)
+        let inicio = new Date(data_inicio)
+        let entrega = new Date(data_fim)
+        let dias = (entrega - inicio) / (1000 * 60 * 60 * 24)
+        dias = dias.toFixed();
+        let diasUteis = this.verificaDiasUteis(dias, inicio.getDay());
+        let horasUteis = diasUteis * 8;
+        this.setState({ horas: horasUteis })
+    }
+
+    verificaDiasUteis(dias, diaSemana) {
+        let contaUteis = 0;
+        let index = diaSemana
+        for (let i = 0; i < dias; i++) {
+            if (index == 0) {
+                index++
+            } else if (index == 6) {
+                index = 0
+            } else {
+                contaUteis++
+                index++
+            }
+        }
+        return contaUteis;
+    }
+
+
+    verificaData(event) {
         let data = new Date(event);
         let hoje = new Date();
-        if(hoje - data < 0 ){
+        if (hoje - data < 0) {
             return false
-        }else{
+        } else {
             return true
         }
     }
 
-    comparaData(event, event2){
+    comparaData(event, event2) {
         let ini = new Date(event);
         let end = new Date(event2);
-        if(end - ini > 0 ){
+        if (end - ini > 0) {
             return false
-        }else{
+        } else {
             return true
         }
     }
 
-    handleSubmit = event =>{
+    handleSubmit = event => {
         event.preventDefault();
-        const { data_fim, data_inicio } = this.state;
+        const {
+            data_fim,
+            data_inicio,
+            horas,
+            projeto_id,
+            descricao
+        } = this.state;
 
-        if (this.verificaData(data_inicio) || this.verificaData(data_fim) || this.comparaData(data_inicio, data_fim)   ) {
+        if (this.verificaData(data_inicio) || this.verificaData(data_fim) || this.comparaData(data_inicio, data_fim)) {
             return window.alert("Dados Inválidos")
-        }else{
-            axios.post(`http://localhost:3333/sprints`,{  data_inicio, data_fim })
-        .then(res =>{
-            console.log(res);
-            console.log(res.data);
-            window.alert("Sprint Criada com Sucesso!");
-            window.location.reload();
-        }).catch(err =>{ window.alert("Falha ao criar Sprint!" + err);})
+        } else {
+            axios.post(`http://localhost:3333/sprints`, {
+                data_fim,
+                data_inicio,
+                horas,
+                projeto_id,
+                descricao
+            })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    window.alert("Sprint Criada com Sucesso!");
+                    window.location.reload();
+                }).catch(err => { window.alert("Falha ao criar Sprint!" + err); })
         }
     }
 
-    render(){
-        const {projetos}= this.state;
+    render() {
+        const { horas } = this.state
+
         return (
-          <form onSubmit={this.handleSubmit} >
-            <label for="data_inicio">Início da Sprint</label>
-            <input 
-                class="form-group form-control"
-               type="date" 
-               name="data_inicio" 
-               placeholder="Data de criação"
-               onChange={this.onChange}
-               />
-            <label for="data_fim">Término da Sprint</label>
-            <input 
-                class="form-group form-control"
-               type="date" 
-               name="data_fim" 
-               placeholder="Término da Sprint"
-               onChange={this.onChange}
-               />
-               <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn-round btn btn-primary">Criar Sprint</button> 
-               </div>
-            </form>  
+            <form>
+                <label for="descricao">Descrição da Sprint</label>
+                <textarea
+                    class="form-group form-control"
+                    type="text"
+                    name="descricao"
+                    placeholder="Descreva os eventos da Sprint"
+                    onChange={this.onChange}
+                />
+
+
+
+                <label for="data_inicio">Início da Sprint</label>
+                <input
+                    class="form-group form-control"
+                    type="date"
+                    name="data_inicio"
+                    placeholder="Data de criação"
+                    onChange={this.onChange}
+                />
+                <label for="data_fim">Término da Sprint</label>
+                <input
+                    class="form-group form-control"
+                    type="date"
+                    name="data_fim"
+                    placeholder="Término da Sprint"
+                    onChange={this.processar}
+                />
+
+                <label for="horas">Horas designadas</label>
+                <a
+                    href="#"
+                    className="material-icons"
+                    onClick={this.converteDataEmHora}>sync
+                </a>
+
+                <input
+                    type="text"
+                    name="horas"
+                    value={horas}
+                    class="form-group form-control"
+                    disabled
+                />
+
+                <div class="update ml-auto mr-auto">
+                    <button
+                        class="btn-round btn btn-primary"
+                        onClick={this.handleSubmit}>
+                        Criar Sprint
+                    </button>
+                </div>
+            </form>
         );
     };
 }

@@ -3,16 +3,8 @@ import axios from "axios";
 import moment from "moment";
 
 import {
-    Card,
-    CardHeader,
     CardBody,
-    CardTitle,
-    Table,
-    Row,
-    Col,
-    Modal,
-    ModalHeader,
-    ModalBody,
+    Table
 } from "reactstrap";
 
 const delStyle = {

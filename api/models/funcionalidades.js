@@ -15,9 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       }),
       funcionalidades.hasMany(models.planning, {
         foreignKey: 'funcionalidade_id'
-      }),
-      funcionalidades.hasMany(models.sprints, {
-        foreignKey: 'funcionalidade_id'
       });
     }
   };
