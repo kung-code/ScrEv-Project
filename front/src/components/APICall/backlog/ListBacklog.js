@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import EnumBacklog from "components/APICall/backlog/EnumBacklog";
 
 const delStyle = {
     textDecoration: 'none',

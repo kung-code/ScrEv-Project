@@ -34,10 +34,12 @@ class SprintController {
     //READ ONE
     static async pegaUmaSprint(req, res) {
         const { id } = req.params
+        const {projeto_id} = req.params
         try {
-            const sprint = await database.sprints.findOne({
+           const sprint = await database.sprints.findOne({
                 where: {
-                    id: Number(id)
+                    projeto_id: Number(projeto_id),
+                    id:Number(id)
                 }
             })
             return res.status(200).json(sprint)

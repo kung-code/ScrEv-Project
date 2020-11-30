@@ -28,6 +28,9 @@ static async listaFuncionalidades(req,res) {
                 {
                     model: planning
                 }
+            ],
+            order:[
+                ['data_entrega','ASC']
             ]
         })
         return res.status(200).json(funcionalidades)

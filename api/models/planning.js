@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       }),
       planning.belongsTo(models.sprints, {
         foreignKey: 'sprint_id'
+      }),
+      planning.belongsTo(models.funcionalidades, {
+        foreignKey: 'funcionalidade_id'
       })
     }
   };

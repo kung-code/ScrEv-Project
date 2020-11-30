@@ -1,5 +1,7 @@
-const database = require('../models')
+const database = require('../models');
 const usuarios = database.usuarios;
+const funcionalidades = database.funcionalidades;
+const sprints = database.sprints;
 
 class PlanningController {
 
@@ -13,16 +15,6 @@ class PlanningController {
             res.status(500).json(error.message)
         }
     }
-
-//READ
-static async listaPlanning(req,res) {
-    try {
-        const planning = await database.planning.findAll()
-        return res.status(200).json(planning)
-    } catch {
-
-    }
-}
 
 
 //READ
@@ -38,12 +30,36 @@ static async listaPlanningProjeto(req,res) {
             ],
             include:[
                 {
-                    model:usuarios
+                    model:usuarios,
+                    model:funcionalidades
                 }
             ]
         })
         return res.status(200).json(planning)
-    } catch {
+    } catch (error) {
+        res.status(500).json(error.message)
+
+    }
+}
+
+//READ by SPRINT
+static async listaPlanningSprint(req,res) {
+    const { id } = req.params
+    try {
+        const planning = await database.planning.findAll({
+            where: {
+                sprint_id: Number(id)
+            },
+            include:[
+                {
+                    model:usuarios,
+                    model:funcionalidades
+                }
+            ]
+        })
+        return res.status(200).json(planning)
+    } catch (error) {
+        res.status(500).json(error.message)
 
     }
 }
@@ -55,7 +71,13 @@ static async listaPlanningProjeto(req,res) {
             const planning = await database.planning.findOne( {
                 where: {
                     id: Number(id)
-                }
+                },
+                include:[
+                    {
+                        model:usuarios,
+                        model:funcionalidades
+                    }
+                ]
             })
             return res.status(200).json(planning)
         } catch (error) {
