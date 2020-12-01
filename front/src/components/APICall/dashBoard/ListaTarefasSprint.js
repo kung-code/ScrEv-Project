@@ -60,7 +60,7 @@ class ListaTarefasSprint extends React.Component {
             {planning.map(res => (
                 <tr key={res.id}>
                     <td>{res.funcionalidade.nome}</td>
-                    <td>{this.DefineSprint(res.funcionalidade.status)}</td>
+                    <td>{this.DefineSprint(res.funcionalidade)}</td>
                     <td>{moment(res.funcionalidade.data_entrega).format('D/M/Y')}</td>
                 </tr>
             ))}
