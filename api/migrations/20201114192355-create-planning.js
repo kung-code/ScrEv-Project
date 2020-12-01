@@ -15,7 +15,8 @@ module.exports = {
         references:{
           model: 'funcionalidades',
           key:'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       projeto_id: {
         type: Sequelize.INTEGER,
@@ -24,7 +25,8 @@ module.exports = {
         references: {
           model: 'projetos',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       membro_id: {
         type: Sequelize.INTEGER,
@@ -33,7 +35,8 @@ module.exports = {
         references: {
           model: 'usuarios',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       sprint_id: {
         type: Sequelize.INTEGER,
@@ -42,7 +45,8 @@ module.exports = {
         references: {
           model: 'sprints',
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
