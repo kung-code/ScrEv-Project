@@ -10,8 +10,9 @@ class InputPlanning extends React.Component {
             projeto_id: '',
             membro_id: 0,
             sprint_id: 0,
-            a: '',//aqui está o ID da funcionalidade, tendo em vista que não há entrada no banco para esse item
-            funcionalidade:[],
+            funcionalidade_id: 0,
+            status: 1,
+            funcionalidade: [],
             usuarios: [],
             sprints: []
         };
@@ -30,17 +31,19 @@ class InputPlanning extends React.Component {
 
         data = localStorage.getItem('ID_Funcionalidade')
         data = JSON.parse(data);
-        this.setState({ a: data.id })
+        this.setState({ funcionalidade_id: data.id })
         this.setState({ funcionalidade: data })
-        localStorage.removeItem('ID_Funcionalidade')
+        //localStorage.removeItem('ID_Funcionalidade')
     }
 
     componentDidMount() {
+        const { projeto_id } = this.state
+
         axios.get(`http://localhost:3333/usuarios/tipo/1`).then(res => {
             this.setState({ usuarios: res.data });
         });
 
-        axios.get(`http://localhost:3333/sprints`).then(res => {
+        axios.get(`http://localhost:3333/sprints/${projeto_id}`).then(res => {
             this.setState({ sprints: res.data });
         });
 
@@ -53,47 +56,47 @@ class InputPlanning extends React.Component {
             projeto_id,
             membro_id,
             sprint_id,
-            a
+            funcionalidade_id
         } = this.state;
 
         if (membro_id === '' || sprint_id === '') {
             return window.alert("Dados Imcompletos")
         } else {
             axios.post(`http://localhost:3333/planning`, {
-                a,
+                funcionalidade_id,
                 projeto_id,
                 membro_id,
                 sprint_id,
             }).then(res => {
-                    console.log(res.data);
-                })
-                .catch(err => { 
-                    window.alert("NAO FOI " + err) 
-                    window.location.reload()
+                this.atualizaStatusFuncionalidade();
+                console.log(res.data);
+            })
+                .catch(err => {
+                    window.alert("NAO FOI " + err)
                 });
 
-                let responsavel_id = membro_id;
-        
-            axios.put(`http://localhost:3333/funcionalidades/${a}`,{
-                responsavel_id,
-                sprint_id
-            }).then(res => {
-                console.log(res.data);
-                window.alert("FOi" + res)
-            })
-            .catch(err => { window.alert("NAO FOI " + err) })
-            };
-
-        
+        };
     }
+
+    atualizaStatusFuncionalidade(){
+        const{status, funcionalidade_id} = this.state
+        axios.put(`http://localhost:3333/funcionalidades/${funcionalidade_id}`, {status}).then(res =>{
+            console.log(res.data)
+            window.alert("FOI");
+        }).catch(err => {
+            window.alert("NAO FOI " + err)
+        });
+    }
+
+
     render() {
-        const {funcionalidade, usuarios, sprints } = this.state;
+        const { funcionalidade, usuarios, sprints } = this.state;
         return (
-            <form onSubmit={this.handleSubmit} >
+            <form >
                 <label for="funcionalidade">Tarefa</label>
                 <p name="funcionalidade">{funcionalidade.nome}</p>
 
-                <label for="sprint_id">Selecionar Sprint</label><br/>
+                <label for="sprint_id">Selecionar Sprint</label><br />
 
                 <select name="sprint_id" onChange={this.onChange}>
                     <option value=''>-</option>
@@ -102,9 +105,9 @@ class InputPlanning extends React.Component {
                             <option key={res.id} value={res.id}>Sprint {res.id}</option>
                         ))
                     }
-                </select><br/>
+                </select><br />
 
-                <label for="membro_id">Selecionar desenvolvedor</label><br/>
+                <label for="membro_id">Selecionar desenvolvedor</label><br />
                 <select name="membro_id" onChange={this.onChange}>
                     <option value=''>-</option>
                     {
@@ -115,7 +118,11 @@ class InputPlanning extends React.Component {
                 </select>
 
                 <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn-round btn btn-primary">Criar tarefa</button>
+                    <button
+                        class="btn-round btn btn-primary"
+                        onClick={this.handleSubmit} >
+                        Criar tarefa
+                        </button>
                 </div>
                 <div class="text-right">
                     <Link to="/admin/backlog" ><i title="Retornar ao menu anterior" class="material-icons">keyboard_return</i>

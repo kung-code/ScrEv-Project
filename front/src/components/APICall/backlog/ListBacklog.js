@@ -17,8 +17,8 @@ class ListBacklog extends React.Component {
         super(props);
         this.state = {
             funcionalidades: [],
-            funcionalidadePlanning: [],
-            projeto_id: '',
+            planning: [],
+            projeto_id: ''
         }
 
     }
@@ -56,6 +56,17 @@ class ListBacklog extends React.Component {
         }
     }
 
+    PegaSprintPorFunc = (event) => {
+
+        axios.get(`http://localhost:3333/planning/funcionalidade/${event}`).then(res => {
+            if(res === undefined) {
+                return 0
+            }else{
+                return res.data.sprint.id;
+            }
+        })
+    }
+
     ConverteData = event => {
         var data = new Date(event);
         var dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`
@@ -63,22 +74,29 @@ class ListBacklog extends React.Component {
     }
 
     DefineSprint = event => {
+        let statusFunc
         if (event.status == 0 || event.status == undefined || event.status == null) {
-            return <div>
+            statusFunc = <div>
                 <Link to="/admin/planning">
-                    <button type="button" class="btn-round btn btn-primary" onClick={() => this.handleButton(event)}>Adicionar a Sprint</button>
+                    <button
+                        type="button"
+                        class="btn-round btn btn-primary"
+                        onClick={() => this.handleButton(event)}>
+                        Adicionar a Sprint
+                        </button>
                 </Link>
             </div>
 
-        } else if(event.status == 1 ){
-            return "Sprint # " + event.planning.sprint_id
-        }else if(event.status == 2){
-            return "Artefato Entregue"
-        }else if(event.status == 3){
-            return "Artefato Validado"
-        }else return 0;
-    }
+        } else if (event.status == 1) {
+            statusFunc =  "Sprint #" + this.PegaSprintPorFunc(event.id)
+        } else if (event.status == 2) {
+            statusFunc = "Artefato Entregue"
+        } else if (event.status == 3) {
+            statusFunc = "Artefato Validado"
+        } else statusFunc = 0;
 
+        return statusFunc;
+    }
 
     render() {
         const { funcionalidades } = this.state;

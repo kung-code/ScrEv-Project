@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'projeto_id'
       }),
       funcionalidades.hasMany(models.planning, {
-        foreignKey: 'funcionalidade_id'
+        foreignKey: 'funcionalidade_id',
+        onDelete:'cascade',
+        hooks:true
       });
     }
   };

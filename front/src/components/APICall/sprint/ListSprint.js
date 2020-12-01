@@ -29,7 +29,7 @@ class ListSprint extends React.Component {
             sprints: [],
             sprint_ativa: '',
             sprint_id: '',
-            funcionalidades: [],
+            planning:[],
             projeto_id: ''
         }
     }
@@ -49,20 +49,21 @@ class ListSprint extends React.Component {
         let id = event.target.value;
         axios.get(`http://localhost:3333/sprints/projeto/${projeto_id}/${id}`).then(res =>{
             this.setState({sprint_ativa:res.data})
-            console.log(sprint_ativa)
+            //console.log(sprint_ativa)
         })
         axios.get(`http://localhost:3333/plannings/sprint/${id}`).then(res =>{
-            console.log(res.data.funcionalidade)
-            this.setState({funcionalidade: res.data.funcionalidade })
+            console.log(res.data)
+            this.setState({planning: res.data })
+            console.log(res.data)
         })
     }
 
     componentDidMount() {
-        const { projeto_id } = this.state
+        const { projeto_id, sprint_ativa } = this.state
         const hoje = new Date();
         axios.get(`http://localhost:3333/sprints/${projeto_id}`).then(res => {
             this.setState({ sprints: res.data });
-            console.log(res.data)
+            //console.log(res.data)
 
             for (let j = 0; j < res.data.length; j++) {
                 let i = new Date(res.data[j].data_fim)
@@ -70,7 +71,11 @@ class ListSprint extends React.Component {
                 if (i > hoje) {
 
                     this.setState({ sprint_ativa: res.data[j] });
-                    console.log(res.data[j])
+                    axios.get(`http://localhost:3333/plannings/sprint/${res.data[j].id}`).then(res =>{
+                        console.log(res.data)
+                        this.setState({planning: res.data })
+                        console.log(res.data)
+                    })          
                     break;
                 }
             }
@@ -106,12 +111,13 @@ class ListSprint extends React.Component {
                         ))
                     }
                 </select>
+                {this.ListaPadrao()}
             </div >
         )
     }
 
     ListaPadrao() {
-        const { funcionalidades } = this.state;
+        const { planning } = this.state;
         return (
             <CardBody>
                 <Table responsive>
@@ -119,19 +125,22 @@ class ListSprint extends React.Component {
                         <tr>
                             <th>Tarefa</th>
                             <th>Data de entrega</th>
+                            <th>Tempo da tarefa</th>
                             <th>Desenvolvedor</th>
                             <th className="text-right"></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {funcionalidades.map(funcionalidade => (
-                            <tr key={funcionalidade.id}>
-                                <td>{funcionalidade.nome}</td>
-                                <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
-                                <td>{funcionalidade.usuario.nome}</td>
+                        {planning.map(res => (
+                            <tr key={res.funcionalidade.id}>
+                                {console.log(res)}
+                                <td>{res.funcionalidade.nome}</td>
+                                <td>{moment(res.funcionalidade.data_entrega).format('D/M/Y')}</td>
+                                <td>{res.funcionalidade.horas} h</td>
+                                <td>{res.usuario.nome}</td>
 
-                                <td><a href="#" class="material-icons" style={delStyle}>delete</a></td>
+                                
                             </tr>
                         ))}
                     </tbody>

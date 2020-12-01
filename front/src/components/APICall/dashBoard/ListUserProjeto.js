@@ -4,6 +4,8 @@ import EnumUser from "components/APICall/user/EnumUser";
 
 
 function FindTipo(idTipo) {
+
+
     if (idTipo !== undefined) {
         for (let i = 0; i < EnumUser.length; i++) {
             if (idTipo === EnumUser[i].id) {
@@ -15,17 +17,17 @@ function FindTipo(idTipo) {
     }
 }
 
-
 class ListUserProjeto extends React.Component {
+
     state = {
         plannings: [],
         projeto_id: '',
-
+        users:[]
 
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3333/plannings/projeto/${this.state.projeto_id}`).then(res => {
+        axios.get(`http://localhost:3333/dashboard/plannings/projeto/${this.state.projeto_id}`).then(res => {
             console.log(res.data);
             this.setState({ plannings: res.data });
         });
@@ -38,9 +40,28 @@ class ListUserProjeto extends React.Component {
         this.setState({ projeto_id: data.id })
     }
 
-    render() {
-        const { plannings } = this.state;
+    RemoveDuplicatasUser(){
+        const {plannings} = this.state
+        let novaLista = []
         
+        for(let i = 0; i < plannings.length;i++){
+            if(i == 0){
+                novaLista.push(plannings[i])
+            }else if(plannings[i].membro_id === plannings[i -1].membro_id ){
+                continue
+            }else {
+                novaLista.push(plannings[i])
+            }
+        }
+        console.log(novaLista)
+        this.setState({users: novaLista})
+
+    }
+
+    render() {
+     const {plannings, users} = this.state
+    
+     //this.RemoveDuplicatasUser()
         return (
             <tbody>
                 {plannings.map(planning => (

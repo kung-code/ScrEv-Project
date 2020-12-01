@@ -23,6 +23,7 @@ import {
 
 import ListUsersProjeto from "../components/APICall/dashBoard/ListUserProjeto";
 import DadosBacklog from "../components/APICall/dashBoard/DadosBacklog";
+import ListaTarefasSprint from "../components/APICall/dashBoard/ListaTarefasSprint";
 
 class Dashboard extends React.Component {
 
@@ -184,13 +185,7 @@ class Dashboard extends React.Component {
                         <th>Data de entrega</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>$task_name</td>
-                        <td>$task_status</td>
-                        <td>$task_deadline</td>
-                      </tr>
-                    </tbody>
+                    <ListaTarefasSprint />
                   </Table>
                 </CardBody>
               </Card>

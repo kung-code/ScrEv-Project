@@ -5,8 +5,8 @@ const sprints = database.sprints;
 
 class PlanningController {
 
-// CREATE
-    static async criaPlanning(req,res) {
+    // CREATE
+    static async criaPlanning(req, res) {
         const novaPlannig = req.body
         try {
             const plannigCriada = await database.planning.create(novaPlannig)
@@ -17,65 +17,141 @@ class PlanningController {
     }
 
 
-//READ
-static async listaPlanningProjeto(req,res) {
-    const { id } = req.params
-    try {
-        const planning = await database.planning.findAll({
-            where: {
-                projeto_id: Number(id)
-            },
-            order:[
-                ['membro_id','ASC']
-            ],
-            include:[
-                {
-                    model:usuarios,
-                    model:funcionalidades
-                }
-            ]
-        })
-        return res.status(200).json(planning)
-    } catch (error) {
-        res.status(500).json(error.message)
-
-    }
-}
-
-//READ by SPRINT
-static async listaPlanningSprint(req,res) {
-    const { id } = req.params
-    try {
-        const planning = await database.planning.findAll({
-            where: {
-                sprint_id: Number(id)
-            },
-            include:[
-                {
-                    model:usuarios,
-                    model:funcionalidades
-                }
-            ]
-        })
-        return res.status(200).json(planning)
-    } catch (error) {
-        res.status(500).json(error.message)
-
-    }
-}
-
-//READ ONE
-    static async pegaUmaPlanning(req,res) {
+    //READ
+    static async listaPlanningProjeto(req, res) {
         const { id } = req.params
         try {
-            const planning = await database.planning.findOne( {
+            const planning = await database.planning.findAll({
+                where: {
+                    projeto_id: Number(id)
+                },
+                order: [
+                    ['membro_id', 'ASC']
+                ],
+                include: [
+                    {
+                        model: usuarios
+                    }, {
+                        model: funcionalidades
+                    }
+                ]
+            })
+            return res.status(200).json(planning)
+        } catch (error) {
+            res.status(500).json(error.message)
+
+        }
+    }
+
+    //ler usuarios do projeto e mostra no dashboard
+    static async listaUserProjeto(req, res) {
+        const { id } = req.params
+        try {
+            const planning =await database.planning.findAll({
+                attribute:[
+                    'membro_id'
+                ],
+                where: {
+                    projeto_id: Number(id)
+                },
+                order: [
+                    ['membro_id', 'ASC']
+                ],
+                include: [
+                    {
+                        model: usuarios
+                    }
+                ]
+            })
+            return res.status(200).json(planning)
+        } catch (error) {
+            res.status(500).json(error.message)
+
+        }
+    }
+
+    //READ by SPRINT
+    static async listaPlanningSprint(req, res) {
+        const { id } = req.params
+        try {
+            const planning = await database.planning.findAll({
+                where: {
+                    sprint_id: Number(id)
+                },
+                include: [
+                    {
+                        model: funcionalidades
+                    }, {
+                        model: usuarios
+                    }
+                ]
+            })
+            return res.status(200).json(planning)
+        } catch (error) {
+            res.status(500).json(error.message)
+
+        }
+    }
+
+
+        //READ by SPRINT no DashBoar (5 itens)
+        static async listaDashPlanningSprint(req, res) {
+            const { id } = req.params
+            try {
+                const planning = await database.planning.findAll({
+                    where: {
+                        sprint_id: Number(id)
+                    },
+                    include: [
+                        {
+                            model: funcionalidades
+                        }, {
+                            model: usuarios
+                        }
+                    ],
+                    limit: 5
+                })
+                return res.status(200).json(planning)
+            } catch (error) {
+                res.status(500).json(error.message)
+    
+            }
+        }
+
+    //READ by funcionalidade
+    static async pegaPlanningFuncionalidade(req, res) {
+        const { id } = req.params
+        try {
+            const planning = await database.planning.findOne({
+                where: {
+                    funcionalidade_id: Number(id)
+                },
+                include: [
+                    {
+                        model: funcionalidades
+                    }, {
+                        model: sprints
+                    }
+                ]
+            })
+            return res.status(200).json(planning)
+        } catch (error) {
+            res.status(500).json(error.message)
+
+        }
+    }
+
+    //READ ONE
+    static async pegaUmaPlanning(req, res) {
+        const { id } = req.params
+        try {
+            const planning = await database.planning.findOne({
                 where: {
                     id: Number(id)
                 },
-                include:[
+                include: [
                     {
-                        model:usuarios,
-                        model:funcionalidades
+                        model: funcionalidades
                     }
                 ]
             })
@@ -85,12 +161,12 @@ static async listaPlanningSprint(req,res) {
         }
     }
 
-//UPDATE
-    static async atualizaPlanning(req,res) {
+    //UPDATE
+    static async atualizaPlanning(req, res) {
         const { id } = req.params
         const novasInfos = req.body
         try {
-             await database.planning.update( novasInfos, {
+            await database.planning.update(novasInfos, {
                 where: {
                     id: Number(id)
                 }
@@ -106,11 +182,11 @@ static async listaPlanningSprint(req,res) {
         }
     }
 
-//DELETE
-    static async deletaUmaPlanning(req,res) {
+    //DELETE
+    static async deletaUmaPlanning(req, res) {
         const { id } = req.params
         try {
-            const planning = await database.planning.destroy( {
+            const planning = await database.planning.destroy({
                 where: {
                     id: Number(id)
                 }

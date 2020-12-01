@@ -74,8 +74,6 @@ class Sprint extends React.Component {
                 </CardHeader>
                 {<ListSprint
                     tipo="SelecionarSprint"/>}
-               { <ListSprint
-                  tipo="ListaPadrao"/>}
               </Card>
             </Col>
           </Row>

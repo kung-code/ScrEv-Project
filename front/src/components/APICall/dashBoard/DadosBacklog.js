@@ -11,6 +11,7 @@ class DadosBacklog extends React.Component {
             projeto_id: '',
             funcionalidades: [],
             tarefaEmBacklog: [],
+            tarefasDaSprint:[],
             qtdeTarefasBackLog: 0,
             totalTarefas: 0
         }
@@ -31,7 +32,7 @@ class DadosBacklog extends React.Component {
             this.setState({ totalTarefas: res.data.count })
         })
 
-        axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}/user/${99}`).then(res => {
+        axios.get(`http://localhost:3333/funcionalidades/projeto/${projeto_id}/status/${0}`).then(res => {
             console.log(res.data.count)
             this.setState({ qtdeTarefasBackLog: res.data.count })
             this.setState({ tarefaEmBacklog: res.data.rows })
@@ -43,7 +44,7 @@ class DadosBacklog extends React.Component {
         let contaTarefa = 0
         const { funcionalidades } = this.state
         funcionalidades.map(funcionalidade => {
-            if (funcionalidade.status !== null) {
+            if (funcionalidade.status > 1){
                 contaTarefa = contaTarefa + 1
             }
         }
@@ -74,14 +75,14 @@ class DadosBacklog extends React.Component {
                 <thead className="text-primary">
                     <tr>
                         <th>Tarefa</th>
-                        <th>Data de criação</th>
+                        <th>Data de Entrega</th>
                     </tr>
                 </thead>
                 <tbody>
                     {tarefaEmBacklog.map(res => (
                         <tr key={res.id}>
                             <td>{res.nome}</td>
-                            <td>{moment(res.data_criacao).format('D/M/Y')}</td>
+                            <td>{moment(res.data_entrega).format('D/M/Y')}</td>
 
                         </tr>
                     ))}
