@@ -18,11 +18,6 @@ class InputSprint extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    processar = (event) => {
-        this.onChange(event)
-        this.converteDataEmHora()
-    }
-
     converteDataEmHora = () => {
         const { data_inicio, data_fim } = this.state
         console.log(data_inicio)
@@ -105,6 +100,15 @@ class InputSprint extends React.Component {
     render() {
         const { horas } = this.state
 
+        const processar = async(event) => {
+            try{
+                await this.onChange(event)
+                await this.converteDataEmHora()
+            }catch(err){
+                console.log(err)
+            }
+        }
+
         return (
             <form>
                 <label for="descricao">Descrição da Sprint</label>
@@ -132,15 +136,11 @@ class InputSprint extends React.Component {
                     type="date"
                     name="data_fim"
                     placeholder="Término da Sprint"
-                    onChange={this.processar}
+                    onChange={processar}
                 />
 
                 <label for="horas">Horas designadas</label>
-                <a
-                    href="#"
-                    className="material-icons"
-                    onClick={this.converteDataEmHora}>sync
-                </a>
+                
 
                 <input
                     type="text"

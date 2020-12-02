@@ -32,11 +32,6 @@ class InputBacklog extends React.Component {
 
     };
 
-    processar = (event) => {
-        this.onChange(event)
-        this.converteDataEmHora()
-    }
-
 
     verificaData(event) {
         let data = new Date(event);
@@ -113,6 +108,15 @@ class InputBacklog extends React.Component {
 
     render() {
         const { horas } = this.state;
+
+        const processar = async (event) => {
+            try{
+                await this.onChange(event)
+                await this.converteDataEmHora()
+            }catch (err){
+                console.log(err)
+            }
+        }
         return (
             <form >
                 <label for="nome">Nome</label>
@@ -147,16 +151,11 @@ class InputBacklog extends React.Component {
                     type="date"
                     name="data_entrega"
                     placeholder="Data de Entrega"
-                    onChange={this.processar}
+                    onChange={processar}
                 />
 
                 <label for="horas">Horas designadas</label>
-                <a
-                    href="#"
-                    className="material-icons"
-                    onClick={this.converteDataEmHora}>
-                    sync
-            </a>
+
                 <input
                     type="text"
                     name="horas"

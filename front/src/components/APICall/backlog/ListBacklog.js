@@ -59,9 +59,9 @@ class ListBacklog extends React.Component {
     PegaSprintPorFunc = (event) => {
 
         axios.get(`http://localhost:3333/planning/funcionalidade/${event}`).then(res => {
-            if(res === undefined) {
+            if (res === undefined) {
                 return 0
-            }else{
+            } else {
                 return res.data.sprint.id;
             }
         })
@@ -73,33 +73,42 @@ class ListBacklog extends React.Component {
         return dataFormatada;
     }
 
-    DefineSprint = event => {
-        let statusFunc
-        if (event.status == 0 || event.status == undefined || event.status == null) {
-            statusFunc = <div>
-                <Link to="/admin/planning">
-                    <button
-                        type="button"
-                        class="btn-round btn btn-primary"
-                        onClick={() => this.handleButton(event)}>
-                        Adicionar a Sprint
-                        </button>
-                </Link>
-            </div>
-
-        } else if (event.status == 1) {
-            statusFunc =  "Sprint #" + this.PegaSprintPorFunc(event.id)
-        } else if (event.status == 2) {
-            statusFunc = "Artefato Entregue"
-        } else if (event.status == 3) {
-            statusFunc = "Artefato Validado"
-        } else statusFunc = 0;
-
-        return statusFunc;
-    }
-
     render() {
         const { funcionalidades } = this.state;
+
+        const DefineSprint = async (event) => {
+            try {
+                let statusFunc
+                if (event.status == 0 || event.status == undefined || event.status == null) {
+                    statusFunc = <div>
+                        <Link to="/admin/planning">
+                            <button
+                                type="button"
+                                class="btn-round btn btn-primary"
+                                onClick={() => this.handleButton(event)}>
+                                Adicionar a Sprint
+                        </button>
+                        </Link>
+                    </div>
+
+                } else if (event.status == 1) {
+                    statusFunc = "Sprint #" + this.PegaSprintPorFunc(event.id)
+                } else if (event.status == 2) {
+                    statusFunc = "Artefato Entregue"
+                } else if (event.status == 3) {
+                    statusFunc = "Artefato Validado"
+                } else statusFunc = 0;
+
+                return statusFunc;
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+
+
+
         return (
             <tbody>
                 {funcionalidades.map(funcionalidade => (
@@ -109,7 +118,7 @@ class ListBacklog extends React.Component {
                         <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                         <td>{funcionalidade.horas}  h</td>
                         <td>
-                            {this.DefineSprint(funcionalidade)}
+                            {DefineSprint(funcionalidade)}
                         </td>
 
                         <td><a href="#"
