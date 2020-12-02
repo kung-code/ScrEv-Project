@@ -1,5 +1,6 @@
 const database = require('../models')
 const funcionalidades = database.funcionalidades;
+const{Op} = require('sequelize')
 
 class SprintController {
 
@@ -30,6 +31,27 @@ class SprintController {
         }
 
     }
+
+        //READ
+
+        static async listaSprintsPlanning(req, res) {
+            const {id} = req.params
+            const {horasFunc} = req.params
+            try {
+                const sprints = await database.sprints.findAll({
+                    where: {
+                        projeto_id: Number(id),
+                        horas:{ 
+                            [Op.gte]: Number(horasFunc)
+                        }
+                    }
+                })
+                return res.status(200).json(sprints)
+            } catch (error) {
+                return res.status(500).json(error.message)
+            }
+    
+        }
 
     //READ ONE
     static async pegaUmaSprint(req, res) {

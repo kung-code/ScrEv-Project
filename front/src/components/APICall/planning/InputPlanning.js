@@ -10,6 +10,7 @@ class InputPlanning extends React.Component {
             projeto_id: '',
             membro_id: 0,
             sprint_id: 0,
+            horasSprint:0,
             funcionalidade_id: 0,
             status: 1,
             funcionalidade: [],
@@ -37,13 +38,13 @@ class InputPlanning extends React.Component {
     }
 
     componentDidMount() {
-        const { projeto_id } = this.state
+        const { projeto_id, funcionalidade } = this.state
 
         axios.get(`http://localhost:3333/usuarios/tipo/1`).then(res => {
             this.setState({ usuarios: res.data });
         });
 
-        axios.get(`http://localhost:3333/sprints/${projeto_id}`).then(res => {
+        axios.get(`http://localhost:3333/sprints/${projeto_id}/planning/${funcionalidade.horas}`).then(res => {
             this.setState({ sprints: res.data });
         });
 
@@ -88,17 +89,44 @@ class InputPlanning extends React.Component {
         });
     }
 
+    
+
+    PegaHorasSprint(){
+        const{sprints, sprint_id} = this.state
+        let event = sprint_id
+        console.log(event)
+        sprints.map( res =>{
+            if(res.id == event){
+                this.setState({horasSprint:res.horas})
+            } 
+        })
+    }
+
 
     render() {
-        const { funcionalidade, usuarios, sprints } = this.state;
+        const { funcionalidade, usuarios, sprints, horasSprint, sprint_id } = this.state;
+
+        const processar = async (event)=>{
+            try{
+                await this.onChange(event)
+                await this.PegaHorasSprint()
+            }catch (err){
+                console.log(err)
+            }
+        }
+
         return (
             <form >
                 <label for="funcionalidade">Tarefa</label>
                 <p name="funcionalidade">{funcionalidade.nome}</p>
 
+                <label for="horasNecessarias">Carga Horária</label>
+                <p name="horasNecessarias">{funcionalidade.horas} h</p>
+
+
                 <label for="sprint_id">Selecionar Sprint</label><br />
 
-                <select name="sprint_id" onChange={this.onChange}>
+                <select name="sprint_id" onChange={processar}>
                     <option value=''>-</option>
                     {
                         sprints.map(res => (
@@ -106,6 +134,10 @@ class InputPlanning extends React.Component {
                         ))
                     }
                 </select><br />
+
+                <label for="horasS">Tempo da Sprint</label>
+                <p name="horasS">{horasSprint} h</p>
+
 
                 <label for="membro_id">Selecionar desenvolvedor</label><br />
                 <select name="membro_id" onChange={this.onChange}>
