@@ -59,7 +59,7 @@ class DadosBacklog extends React.Component {
         let data
         funcionalidades.map(funcionalidade => {
             data = new Date(funcionalidade.data_entrega)
-            if (data - hoje < 0) {
+            if (data - hoje < 0 && funcionalidade.status === 1) {
                 contaTarefa = contaTarefa + 1
             }
         }
@@ -91,6 +91,21 @@ class DadosBacklog extends React.Component {
         )
     }
 
+
+    ListaAndamento(){
+        const { funcionalidades } = this.state
+        let contaTarefa = 0;
+        let data
+        funcionalidades.map(funcionalidade => {
+            data = new Date(funcionalidade.data_entrega)
+            if ( funcionalidade.status === 1) {
+                contaTarefa = contaTarefa + 1
+            }
+        }
+        )
+        return contaTarefa
+    }
+
     render() {
 
         const { qtdeTarefasBackLog, totalTarefas } = this.state;
@@ -103,7 +118,7 @@ class DadosBacklog extends React.Component {
         } else if (evento == "TarefaBacklog") {
             resposta = qtdeTarefasBackLog
         } else if (evento == "emAndamento") {
-            resposta = totalTarefas - qtdeTarefasBackLog
+            resposta = this.ListaAndamento()
         } else if (evento == "ListarBacklog") {
             resposta = this.ListaTarefasEmBacklog()
         } else resposta = "Solicitacao invalida"
