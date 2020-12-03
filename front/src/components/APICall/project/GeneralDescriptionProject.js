@@ -130,11 +130,11 @@ class GeneralDescriptionProject extends React.Component {
                     <p name="sprintProj">{QtdeSprints == '' ? '' : QtdeSprints + " sprints"}</p>
 
                     {sprints.map(res=>(
-                        <p>{`Sprint # ${res.id} -> ${res.horas} horas`}</p>
+                        <p>{`Sprint # ${res.id} -> ${res.horas/8} dias úteis`}</p>
                     ))}
 
-                    <label for="horasImpl">Horas de implementação</label>
-                    <p name="horasImpl"> {SomaHorasPorSprint == '' ? '' : SomaHorasPorSprint + " horas" }</p>
+                    <label for="horasImpl">Dias de implementação</label>
+                    <p name="horasImpl"> {SomaHorasPorSprint == '' ? '' : (SomaHorasPorSprint/8) + " dias úteis" }</p>
 
                 </div>
             </div>

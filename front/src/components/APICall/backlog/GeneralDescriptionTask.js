@@ -36,8 +36,9 @@ class GeneralDescriptionTask extends React.Component {
     }
 
     handleChange = (event) => {
+        const {projeto_id} = this.state
         console.log(event)
-        axios.get(`http://localhost:3333/funcionalidades/${event.target.value}`).then(res => {
+        axios.get(`http://localhost:3333/projeto/${projeto_id}/funcionalidades/${event.target.value}`).then(res => {
             this.setState({ funcionalidade: res.data});
             console.log(res.data);
         });
