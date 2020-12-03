@@ -18,7 +18,7 @@
 USER = <USER_SQL>
 PASSWORD = <USER_PASSWORD>
 
-#executar a aplicacao
+# Executar a Aplicacao
 
 Abrir o cmd dentro da pasta do projeto
 executar os comandos abaixo, uma linha de cada vez em ordem.
