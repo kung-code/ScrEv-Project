@@ -58,7 +58,7 @@ class ListUserProjeto extends React.Component {
     }
 
     render() {
-     const {plannings, userProj} = this.state
+     const {userProj} = this.state
     
      //this.RemoveDuplicatasUser()
         return (
