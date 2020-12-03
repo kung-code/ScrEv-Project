@@ -18,15 +18,14 @@
 USER = <USER_SQL>
 PASSWORD = <USER_PASSWORD>
 
-# executar a aplicacao
+#executar a aplicacao
 
 Abrir o cmd dentro da pasta do projeto
 executar os comandos abaixo, uma linha de cada vez em ordem.
-
-$ npm i
-$ cd front
-$ npm i
-$ cd ..
-$ npm run dev
+  - npm i
+  - cd front
+  - npm i
+  - cd ..
+  - npm run dev
 
 Caso ocorra com sucesso, ira abrir uma pagina na porta 3000 com a pagina da aplicação.
