@@ -113,10 +113,10 @@ class GeneralDescriptionTask extends React.Component {
                             <p name="sprint">{sprint}</p>
 
                             <label for="dtEntrega">Data de Entrega</label>
-                            <p name="dtEntrega">{data_criacao}</p>
+                            <p name="dtEntrega">{data_entrega}</p>
 
                             <label for="dtCriacao">Criado em :</label>
-                            <p name="dtCriacao">{data_entrega}</p>
+                            <p name="dtCriacao">{data_criacao}</p>
 
                             <label for="sprint">Branch:</label>
                             <p name="sprint">https://github.com/{projeto_nome}/Branch-{sprint}</p>

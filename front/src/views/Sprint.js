@@ -56,7 +56,7 @@ class Sprint extends React.Component {
                 <CardHeader>
                   <Row>
                     <Col lg="auto">
-                      <CardTitle tag="h4">Sprint Ativa</CardTitle>
+                      <CardTitle tag="h4">Sprint</CardTitle>
                     </Col>
                     <Col lg="auto">
                       <div class="update ml-auto mr-auto">
