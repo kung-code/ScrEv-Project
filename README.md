@@ -18,7 +18,7 @@
 USER = <USER_SQL>
 PASSWORD = <USER_PASSWORD>
 
-# Executar a Aplicacao
+# Instalar dependencias
 
 Abrir o cmd dentro da pasta do projeto
 executar os comandos abaixo, uma linha de cada vez em ordem.
@@ -26,6 +26,10 @@ executar os comandos abaixo, uma linha de cada vez em ordem.
   - cd front
   - npm i
   - cd ..
+# Executar a Aplicacao
   - npm run dev
+  Nota: Deve ser executado no diretório raiz da aplicação.
 
 Caso ocorra com sucesso, ira abrir uma pagina na porta 3000 com a pagina da aplicação.
+
+# ESTE PROJETO ESTÁ SOB LICENCIAMENTO GPLV2
