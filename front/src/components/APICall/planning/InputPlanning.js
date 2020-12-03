@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Route, Redirect, Link, BrowserRouter as Router } from 'react-router-dom';
-import Backlog from "../../../views/Backlog";
-
+import { Row, Col } from "reactstrap";
 class InputPlanning extends React.Component {
 
     constructor(props) {

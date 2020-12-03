@@ -99,18 +99,20 @@ class GeneralDescriptionProject extends React.Component {
         return (
 
             <div>
-                <label>Selecione o Projeto:</label><br></br>
-                <select name="projetoSelecionado" onChange={this.handleChange}>
-                    <option value=''>-</option>
-                    {
-                        projetos.map(proj => (
-                            <option value={proj.id}>{proj.descricao}</option>
-                        ))
-                    }
-                </select>
+                <div class="form-group">
+                    <label>Selecione o Projeto:</label><br></br>
+                    <select class="form-control" name="projetoSelecionado" onChange={this.handleChange}>
+                        <option value=''>-</option>
+                        {
+                            projetos.map(proj => (
+                                <option value={proj.id}>{proj.descricao}</option>
+                            ))
+                        }
+                    </select>
+                </div>
                 <div>
                     <hr />
-                    <label for="projeto">Nome Do Projeto</label>
+                    <label for="projeto">Nome do Projeto</label>
                     <p name="projeto">{projetoSelecionado.descricao}</p>
 
                     <label for="projeto">Product Owner:</label>
