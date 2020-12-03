@@ -22,7 +22,7 @@ class ListUserProjeto extends React.Component {
     state = {
         plannings: [],
         projeto_id: '',
-        users:[]
+        userProj:[]
 
     }
 
@@ -30,6 +30,7 @@ class ListUserProjeto extends React.Component {
         axios.get(`http://localhost:3333/dashboard/plannings/projeto/${this.state.projeto_id}`).then(res => {
             console.log(res.data);
             this.setState({ plannings: res.data });
+            this.RemoveDuplicatasUser()
         });
     };
 
@@ -42,33 +43,32 @@ class ListUserProjeto extends React.Component {
 
     RemoveDuplicatasUser(){
         const {plannings} = this.state
-        let novaLista = []
-        
-        for(let i = 0; i < plannings.length;i++){
+        let userId = []
+        for(let i = 0;i < plannings.length;i++){
             if(i == 0){
-                novaLista.push(plannings[i])
-            }else if(plannings[i].membro_id === plannings[i -1].membro_id ){
+                userId.push(plannings[i].usuario)
+            }else if(plannings[i].usuario.id == plannings[i-1].usuario.id){
                 continue
-            }else {
-                novaLista.push(plannings[i])
+            }else{
+                userId.push(plannings[i].usuario)
             }
         }
-        console.log(novaLista)
-        this.setState({users: novaLista})
-
+        console.log(userId)
+        this.setState({userProj:userId})
     }
 
     render() {
-     const {plannings, users} = this.state
+     const {plannings, userProj} = this.state
     
      //this.RemoveDuplicatasUser()
         return (
             <tbody>
-                {plannings.map(planning => (
-                    <tr key={planning.usuario.id}>
-                        <td>{planning.usuario.nome}</td>
-                        <td>{planning.usuario.login}</td>
-                        <td>{FindTipo(planning.usuario.tipo)}</td>
+                {userProj.map(res => (
+                    
+                    <tr key={res.id}>
+                        <td>{res.nome}</td>
+                        <td>{res.login}</td>
+                        <td>{FindTipo(res.tipo)}</td>
                     </tr>
                 ))}
             </tbody>
