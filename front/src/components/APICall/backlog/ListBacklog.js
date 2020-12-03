@@ -18,7 +18,7 @@ class ListBacklog extends React.Component {
         this.state = {
             funcionalidades: [],
             planning: [],
-            projeto_id: ''
+            projeto_id: '',
         }
 
     }
@@ -73,7 +73,7 @@ class ListBacklog extends React.Component {
         return dataFormatada;
     }
 
-    DefineSprint =  (event) => {
+    chamaResposta =(event) => {
         let statusFunc
         if (event.status == 0 || event.status == undefined || event.status == null) {
             statusFunc = <div>
@@ -86,9 +86,6 @@ class ListBacklog extends React.Component {
                         </button>
                 </Link>
             </div>
-
-        } else if (event.status == 1) {
-            statusFunc =  "Sprint #" + this.PegaSprintPorFunc(event.id)
         } else if (event.status == 2) {
             statusFunc = "Artefato Entregue"
         } else if (event.status == 3) {
@@ -96,6 +93,12 @@ class ListBacklog extends React.Component {
         } else statusFunc = 0;
 
         return statusFunc;
+    }
+
+    chamaNumeroSprint= async(event)=>{
+        event.map(res=>{
+            console.log(res.lenght)
+        })
     }
 
     render() {
@@ -111,14 +114,13 @@ class ListBacklog extends React.Component {
                         <td>{moment(funcionalidade.data_entrega).format('D/M/Y')}</td>
                         <td>{funcionalidade.horas}  h</td>
                         <td>
-                            {this.DefineSprint(funcionalidade)}
+                            {funcionalidade.status == 1 ? `Sprint # ${funcionalidade.plannings[0].sprint_id}` : this.chamaResposta(funcionalidade)}
                         </td>
 
                         <td><a href="#"
                             class="material-icons"
                             style={delStyle}
-                            onClick={() => this.handleDelete(funcionalidade)}
-                        >
+                            onClick={() => this.handleDelete(funcionalidade)}>
                             delete</a></td>
                     </tr>
                 ))}

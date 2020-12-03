@@ -23,7 +23,8 @@ class FuncionalidadeController {
         try {
             const funcionalidades = await database.funcionalidades.findAndCountAll({
                 where: {
-                    status: Number(status_id)
+                    status: Number(status_id),
+                    projeto_id:Number(id)
                 },
                 order: [
                     ['data_entrega', 'ASC']

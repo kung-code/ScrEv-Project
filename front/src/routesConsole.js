@@ -1,6 +1,6 @@
 import Projects from "views/admin/Projects.js";
 import Users from "views/admin/user/Users";
-import EditUserView from "views/admin/user/EditUserView";
+import MetricaProjeto from "views/admin/MetricaProjeto";
 
 
 var routesConsole = [
@@ -18,5 +18,12 @@ var routesConsole = [
     component: Users,
     layout: "/console",
   },
+  {
+    path: "/metricas",
+    name: "Métricas dos Projetos",
+    icon: "nc-icon nc-chart-pie-36",
+    component: MetricaProjeto,
+    layout: "/console",
+  }
 ];
 export default routesConsole;

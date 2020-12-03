@@ -37,7 +37,12 @@ class ProjetoController {
             const projeto = await database.projetos.findOne( {
                 where: {
                     id: Number(id)
-                }
+                },
+                include:[
+                    {
+                        model:usuarios
+                    }
+                ]
             })
             return res.status(200).json(projeto)
         } catch (error) {

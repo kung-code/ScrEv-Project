@@ -7,34 +7,100 @@ class GeneralDescriptionProject extends React.Component {
         super(props);
         this.state = {
             projetos: [],
-            funcionalidade: [],
+            projetoSelecionado: [],
+            planningProjeto: [],
+            PO: '',
+            QtdFuncionalidades: '',
+            statusProjeto: '',
+            totalHorasFuncionalidades: '',
+            statusProjeto: '',
+            sprints: [],
+            QtdeSprints: '',
+            SomaHorasPorSprint: ''
         }
 
     }
 
-    componentDidMount() {
-        const { projeto_id } = this.state;
+    componentWillMount() {
         axios.get(`http://localhost:3333/projetos`).then(res => {
-            console.log(res.data);
-            this.setState({ projetos: res.data.rows });
+            this.setState({ projetos: res.data })
         });
     }
 
-    handleChange = (event) => {
-        console.log(event)
-        axios.get(`http://localhost:3333/funcionalidades/${event.target.value}`).then(res => {
-            this.setState({ funcionalidade: res.data});
-            console.log(res.data);
+    componentDidMount() {
+    }
+
+    handleChange = async (event) => {
+        await axios.get(`http://localhost:3333/projetos/${event.target.value}`).then(res => {
+            console.log(res.data)
+            this.setState({ projetoSelecionado: res.data });
+            this.setState({ PO: res.data.usuario.nome });
+            this.VerificaStatusProjeto(res.data.status);
+            this.PegaSprints(res.data.id);
+
+            axios.get(`http://localhost:3333/funcionalidades/projeto/${res.data.id}`).then(res2 => {
+                console.log(res2.data)
+                this.setState({ QtdFuncionalidades: res2.data.count });
+                this.contaHorasFunc(res2.data.rows);
+            });
         });
+    }
+
+    PegaSprints = (event) => {
+        axios.get(`http://localhost:3333/sprints/${event}/count`).then(res => {
+            console.log(res.data)
+            this.setState({ QtdeSprints: res.data.count });
+            this.setState({sprints:res.data.rows});
+            this.contaHorasSprint(res.data.rows);
+        })
+    }
+
+    contaHorasSprint = (event) => {
+        let horas = 0
+        event.map(res => {
+            horas = horas + res.horas
+        })
+
+        this.setState({ SomaHorasPorSprint: horas })
+    }
+    
+
+    contaHorasFunc = (event) => {
+        let horas = 0
+        event.map(res => {
+            horas = horas + res.horas
+        })
+
+        this.setState({ totalHorasFuncionalidades: horas })
+    }
+
+    VerificaStatusProjeto(event) {
+        let resposta
+        if (event) {
+            resposta = "Concluído"
+        } else {
+            resposta = "Em Andamento"
+        }
+        this.setState({ statusProjeto: resposta })
     }
 
     render() {
-        const { projetos, funcionalidade,  } = this.state;
+        const { projetos,
+            projetoSelecionado,
+            QtdFuncionalidades,
+            PO,
+            statusProjeto,
+            totalHorasFuncionalidades,
+            QtdeSprints,
+            SomaHorasPorSprint,
+            sprints
+        } = this.state;
+
         return (
 
             <div>
                 <label>Selecione o Projeto:</label><br></br>
-                <select name="funcionalidade" onChange={this.handleChange}>
+                <select name="projetoSelecionado" onChange={this.handleChange}>
                     <option value=''>-</option>
                     {
                         projetos.map(proj => (
@@ -42,32 +108,35 @@ class GeneralDescriptionProject extends React.Component {
                         ))
                     }
                 </select>
-                <hr/>
-                    
+                <div>
+                    <hr />
+                    <label for="projeto">Nome Do Projeto</label>
+                    <p name="projeto">{projetoSelecionado.descricao}</p>
 
-                <label for="projeto">Tarefa</label>
-                <p name="projeto">{funcionalidade.nome}</p><hr />
+                    <label for="projeto">Product Owner:</label>
+                    <p name="projeto">{PO}</p>
 
-                <label for="descricao">Descricao</label><br />
-                <div name="descricao">{funcionalidade.descricao}</div><br />
-
-
-                <label for="dev">Desenvolvedor</label>
-                <p name="dev">{funcionalidade.responsavel_id}</p>
+                    <label for="descricao">Status do Projeto</label><br />
+                    <div name="descricao">{statusProjeto}</div><br />
 
 
-                <label for="sprint">Sprint</label>
-                <p name="sprint">Sprint # {funcionalidade.sprint_id}</p>
+                    <label for="tarefas">Total de Backlogs</label>
+                    <p name="tarefas">{QtdFuncionalidades == '' ? '' : QtdFuncionalidades + " tarefas"}</p>
 
-                <label for="dtEntrega">Data de Entrega</label>
-                <p name="dtEntrega">{moment(funcionalidade.data_criacao).format('D/M/Y')}</p>
+                    <label for="sprintProj">Total de horas das Backlog</label>
+                    <p name="sprintProj">{totalHorasFuncionalidades == '' ? '' : totalHorasFuncionalidades + " horas"}</p>
 
-                <label for="dtCriacao">Criao em :</label>
-                <p name="dtCriacao">{moment(funcionalidade.data_entrega).format('D/M/Y')}</p>
+                    <label for="sprintProj">Quantidade de Sprints</label>
+                    <p name="sprintProj">{QtdeSprints == '' ? '' : QtdeSprints + " sprints"}</p>
 
-                <label for="sprint">Branch:</label>
-                <p name="sprint">https://github.com/{projeto_nome}/Branch-{funcionalidade.sprint_id}</p>
+                    {sprints.map(res=>(
+                        <p>{`Sprint # ${res.id} -> ${res.horas} horas`}</p>
+                    ))}
 
+                    <label for="horasImpl">Horas de implementação</label>
+                    <p name="horasImpl"> {SomaHorasPorSprint == '' ? '' : SomaHorasPorSprint + " horas" }</p>
+
+                </div>
             </div>
         )
     };

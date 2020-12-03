@@ -14,7 +14,7 @@ class SprintController {
             res.status(500).json(error.message)
         }
     }
-
+    
     //READ
 
     static async listaSprints(req, res) {
@@ -31,6 +31,23 @@ class SprintController {
         }
 
     }
+
+        //READ na metricas do projeto
+
+        static async listaSprintsCount(req, res) {
+            const {id} = req.params
+            try {
+                const sprints = await database.sprints.findAndCountAll({
+                    where: {
+                        projeto_id: Number(id)
+                    }
+                })
+                return res.status(200).json(sprints)
+            } catch (error) {
+                return res.status(500).json(error.message)
+            }
+    
+        }
 
         //READ
 
