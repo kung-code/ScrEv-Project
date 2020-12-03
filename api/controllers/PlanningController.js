@@ -47,10 +47,7 @@ class PlanningController {
     static async listaUserProjeto(req, res) {
         const { id } = req.params
         try {
-            const planning =await database.planning.findAll({
-                attribute:[
-                    'membro_id'
-                ],
+            const planning = await database.planning.findAll({
                 where: {
                     projeto_id: Number(id)
                 },
@@ -94,29 +91,29 @@ class PlanningController {
     }
 
 
-        //READ by SPRINT no DashBoard (5 itens)
-        static async listaDashPlanningSprint(req, res) {
-            const { id } = req.params
-            try {
-                const planning = await database.planning.findAll({
-                    where: {
-                        sprint_id: Number(id)
-                    },
-                    include: [
-                        {
-                            model: funcionalidades
-                        }, {
-                            model: usuarios
-                        }
-                    ],
-                    limit: 5
-                })
-                return res.status(200).json(planning)
-            } catch (error) {
-                res.status(500).json(error.message)
-    
-            }
+    //READ by SPRINT no DashBoard (5 itens)
+    static async listaDashPlanningSprint(req, res) {
+        const { id } = req.params
+        try {
+            const planning = await database.planning.findAll({
+                where: {
+                    sprint_id: Number(id)
+                },
+                include: [
+                    {
+                        model: funcionalidades
+                    }, {
+                        model: usuarios
+                    }
+                ],
+                limit: 5
+            })
+            return res.status(200).json(planning)
+        } catch (error) {
+            res.status(500).json(error.message)
+
         }
+    }
 
     //READ by funcionalidade
     static async pegaPlanningFuncionalidade(req, res) {

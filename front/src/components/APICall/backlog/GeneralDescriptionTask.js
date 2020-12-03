@@ -47,8 +47,8 @@ class GeneralDescriptionTask extends React.Component {
             this.setState({ nome: res.data.nome });
             this.setState({ descricao: res.data.descricao });
             res.data.status == 1 ? this.ChamaPlanning(res.data.id) : this.ChamaDadosEmBacklog()
-            this.setState({data_entrega:moment(res.data.data_entrega).format('D/M/Y')})
-            this.setState({data_criacao:moment(res.data.data_criacao).format('D/M/Y')})
+            this.setState({data_entrega:moment(res.data.data_entrega).utcOffset("-03:00").format('D/M/Y')})
+            this.setState({data_criacao:moment(res.data.data_criacao).utcOffset("-03:00").format('D/M/Y')})
         });
     }
 
