@@ -94,7 +94,7 @@ class PlanningController {
     }
 
 
-        //READ by SPRINT no DashBoar (5 itens)
+        //READ by SPRINT no DashBoard (5 itens)
         static async listaDashPlanningSprint(req, res) {
             const { id } = req.params
             try {
@@ -130,7 +130,7 @@ class PlanningController {
                     {
                         model: funcionalidades
                     }, {
-                        model: sprints
+                        model: usuarios
                     }
                 ]
             })

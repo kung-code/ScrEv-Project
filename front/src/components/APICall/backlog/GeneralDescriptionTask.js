@@ -2,20 +2,19 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 
-import {
-    Modal,
-    ModalHeader,
-    ModalBody,
-} from "reactstrap";
-
 class GeneralDescriptionTask extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             funcionalidades: [],
-            funcionalidade: [],
             projeto_id: '',
-            projeto_nome: ''
+            projeto_nome: '',
+            nome: '',
+            descricao: '',
+            responsavel: '',
+            sprint: '',
+            data_criacao: '',
+            data_entrega: ''
         }
 
     }
@@ -37,13 +36,39 @@ class GeneralDescriptionTask extends React.Component {
 
     handleChange = (event) => {
         axios.get(`http://localhost:3333/funcionalidades/${event.target.value}`).then(res => {
-            this.setState({ funcionalidade: res.data});
-            console.log(res.data);
+            console.log(res.data)
+            this.setState({ nome: res.data.nome });
+            this.setState({ descricao: res.data.descricao });
+            res.data.status == 1 ? this.ChamaPlanning(res.data.id) : this.ChamaDadosEmBacklog()
+            this.setState({data_entrega:moment(res.data.data_entrega).format('D/M/Y')})
+            this.setState({data_criacao:moment(res.data.data_criacao).format('D/M/Y')})
+        });
+    }
+
+    ChamaDadosEmBacklog(){
+        this.setState({ responsavel:"Tarefa em Backlog"});
+        this.setState({ sprint:"Tarefa em Backlog"});
+    }
+
+    ChamaPlanning(event) {
+        axios.get(`http://localhost:3333/planning/funcionalidade/${event}`).then(res => {
+            console.log(res.data)
+            this.setState({ responsavel:res.data.usuario.nome});
+            let resSprint = "Sprint # " + res.data.sprint_id
+            this.setState({sprint:resSprint})
         });
     }
 
     render() {
-        const { funcionalidades, funcionalidade, projeto_nome } = this.state;
+        const { funcionalidades,
+            projeto_nome,
+            nome,
+            descricao,
+            responsavel,
+            sprint,
+            data_criacao,
+            data_entrega
+        } = this.state;
         return (
 
             <div>
@@ -56,33 +81,33 @@ class GeneralDescriptionTask extends React.Component {
                         ))
                     }
                 </select>
-                <hr/>
-                    
+                <hr />
+
                 <label for="projeto">Projeto</label>
                 <p name="projeto">{projeto_nome}</p>
 
                 <label for="projeto">Tarefa</label>
-                <p name="projeto">{funcionalidade.nome}</p><hr />
+                <p name="projeto">{nome}</p><hr />
 
                 <label for="descricao">Descricao</label><br />
-                <div name="descricao">{funcionalidade.descricao}</div><br />
+                <div name="descricao">{descricao}</div><br />
 
 
                 <label for="dev">Desenvolvedor</label>
-                <p name="dev">{funcionalidade.responsavel_id}</p>
+                <p name="dev">{responsavel}</p>
 
 
                 <label for="sprint">Sprint</label>
-                <p name="sprint">Sprint # {funcionalidade.sprint_id}</p>
+                <p name="sprint">{sprint}</p>
 
                 <label for="dtEntrega">Data de Entrega</label>
-                <p name="dtEntrega">{moment(funcionalidade.data_criacao).format('D/M/Y')}</p>
+                <p name="dtEntrega">{data_criacao}</p>
 
                 <label for="dtCriacao">Criao em :</label>
-                <p name="dtCriacao">{moment(funcionalidade.data_entrega).format('D/M/Y')}</p>
+                <p name="dtCriacao">{data_entrega}</p>
 
                 <label for="sprint">Branch:</label>
-                <p name="sprint">https://github.com/{projeto_nome}/Branch-{funcionalidade.sprint_id}</p>
+                <p name="sprint">https://github.com/{projeto_nome}/Branch-{sprint}</p>
 
             </div>
         )
