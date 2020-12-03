@@ -20,6 +20,11 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+
+.task-background {
+  background: #e6f7f5;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

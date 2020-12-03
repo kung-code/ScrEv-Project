@@ -1,6 +1,10 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
+import { 
+    Col,
+    Row
+} from "reactstrap";
 
 import {
     CardBody,
@@ -88,31 +92,48 @@ class ListSprint extends React.Component {
 
         return (
             <div>
-                <p>Sprint # {sprint_ativa.id}</p>
-
-                <label for="descricao">Descrição</label>
-                <p name="descricao">{sprint_ativa.descricao}</p>
-
-                <label for="data_ini">Inicio da Sprint</label>
-                <p name="data_ini">{moment(sprint_ativa.data_inicio).format('D/M/Y')}</p>
-
-                <label for="data_fim">Término da Sprint</label>
-                <p name="data_fim">{moment(sprint_ativa.data_fim).format('D/M/Y')}</p>
-
-                <label for="horas_atv">Tempo da Sprint</label>
-                <p name="horas_atv">{sprint_ativa.horas} horas</p>
-
-                <label>Selecionar outra Sprint:</label><br></br>
-                <select name="sprint_id" onChange={this.changeSprint}>
-                    <option value=''>-</option>
-                    {
-                        sprints.map(res => (
-                            <option value={res.id}>Sprint {res.id}</option>
-                        ))
-                    }
-                </select>
-                {this.ListaPadrao()}
-            </div >
+                <Row>
+                    <Col lg="3">
+                        <div class="form-group">
+                            <label for="sprint_id">Selecionar outra Sprint:</label>
+                            <select class="form-control" name="sprint_id" onChange={this.changeSprint}>
+                                <option value=''>-</option>
+                                {
+                                    sprints.map(res => (
+                                        <option value={res.id}>Sprint {res.id}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                    </Col>
+                </Row>
+                <br/>
+                <Row>
+                    <Col lg="auto">
+                        <h6 class="form-group">Sprint # {sprint_ativa.id}</h6>
+                    </Col>
+                    <Col lg="4">
+                        <h6 class="form-group" for="descricao">Descrição</h6>
+                        <span class="form-group" name="descricao">{sprint_ativa.descricao}</span>
+                    </Col>
+                    <Col>
+                        <h6 class="form-group" for="data_ini">Inicio da Sprint</h6>
+                        <span class="form-group" name="data_ini">{moment(sprint_ativa.data_inicio).format('D/M/Y')}</span>
+                    </Col>
+                    <Col>
+                        <h6 class="form-group" for="data_fim">Término da Sprint</h6>
+                        <span class="form-group" name="data_fim">{moment(sprint_ativa.data_fim).format('D/M/Y')}</span>
+                    </Col>
+                    <Col>
+                        <h6 class="form-group" for="horas_atv">Tempo da Sprint</h6>
+                        <span class="form-group" name="horas_atv">{sprint_ativa.horas} horas</span>
+                    </Col>
+                </Row >
+                <hr/>
+                <Row>
+                    {this.ListaPadrao()}
+                </Row>
+            </div>
         )
     }
 

@@ -1,7 +1,7 @@
 
 import React from "react";
 // react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 // reactstrap components
 import {
   Card,
@@ -17,8 +17,7 @@ import {
 // core components
 import {
   dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
+  dashboardSprintStackedBarChart
 } from "variables/charts.js";
 
 import ListUsersProjeto from "../components/APICall/dashBoard/ListUserProjeto";
@@ -143,13 +142,13 @@ class Dashboard extends React.Component {
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h5">Performance do projeto</CardTitle>
-                  <p className="card-category">Performance anual</p>
+                  <CardTitle tag="h5">Acompanhamento do projeto</CardTitle>
+                  <p className="card-category">Estimativa de tempo por sprint</p>
                 </CardHeader>
                 <CardBody>
-                  <Line
-                    data={dashboard24HoursPerformanceChart.data}
-                    options={dashboard24HoursPerformanceChart.options}
+                  <Bar
+                    data={dashboardSprintStackedBarChart.data}
+                    options={dashboardSprintStackedBarChart.options}
                     width={400}
                     height={100}
                   />

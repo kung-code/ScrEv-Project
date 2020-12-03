@@ -1,6 +1,13 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
+import { 
+    Row,
+     Col, 
+     Card,
+     CardBody,
+     CardFooter
+} from "reactstrap";
 
 class GeneralDescriptionTask extends React.Component {
     constructor(props) {
@@ -71,45 +78,53 @@ class GeneralDescriptionTask extends React.Component {
         } = this.state;
         return (
 
-            <div>
-                <label>Selecione uma Tarefa:</label><br></br>
-                <select name="funcionalidade" onChange={this.handleChange}>
-                    <option value=''>-</option>
-                    {
-                        funcionalidades.map(func => (
-                            <option value={func.id}>{func.nome}</option>
-                        ))
-                    }
-                </select>
-                <hr />
+            <Card>
+                <Row>
+                    <Col>
+                        <CardBody>
+                            <h5 name="projeto">{nome}</h5> <br/>
+                            <h6 for="descricao">Descrição</h6>
+                            <span name="descricao">{descricao}</span>
+                        </CardBody>
+                    </Col>
+                    
+                    <Col lg="4">
+                        <CardFooter className="task-background"> 
+                            <div class="form-group">
+                                <label>Selecione uma Tarefa:</label><br></br>
+                                <select class="form-control" name="funcionalidade" onChange={this.handleChange}>
+                                    <option value=''>-</option>
+                                    {
+                                        funcionalidades.map(func => (
+                                            <option value={func.id}>{func.nome}</option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                        
+                            <label for="projeto">Projeto</label>
+                            <p name="projeto">{projeto_nome}</p>
 
-                <label for="projeto">Projeto</label>
-                <p name="projeto">{projeto_nome}</p>
-
-                <label for="projeto">Tarefa</label>
-                <p name="projeto">{nome}</p><hr />
-
-                <label for="descricao">Descricao</label><br />
-                <div name="descricao">{descricao}</div><br />
+                            <label for="dev">Desenvolvedor</label>
+                            <p name="dev">{responsavel}</p>
 
 
-                <label for="dev">Desenvolvedor</label>
-                <p name="dev">{responsavel}</p>
+                            <label for="sprint">Sprint</label>
+                            <p name="sprint">{sprint}</p>
 
+                            <label for="dtEntrega">Data de Entrega</label>
+                            <p name="dtEntrega">{data_criacao}</p>
 
-                <label for="sprint">Sprint</label>
-                <p name="sprint">{sprint}</p>
+                            <label for="dtCriacao">Criado em :</label>
+                            <p name="dtCriacao">{data_entrega}</p>
 
-                <label for="dtEntrega">Data de Entrega</label>
-                <p name="dtEntrega">{data_entrega}</p>
-
-                <label for="dtCriacao">Criao em :</label>
-                <p name="dtCriacao">{data_criacao}</p>
-
-                <label for="sprint">Branch:</label>
-                <p name="sprint">https://github.com/{projeto_nome}/Branch-{sprint}</p>
-
-            </div>
+                            <label for="sprint">Branch:</label>
+                            <p name="sprint">https://github.com/{projeto_nome}/Branch-{sprint}</p>
+                            
+                        </CardFooter>
+                    </Col>
+                </Row>
+            </Card>
         )
     };
 }

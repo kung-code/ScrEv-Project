@@ -231,8 +231,41 @@ const dashboard24HoursPerformanceChart = {
   },
 };
 
+const dashboardSprintStackedBarChart = {
+  data: {
+    labels: ["Sprint #1", "Sprint #2", "Sprint #3", "Sprint #4"],
+    datasets: [
+      {
+        label: "Horas estimada de tarefa",
+        backgroundColor: "#fbc658",
+        data: [10,40,30,60]
+      }, {
+        label: "Horas estimada da Sprint",
+        backgroundColor: "#4acccd",
+        data: [100,200,150,250]
+      }
+    ]
+  },
+  options: {
+    legend: {
+      display: true,
+      position: "bottom",
+    },
+    scales:{
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          }
+        }
+      ],
+    },
+  },
+};
+
 module.exports = {
   dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart,
+  dashboardSprintStackedBarChart,
 };
