@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import { Row, Col } from "reactstrap";
 
 class InputPlanning extends React.Component {
 
@@ -123,43 +124,51 @@ class InputPlanning extends React.Component {
                 <label for="horasNecessarias">Carga Horária</label>
                 <p name="horasNecessarias">{funcionalidade.horas} h</p>
 
+                <div class="form-group">
+                    <label for="sprint_id">Selecionar Sprint</label><br />
 
-                <label for="sprint_id">Selecionar Sprint</label><br />
-
-                <select name="sprint_id" onChange={processar}>
-                    <option value=''>-</option>
-                    {
-                        sprints.map(res => (
-                            <option key={res.id} value={res.id}>Sprint {res.id}</option>
-                        ))
-                    }
-                </select><br />
+                    <select class="form-control" name="sprint_id" onChange={processar}>
+                        <option value=''>-</option>
+                        {
+                            sprints.map(res => (
+                                <option key={res.id} value={res.id}>Sprint {res.id}</option>
+                            ))
+                        }
+                    </select>
+                </div>
 
                 <label for="horasS">Tempo da Sprint</label>
                 <p name="horasS">{horasSprint} h</p>
 
-
-                <label for="membro_id">Selecionar desenvolvedor</label><br />
-                <select name="membro_id" onChange={this.onChange}>
-                    <option value=''>-</option>
-                    {
-                        usuarios.map(res => (
-                            <option key={res.id} value={res.id}>{res.nome}</option>
-                        ))
-                    }
-                </select>
-
-                <div class="update ml-auto mr-auto">
+                <div class="form-group">
+                    <label for="membro_id">Selecionar desenvolvedor</label><br />
+                    <select class="form-control" name="membro_id" onChange={this.onChange}>
+                        <option value=''>-</option>
+                        {
+                            usuarios.map(res => (
+                                <option key={res.id} value={res.id}>{res.nome}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+                <Row>
+                <Col className="text-right">
+                    <Link to="/admin/backlog" >
+                        <button
+                        class="btn-round btn btn-primary">
+                        Voltar
+                        </button>
+                    </Link>
+                </Col>
+                <Col className="update ml-auto mr-auto">
                     <button
                         class="btn-round btn btn-primary"
                         onClick={this.handleSubmit} >
                         Criar tarefa
-                        </button>
-                </div>
-                <div class="text-right">
-                    <Link to="/admin/backlog" ><i title="Retornar ao menu anterior" class="material-icons">keyboard_return</i>
-                    </Link>
-                </div>
+                    </button>
+                </Col>
+                    
+                </Row>
             </form>
         );
     };
