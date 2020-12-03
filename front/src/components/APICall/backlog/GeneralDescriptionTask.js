@@ -40,8 +40,8 @@ class GeneralDescriptionTask extends React.Component {
             this.setState({ nome: res.data.nome });
             this.setState({ descricao: res.data.descricao });
             res.data.status == 1 ? this.ChamaPlanning(res.data.id) : this.ChamaDadosEmBacklog()
-            this.setState({data_entrega:moment(res.data.data_entrega).format('D/M/Y')})
-            this.setState({data_criacao:moment(res.data.data_criacao).format('D/M/Y')})
+            this.setState({data_entrega:moment(res.data.data_entrega).utcOffset("-03:00").format('D/M/Y')})
+            this.setState({data_criacao:moment(res.data.data_criacao).utcOffset("-03:00").format('D/M/Y')})
         });
     }
 
@@ -101,10 +101,10 @@ class GeneralDescriptionTask extends React.Component {
                 <p name="sprint">{sprint}</p>
 
                 <label for="dtEntrega">Data de Entrega</label>
-                <p name="dtEntrega">{data_criacao}</p>
+                <p name="dtEntrega">{data_entrega}</p>
 
                 <label for="dtCriacao">Criao em :</label>
-                <p name="dtCriacao">{data_entrega}</p>
+                <p name="dtCriacao">{data_criacao}</p>
 
                 <label for="sprint">Branch:</label>
                 <p name="sprint">https://github.com/{projeto_nome}/Branch-{sprint}</p>
