@@ -22,6 +22,10 @@
         }
     }
 
+    .task-background{
+        background: #e6f7f5!important;
+    }
+
     .card-header{
       &:not([data-background-color]){
         background-color: transparent;

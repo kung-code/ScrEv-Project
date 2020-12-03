@@ -18,11 +18,7 @@ class Task extends React.Component {
         <div className="content">
           <Row className="justify-content-center">
             <Col md="7">
-              <Card>
-                <CardBody>
-                  <GeneralDescriptionTask />
-                </CardBody>
-              </Card>
+              <GeneralDescriptionTask />
             </Col>
           </Row>
         </div>

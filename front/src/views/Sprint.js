@@ -5,6 +5,7 @@ import moment from "moment";
 import {
   Card,
   CardHeader,
+  CardBody,
   CardTitle,
   Row,
   Col,
@@ -72,8 +73,10 @@ class Sprint extends React.Component {
                     </Col>
                   </Row>
                 </CardHeader>
+                <CardBody>
                 {<ListSprint
                     tipo="SelecionarSprint"/>}
+                </CardBody>
               </Card>
             </Col>
           </Row>
