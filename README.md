@@ -32,4 +32,4 @@ executar os comandos abaixo, uma linha de cada vez em ordem.
 
 Caso ocorra com sucesso, ira abrir uma pagina na porta 3000 com a pagina da aplicação.
 
-# ESTE PROJETO ESTÁ SOB LICENCIAMENTO GPLV3
+# ESTE PROJETO ESTÁ SOB LICENCIAMENTO GPLv3
