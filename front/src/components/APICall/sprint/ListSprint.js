@@ -126,7 +126,7 @@ class ListSprint extends React.Component {
                     </Col>
                     <Col>
                         <h6 class="form-group" for="horas_atv">Tempo da Sprint</h6>
-                        <span class="form-group" name="horas_atv">{sprint_ativa.horas} horas</span>
+                        <span class="form-group" name="horas_atv">{sprint_ativa.horas / 8 } dias</span>
                     </Col>
                 </Row >
                 <hr/>

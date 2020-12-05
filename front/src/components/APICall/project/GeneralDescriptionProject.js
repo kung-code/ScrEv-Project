@@ -31,6 +31,9 @@ class GeneralDescriptionProject extends React.Component {
     }
 
     handleChange = async (event) => {
+        if(event === undefined || event.target.value == '-'){
+            window.location.reload()
+        }
         await axios.get(`http://localhost:3333/projetos/${event.target.value}`).then(res => {
             console.log(res.data)
             this.setState({ projetoSelecionado: res.data });
@@ -102,7 +105,7 @@ class GeneralDescriptionProject extends React.Component {
                 <div class="form-group">
                     <label>Selecione o Projeto:</label><br></br>
                     <select class="form-control" name="projetoSelecionado" onChange={this.handleChange}>
-                        <option value=''>-</option>
+                        <option value='-'>-</option>
                         {
                             projetos.map(proj => (
                                 <option value={proj.id}>{proj.descricao}</option>

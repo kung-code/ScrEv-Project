@@ -1,5 +1,4 @@
 const database = require('../models')
-const funcionalidades = database.funcionalidades;
 const{Op} = require('sequelize')
 
 class SprintController {

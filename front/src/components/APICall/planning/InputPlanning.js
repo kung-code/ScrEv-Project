@@ -15,6 +15,7 @@ class InputPlanning extends React.Component {
             status: 1,
             funcionalidade: [],
             usuarios: [],
+            DevDisponivel:[],
             sprints: [],
             redirect: false
         };
@@ -90,6 +91,31 @@ class InputPlanning extends React.Component {
         });
     }
 
+    pegaOsDev= async() =>{
+        const {sprint_id, usuarios} = this.state
+        let DevLivre = []
+        let DevAlocado = []
+        await axios.get(`http://localhost:3333/plannings/sprint/${sprint_id}`).then(res =>{
+        console.log(res.data)    
+        res.data.map(sprintPlanning =>(
+            DevAlocado.push(sprintPlanning.usuario)
+            ))
+        })
+        for(let i = 0; i<usuarios.length;i ++){
+            let ver = true
+            for(let j = 0;j <DevAlocado.length;j++){
+                if( usuarios[i].id == DevAlocado[j].id){
+                 ver = false   
+                }
+            }
+            if(ver){
+                DevLivre.push(usuarios[i])
+            }
+        }
+        console.log(DevLivre)
+        this.setState({DevDisponivel:DevLivre})
+    }
+
 
 
     PegaHorasSprint() {
@@ -105,7 +131,7 @@ class InputPlanning extends React.Component {
 
 
     render() {
-        const { funcionalidade, usuarios, sprints, horasSprint, redirect } = this.state;
+        const { funcionalidade, DevDisponivel, sprints, horasSprint, redirect } = this.state;
 
         if (redirect) {
             return <Redirect to='/admin/backlog' />;
@@ -115,6 +141,7 @@ class InputPlanning extends React.Component {
             try {
                 await this.onChange(event)
                 await this.PegaHorasSprint()
+                this.pegaOsDev(event)
             } catch (err) {
                 console.log(err)
             }
@@ -149,7 +176,7 @@ class InputPlanning extends React.Component {
                     <select name="membro_id" onChange={this.onChange}>
                         <option value=''>-</option>
                         {
-                            usuarios.map(res => (
+                            DevDisponivel.map(res => (
                                 <option key={res.id} value={res.id}>{res.nome}</option>
                             ))
                         }

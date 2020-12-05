@@ -10,7 +10,8 @@ class InputSprint extends React.Component {
             data_fim: '',
             descricao: '',
             horas: 0,
-            projeto_id: this.props.projeto_id
+            projeto_id: this.props.projeto_id,
+            dias:0
         };
     }
 
@@ -29,6 +30,7 @@ class InputSprint extends React.Component {
         let diasUteis = this.verificaDiasUteis(dias, inicio.getDay());
         let horasUteis = diasUteis * 8;
         this.setState({ horas: horasUteis })
+        this.setState({ dias: diasUteis })
     }
 
     verificaDiasUteis(dias, diaSemana) {
@@ -78,7 +80,7 @@ class InputSprint extends React.Component {
             descricao
         } = this.state;
 
-        if (this.verificaData(data_inicio) || this.verificaData(data_fim) || this.comparaData(data_inicio, data_fim)) {
+        if (this.verificaData(data_inicio) || this.verificaData(data_fim) || this.comparaData(data_inicio, data_fim || descricao == '')) {
             return window.alert("Dados Inválidos")
         } else {
             axios.post(`http://localhost:3333/sprints`, {
@@ -98,7 +100,7 @@ class InputSprint extends React.Component {
     }
 
     render() {
-        const { horas } = this.state
+        const { dias } = this.state
 
         const processar = async(event) => {
             try{
@@ -139,13 +141,13 @@ class InputSprint extends React.Component {
                     onChange={processar}
                 />
 
-                <label for="horas">Horas designadas</label>
+                <label for="dias">Dias úteis</label>
                 
 
                 <input
                     type="text"
-                    name="horas"
-                    value={horas}
+                    name="dias"
+                    value={dias}
                     class="form-group form-control"
                     disabled
                 />
